@@ -12532,7 +12532,8 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
       "Microsoft.AspNetCore.All >= 2.0.6",
-      "Microsoft.NETCore.App >= 2.0.0"
+      "Microsoft.NETCore.App >= 2.0.0",
+      "System.Data.SqlClient >= 4.4.3"
     ]
   },
   "packageFolders": {
@@ -12587,6 +12588,10 @@
             "target": "Package",
             "version": "[2.0.0, )",
             "autoReferenced": true
+          },
+          "System.Data.SqlClient": {
+            "target": "Package",
+            "version": "[4.4.3, )"
           }
         },
         "imports": [

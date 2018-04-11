@@ -19,6 +19,11 @@ namespace DefenceOfTheAncientsRPG.Models
         public bool Active { get; set; }
         public bool Admin { get; set; }
 
+        public ApplicationUser()
+        {
+
+        }
+
         public ApplicationUser(bool admin, string username, string password)
         {
             ID =  Guid.NewGuid().ToString();
