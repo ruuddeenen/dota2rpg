@@ -8,7 +8,7 @@ namespace DefenceOfTheAncientsRPG.Data
 {
     public class Database
     {
-        private static readonly string connectionString = @"Data Source = (localdb)\ProjectsV13;Initial Catalog = Dota2RPG - database; Integrated Security = True; Connect Timeout = 30; Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        private static readonly string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=DefenceOfTheAncientsRPG-database;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"; 
 
         /// <summary>
         /// Creates a new database connection and directly opens it. The caller

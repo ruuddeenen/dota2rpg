@@ -21,7 +21,7 @@ namespace DefenceOfTheAncientsRPG.Logic
         /// </summary>
         /// <param name="user">The user to insert.</param>
         /// <returns> Returns true if succeeded, false if not. </returns>
-        bool Insert(ApplicationUser user)
+        public bool Insert(ApplicationUser user)
         {
             return context.Insert(user);
         }
@@ -30,7 +30,7 @@ namespace DefenceOfTheAncientsRPG.Logic
         /// Gets a list of all users in the database excluding admins.
         /// </summary>
         /// <returns>Returns a list containing all users.</returns>
-        List<ApplicationUser> GetAllUsers()
+        public List<ApplicationUser> GetAllUsers()
         {
             return context.GetAllUsers();
         }
@@ -39,7 +39,7 @@ namespace DefenceOfTheAncientsRPG.Logic
         /// Gets a list of all admins in the database.
         /// </summary>
         /// <returns>Returns a list containing all admins.</returns>
-        List<ApplicationUser> GetAllAdmins()
+        public List<ApplicationUser> GetAllAdmins()
         {
             return context.GetAllAdmins();
         }
@@ -49,7 +49,7 @@ namespace DefenceOfTheAncientsRPG.Logic
         /// </summary>
         /// <param name="id">The id corrosponding to the user to find.</param>
         /// <returns>Returns a user with the corrosponding id.</returns>
-        ApplicationUser GetUserById(string id)
+        public ApplicationUser GetUserById(string id)
         {
             return context.GetUserById(id);
         }

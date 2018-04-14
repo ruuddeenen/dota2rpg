@@ -79,26 +79,29 @@ namespace DefenceOfTheAncientsRPG.Data
         {
             using (SqlConnection connection = Database.Connection)
             {
-                string query = "INSERT INTO ApplicationUsers (Id, Username, PasswordHash, FirstName, LastName, CreatedOn, Active, Admin" +
-                    "VALUES (:id, :username, :passwordHash, :firstName, :lastName, :createdOn, :active, :admin";
+            //    string query = "INSERT INTO ApplicationUsers (Id, Username, PasswordHash, FirstName, LastName, CreatedOn, Active, Admin)" +
+            //        " VALUES (:id, :username, :passwordHash, :firstName, :lastName, :createdOn, :active, :admin)";
+                string query = string.Format("INSERT INTO ApplicationUsers (Id, Username, PasswordHash, FirstName, LastName, CreatedOn, Active, Admin)" +
+                    " VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}')",
+                    user.ID, user.Username, user.PasswordHash, user.FirstName, user.LastName, user.CreatedOn.ToString("yyyyMMdd"), user.Active, user.Admin);
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("id", user.ID);
-                    command.Parameters.AddWithValue("username", user.Username);
-                    command.Parameters.AddWithValue("passwordHash", user.PasswordHash);
-                    command.Parameters.AddWithValue("firstName", user.FirstName);
-                    command.Parameters.AddWithValue("lastName", user.LastName);
-                    command.Parameters.AddWithValue("createdOn", user.CreatedOn);
-                    command.Parameters.AddWithValue("active", user.Active);
-                    command.Parameters.AddWithValue("admin", user.Admin);
+                    //command.Parameters.AddWithValue("id", user.ID);
+                    //command.Parameters.AddWithValue("username", user.Username);
+                    //command.Parameters.AddWithValue("passwordHash", user.PasswordHash);
+                    //command.Parameters.AddWithValue("firstName", user.FirstName);
+                    //command.Parameters.AddWithValue("lastName", user.LastName);
+                    //command.Parameters.AddWithValue("createdOn", user.CreatedOn);
+                    //command.Parameters.AddWithValue("active", user.Active);
+                    //command.Parameters.AddWithValue("admin", user.Admin);
                     try
                     {
                         command.ExecuteNonQuery();
                         return true;
                     }
-                    catch
+                    catch (Exception e)
                     {
-                        return false;
+                        throw e;
                     }
                 }
 
