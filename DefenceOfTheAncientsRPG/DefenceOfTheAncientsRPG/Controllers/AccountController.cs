@@ -54,7 +54,7 @@ namespace DefenceOfTheAncientsRPG.Controllers
         }
         
 
-        public ActionResult Edit(int id)
+        public ActionResult Edit(AccountEditViewModel model)
         {
             return View();
         }
@@ -66,7 +66,6 @@ namespace DefenceOfTheAncientsRPG.Controllers
         {
             try
             {
-                // TODO: Add update logic here
 
                 return RedirectToAction(nameof(Index));
             }

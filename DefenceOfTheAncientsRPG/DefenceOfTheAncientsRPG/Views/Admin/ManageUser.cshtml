@@ -1,0 +1,11 @@
+﻿@model DefenceOfTheAncientsRPG.Models.AdminViewModel.AdminManageUsersViewModel
+@{
+    ViewData["Title"] = "ManageUser";
+}
+<h2>ManageUser</h2>
+
+
+@foreach (ApplicationUser user in Model.Users)
+{
+    <p>@user.Username</p>
+}

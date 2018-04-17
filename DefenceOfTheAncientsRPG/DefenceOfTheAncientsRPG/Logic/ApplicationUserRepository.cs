@@ -53,5 +53,20 @@ namespace DefenceOfTheAncientsRPG.Logic
         {
             return context.GetUserById(id);
         }
+
+        /// <summary>
+        /// Fetches a user from the database.
+        /// </summary>
+        /// <param name="username">The username corrosponding to the user to find.</param>
+        /// <returns>Returns a user with the corrosponding username.</returns>
+        public ApplicationUser GetUserByUsername(string username)
+        {
+            return context.GetUserById(username);
+        }
+
+        public bool Edit(ApplicationUser user)
+        {
+            return context.Edit(user);
+        }
     }
 }

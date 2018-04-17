@@ -10,6 +10,11 @@ namespace DefenceOfTheAncientsRPG.Data
     {
         private List<ApplicationUser> Users = new List<ApplicationUser>();
 
+        public bool Edit(ApplicationUser user)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<ApplicationUser> GetAllAdmins()
         {
             List<ApplicationUser> users = new List<ApplicationUser>();
@@ -42,6 +47,11 @@ namespace DefenceOfTheAncientsRPG.Data
                 }
             }
             return null;
+        }
+
+        public ApplicationUser GetUserByUsername(string username)
+        {
+            throw new NotImplementedException();
         }
 
         public bool Insert(ApplicationUser user)

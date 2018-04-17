@@ -61,13 +61,30 @@ namespace DefenceOfTheAncientsRPG.Data
                 string query = string.Format("SELECT * FROM ApplicationUsers WHERE Id = {0}", id);
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    {
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             while (reader.Read())
                             {
                                 return CreateApplicationUserFromReader(reader);
                             }
+                        }
+                }
+            } 
+            return null;
+        }
+
+        public ApplicationUser GetUserByUsername(string username)
+        {
+            using (SqlConnection connection = Database.Connection)
+            {
+                string query = string.Format("SELECT * FROM ApplicationUsers WHERE Username = {0}", username);
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            return CreateApplicationUserFromReader(reader);
                         }
                     }
                 }
@@ -107,8 +124,29 @@ namespace DefenceOfTheAncientsRPG.Data
 
 
             }
+        }
+
+        public bool Edit(ApplicationUser user)
+        {
+            using (SqlConnection connection = Database.Connection)
+            {
+                string query = string.Format("UPDATE ApplicationUsers SET Email = {0}, FirstName = {1}, LastName = {2} WHERE Id = {3}", 
+                    user.Email, user.FirstName, user.LastName, user.ID);
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    try
+                    {
+                        command.ExecuteNonQuery();
+                        return true;
+                    }
+                    catch (Exception e)
+                    {
+                        throw e;
+                    }
+                }
 
 
+            }
         }
 
         /// <summary>
