@@ -7,7 +7,7 @@ using DefenceOfTheAncientsRPG.Models;
 using System.Data.SqlClient;
 
 
-namespace DefenceOfTheAncientsRPG.Data.Admin
+namespace DefenceOfTheAncientsRPG.Data
 {
     public class AdministratorSQLContext : IAdministratorContext
     {
@@ -103,7 +103,7 @@ namespace DefenceOfTheAncientsRPG.Data.Admin
                 PasswordHash = Convert.ToString(reader["PasswordHash"]),
                 FirstName = Convert.ToString(reader["FirstName"]),
                 LastName = Convert.ToString(reader["LastName"]),
-                DateOfBirth = Convert.ToDateTime(reader["CreatedOn"])
+                DateOfBirth = Convert.ToDateTime(reader["DateOfBirth"])
             };
         }
 
@@ -112,6 +112,25 @@ namespace DefenceOfTheAncientsRPG.Data.Admin
             using (SqlConnection connection = Database.Connection)
             {
                 string query = string.Format("SELECT * FROM Administrators WHERE Id = '{0}'", id);
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            return CreateAdministratorFromReader(reader);
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+
+        public Administrator GetAdminByUsername(string username)
+        {
+            using (SqlConnection connection = Database.Connection)
+            {
+                string query = string.Format("SELECT * FROM Administrators WHERE Username = '{0}'", username);
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     using (SqlDataReader reader = command.ExecuteReader())

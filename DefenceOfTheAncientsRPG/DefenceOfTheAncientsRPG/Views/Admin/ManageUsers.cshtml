@@ -1,11 +1,38 @@
 ﻿@model DefenceOfTheAncientsRPG.Models.AdminViewModel.AdminManageUsersViewModel
+
 @{
-    ViewData["Title"] = "ManageUser";
+    ViewData["Title"] = "ManageUsers";
 }
-<h2>ManageUser</h2>
 
+<h2>ManageUsers</h2>
 
-@foreach (ApplicationUser user in Model.Users)
-{
-    <p>@user.Username</p>
-}
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Account ID</th>
+            <th>Options</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (ApplicationUser user in Model.Users)
+        {
+            <tr>
+                <td>
+                    <p>@user.Username</p>
+                </td>
+                <td>
+                    <p>@user.ID</p>
+                </td>
+                <td>
+                    <p>
+                        @Html.ActionLink("Edit", "Edit", new { user.ID })
+                    </p>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,14 @@
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\DefenceOfTheAncientsRPGTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\DefenceOfTheAncientsRPGTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\DefenceOfTheAncientsRPGTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\DefenceOfTheAncientsRPGTests\bin\Debug\DefenceOfTheAncientsRPGTests.dll
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\DefenceOfTheAncientsRPGTests\bin\Debug\DefenceOfTheAncientsRPGTests.pdb
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\DefenceOfTheAncientsRPGTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\DefenceOfTheAncientsRPGTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\DefenceOfTheAncientsRPGTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\DefenceOfTheAncientsRPGTests\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\DefenceOfTheAncientsRPGTests\obj\Debug\DefenceOfTheAncientsRPGTests.csprojResolveAssemblyReference.cache
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\DefenceOfTheAncientsRPGTests\obj\Debug\DefenceOfTheAncientsRPGTests.csproj.CoreCompileInputs.cache
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\DefenceOfTheAncientsRPGTests\obj\Debug\DefenceOfTheAncientsRPGTests.csproj.CopyComplete
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\DefenceOfTheAncientsRPGTests\obj\Debug\DefenceOfTheAncientsRPGTests.dll
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\DefenceOfTheAncientsRPGTests\obj\Debug\DefenceOfTheAncientsRPGTests.pdb

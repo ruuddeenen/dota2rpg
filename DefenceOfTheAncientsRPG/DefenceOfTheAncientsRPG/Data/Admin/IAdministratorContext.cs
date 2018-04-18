@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DefenceOfTheAncientsRPG.Models;
 
-namespace DefenceOfTheAncientsRPG.Data.Admin
+namespace DefenceOfTheAncientsRPG.Data
 {
     public interface IAdministratorContext
     {
@@ -45,5 +45,13 @@ namespace DefenceOfTheAncientsRPG.Data.Admin
         /// <param name="id">The id corrosponding to the admin</param>
         /// <returns>True is succeeded, false if failed or admin not found.</returns>
         Administrator GetAdminById(string id);
+
+
+        /// <summary>
+        /// Fetches a admin from the database.
+        /// </summary>
+        /// <param name="username">The username corrosponding to the admin to find.</param>
+        /// <returns>Returns a admin with the corrosponding username.</returns>
+        Administrator GetAdminByUsername(string username);
     }
 }

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using DefenceOfTheAncientsRPG.Logic;
 using DefenceOfTheAncientsRPG.Models;
 
-namespace DefenceOfTheAncientsRPG.Data.Admin
+namespace DefenceOfTheAncientsRPG.Data
 {
     public class AdministratorMemoryContext : IAdministratorContext
     {
@@ -70,6 +70,11 @@ namespace DefenceOfTheAncientsRPG.Data.Admin
                 }
             }
             return false;
+        }
+
+        public Administrator GetAdminByUsername(string username)
+        {
+            throw new NotImplementedException();
         }
     }
 }

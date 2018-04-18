@@ -5028,6 +5028,15 @@
         "runtime": {
           "lib/netstandard1.3/Microsoft.WindowsAzure.Storage.dll": {}
         }
+      },
+      "DefenceOfTheAncientsRPGTests/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/DefenceOfTheAncientsRPGTests.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DefenceOfTheAncientsRPGTests.dll": {}
+        }
       }
     }
   },
@@ -13115,10 +13124,16 @@
         "windowsazure.storage.8.1.4.nupkg.sha512",
         "windowsazure.storage.nuspec"
       ]
+    },
+    "DefenceOfTheAncientsRPGTests/1.0.0": {
+      "type": "project",
+      "path": "../DefenceOfTheAncientsRPGTests/DefenceOfTheAncientsRPGTests.csproj",
+      "msbuildProject": "../DefenceOfTheAncientsRPGTests/DefenceOfTheAncientsRPGTests.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
+      "DefenceOfTheAncientsRPGTests >= 1.0.0",
       "Microsoft.AspNetCore.All >= 2.0.7",
       "Microsoft.AspNetCore.Session >= 2.0.2",
       "Microsoft.NETCore.App >= 2.0.0",
@@ -13158,7 +13173,11 @@
       },
       "frameworks": {
         "netcoreapp2.0": {
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\ruudd\\source\\repos\\dota2rpg\\DefenceOfTheAncientsRPG\\DefenceOfTheAncientsRPGTests\\DefenceOfTheAncientsRPGTests.csproj": {
+              "projectPath": "C:\\Users\\ruudd\\source\\repos\\dota2rpg\\DefenceOfTheAncientsRPG\\DefenceOfTheAncientsRPGTests\\DefenceOfTheAncientsRPGTests.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

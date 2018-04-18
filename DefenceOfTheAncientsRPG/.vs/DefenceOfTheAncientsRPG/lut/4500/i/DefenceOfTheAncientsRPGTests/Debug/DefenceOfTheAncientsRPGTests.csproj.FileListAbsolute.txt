@@ -1,0 +1,10 @@
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\.vs\DefenceOfTheAncientsRPG\lut\0\b\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\.vs\DefenceOfTheAncientsRPG\lut\0\b\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\.vs\DefenceOfTheAncientsRPG\lut\0\b\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\.vs\DefenceOfTheAncientsRPG\lut\0\b\DefenceOfTheAncientsRPGTests.dll
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\.vs\DefenceOfTheAncientsRPG\lut\0\b\DefenceOfTheAncientsRPGTests.pdb
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\.vs\DefenceOfTheAncientsRPG\lut\0\i\DefenceOfTheAncientsRPGTests\Debug\DefenceOfTheAncientsRPGTests.csprojResolveAssemblyReference.cache
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\.vs\DefenceOfTheAncientsRPG\lut\0\i\DefenceOfTheAncientsRPGTests\Debug\DefenceOfTheAncientsRPGTests.csproj.CoreCompileInputs.cache
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\.vs\DefenceOfTheAncientsRPG\lut\0\i\DefenceOfTheAncientsRPGTests\Debug\DefenceOfTheAncientsRPGTests.csproj.CopyComplete
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\.vs\DefenceOfTheAncientsRPG\lut\0\i\DefenceOfTheAncientsRPGTests\Debug\DefenceOfTheAncientsRPGTests.dll
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\.vs\DefenceOfTheAncientsRPG\lut\0\i\DefenceOfTheAncientsRPGTests\Debug\DefenceOfTheAncientsRPGTests.pdb

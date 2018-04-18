@@ -1,0 +1,12 @@
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\.vs\DefenceOfTheAncientsRPG\lut\0\b\DefenceOfTheAncientsRPG\Debug\netcoreapp2.0\DefenceOfTheAncientsRPG.deps.json
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\.vs\DefenceOfTheAncientsRPG\lut\0\b\DefenceOfTheAncientsRPG\Debug\netcoreapp2.0\DefenceOfTheAncientsRPG.runtimeconfig.json
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\.vs\DefenceOfTheAncientsRPG\lut\0\b\DefenceOfTheAncientsRPG\Debug\netcoreapp2.0\DefenceOfTheAncientsRPG.runtimeconfig.dev.json
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\.vs\DefenceOfTheAncientsRPG\lut\0\b\DefenceOfTheAncientsRPG\Debug\netcoreapp2.0\DefenceOfTheAncientsRPG.dll
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\.vs\DefenceOfTheAncientsRPG\lut\0\b\DefenceOfTheAncientsRPG\Debug\netcoreapp2.0\DefenceOfTheAncientsRPG.pdb
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\.vs\DefenceOfTheAncientsRPG\lut\0\i\DefenceOfTheAncientsRPG\Debug\netcoreapp2.0\DefenceOfTheAncientsRPG.csprojResolveAssemblyReference.cache
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\.vs\DefenceOfTheAncientsRPG\lut\0\i\DefenceOfTheAncientsRPG\Debug\netcoreapp2.0\DefenceOfTheAncientsRPG.csproj.CoreCompileInputs.cache
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\.vs\DefenceOfTheAncientsRPG\lut\0\i\DefenceOfTheAncientsRPG\Debug\netcoreapp2.0\DefenceOfTheAncientsRPG.AssemblyInfoInputs.cache
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\.vs\DefenceOfTheAncientsRPG\lut\0\i\DefenceOfTheAncientsRPG\Debug\netcoreapp2.0\DefenceOfTheAncientsRPG.AssemblyInfo.cs
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\.vs\DefenceOfTheAncientsRPG\lut\0\i\DefenceOfTheAncientsRPG\Debug\netcoreapp2.0\DefenceOfTheAncientsRPG.csproj.CopyComplete
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\.vs\DefenceOfTheAncientsRPG\lut\0\i\DefenceOfTheAncientsRPG\Debug\netcoreapp2.0\DefenceOfTheAncientsRPG.dll
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\.vs\DefenceOfTheAncientsRPG\lut\0\i\DefenceOfTheAncientsRPG\Debug\netcoreapp2.0\DefenceOfTheAncientsRPG.pdb

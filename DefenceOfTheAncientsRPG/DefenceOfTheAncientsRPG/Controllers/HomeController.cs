@@ -57,8 +57,9 @@ namespace DefenceOfTheAncientsRPG.Controllers
             if (SecurePasswordHasher.Verify(model.Password, user.PasswordHash)) // Logged in
             {
                 HttpContext.Session.SetString("currentUserId", user.ID);
+                return RedirectToAction("Details", "Account");
             }
-            return RedirectToAction("Details", "Account");
+            return View();
         }
     }
 }

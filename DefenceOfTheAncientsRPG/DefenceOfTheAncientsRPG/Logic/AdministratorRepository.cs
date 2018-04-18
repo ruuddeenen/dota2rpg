@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DefenceOfTheAncientsRPG.Models;
-using DefenceOfTheAncientsRPG.Data.Admin;
+using DefenceOfTheAncientsRPG.Data;
 
 namespace DefenceOfTheAncientsRPG.Logic
 {
@@ -76,6 +76,17 @@ namespace DefenceOfTheAncientsRPG.Logic
         public Administrator GetAdminById(string id)
         {
             return context.GetAdminById(id);
+        }
+
+
+        /// <summary>
+        /// Fetches a admin from the database.
+        /// </summary>
+        /// <param name="username">The username corrosponding to the admin to find.</param>
+        /// <returns>Returns a admin with the corrosponding username.</returns>
+        public Administrator GetAdminByUsername(string username)
+        {
+            return context.GetAdminByUsername(username);
         }
     }
 }
