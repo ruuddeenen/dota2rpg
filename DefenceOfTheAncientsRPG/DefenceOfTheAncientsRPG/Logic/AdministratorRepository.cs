@@ -25,5 +25,36 @@ namespace DefenceOfTheAncientsRPG.Logic
         {
             return context.GetAllAdmins();
         }
+
+        /// <summary>
+        /// Blocks an active user.
+        /// </summary>
+        /// <param name="user">The user to block.</param>
+        /// <param name="message">Message for the blocked user.</param>
+        /// <returns>True if succeeded, false if failed.</returns>
+        bool BlockUser(ApplicationUser user, string message)
+        {
+            if (user.Active)
+            {
+                return context.BlockUser(user, message);
+            }
+            return false;
+        }
+
+
+        /// <summary>
+        /// Unblocks an active user
+        /// </summary>
+        /// <param name="user">The user to unblock.</param>
+        /// <param name="message">Message for the unblocked user.</param>
+        /// <returns>True if succeeded, false if failed.</returns>
+        bool UnblockUser(ApplicationUser user, string message)
+        {
+            if (!user.Active)
+            {
+                return context.UnblockUser(user, message);
+            }
+            return false;
+        }
     }
 }

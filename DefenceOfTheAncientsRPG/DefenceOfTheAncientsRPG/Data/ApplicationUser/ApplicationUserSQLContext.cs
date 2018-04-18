@@ -10,27 +10,6 @@ namespace DefenceOfTheAncientsRPG.Data
 {
     public class ApplicationUserSQLContext : IApplicationUserContext
     {
-        public List<ApplicationUser> GetAllAdmins()
-        {
-            List<ApplicationUser> result = new List<ApplicationUser>();
-            using (SqlConnection connection = Database.Connection)
-            {
-                string query = "SELECT * FROM ApplicationUsers WHERE Admin = true";
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    {
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                result.Add(CreateApplicationUserFromReader(reader));
-                            }
-                        }
-                    }
-                }
-            }
-            return result;
-        }
 
         public List<ApplicationUser> GetAllUsers()
         {
@@ -61,15 +40,15 @@ namespace DefenceOfTheAncientsRPG.Data
                 string query = string.Format("SELECT * FROM ApplicationUsers WHERE Id = '{0}'", id);
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                        using (SqlDataReader reader = command.ExecuteReader())
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
                         {
-                            while (reader.Read())
-                            {
-                                return CreateApplicationUserFromReader(reader);
-                            }
+                            return CreateApplicationUserFromReader(reader);
                         }
+                    }
                 }
-            } 
+            }
             return null;
         }
 
@@ -118,7 +97,7 @@ namespace DefenceOfTheAncientsRPG.Data
         {
             using (SqlConnection connection = Database.Connection)
             {
-                string query = string.Format("UPDATE ApplicationUsers SET Email = {0}, FirstName = {1}, LastName = {2} WHERE Id = {3}", 
+                string query = string.Format("UPDATE ApplicationUsers SET Email = {0}, FirstName = {1}, LastName = {2} WHERE Id = {3}",
                     user.Email, user.FirstName, user.LastName, user.ID);
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {

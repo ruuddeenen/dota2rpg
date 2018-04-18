@@ -36,15 +36,6 @@ namespace DefenceOfTheAncientsRPG.Logic
         }
 
         /// <summary>
-        /// Gets a list of all admins in the database.
-        /// </summary>
-        /// <returns>Returns a list containing all admins.</returns>
-        public List<ApplicationUser> GetAllAdmins()
-        {
-            return context.GetAllAdmins();
-        }
-
-        /// <summary>
         /// Fetches a user from the database.
         /// </summary>
         /// <param name="id">The id corrosponding to the user to find.</param>
