@@ -58,7 +58,7 @@ namespace DefenceOfTheAncientsRPG.Data
         {
             using (SqlConnection connection = Database.Connection)
             {
-                string query = string.Format("SELECT * FROM ApplicationUsers WHERE Id = {0}", id);
+                string query = string.Format("SELECT * FROM ApplicationUsers WHERE Id = '{0}'", id);
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                         using (SqlDataReader reader = command.ExecuteReader())
@@ -77,7 +77,7 @@ namespace DefenceOfTheAncientsRPG.Data
         {
             using (SqlConnection connection = Database.Connection)
             {
-                string query = string.Format("SELECT * FROM ApplicationUsers WHERE Username = {0}", username);
+                string query = string.Format("SELECT * FROM ApplicationUsers WHERE Username = '{0}'", username);
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     using (SqlDataReader reader = command.ExecuteReader())

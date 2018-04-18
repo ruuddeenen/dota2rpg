@@ -61,7 +61,7 @@ namespace DefenceOfTheAncientsRPG.Logic
         /// <returns>Returns a user with the corrosponding username.</returns>
         public ApplicationUser GetUserByUsername(string username)
         {
-            return context.GetUserById(username);
+            return context.GetUserByUsername(username);
         }
 
         public bool Edit(ApplicationUser user)

@@ -28,7 +28,7 @@ namespace DefenceOfTheAncientsRPG.Controllers
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
+            ViewData["Message"] = HttpContext.Session.GetString("currentUserId");
 
             return View();
         }
@@ -45,14 +45,20 @@ namespace DefenceOfTheAncientsRPG.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
         public IActionResult Login(HomeLoginViewModel model)
         {
             ApplicationUser user = _ApplicationUserRepo.GetUserByUsername(model.Username);
-            if (SecurePasswordHasher.Verify(model.Password, user.PasswordHash))
+            if (SecurePasswordHasher.Verify(model.Password, user.PasswordHash)) // Logged in
             {
-
+                HttpContext.Session.SetString("currentUserId", user.ID);
             }
-            return View();
+            return RedirectToAction("Details", "Account");
         }
     }
 }

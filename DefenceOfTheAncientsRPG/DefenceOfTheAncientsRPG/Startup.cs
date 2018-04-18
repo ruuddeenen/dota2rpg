@@ -22,6 +22,7 @@ namespace DefenceOfTheAncientsRPG
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddDistributedMemoryCache(); // Adds a default in-memory implementation of IDistributedCache
             services.AddSession();
         }
 
@@ -40,6 +41,10 @@ namespace DefenceOfTheAncientsRPG
 
             app.UseStaticFiles();
 
+            // IMPORTANT: This session call MUST go before UseMvc()
+            app.UseSession();
+
+            // Add MVC to the request pipeline.
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

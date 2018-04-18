@@ -8,6 +8,7 @@ using DefenceOfTheAncientsRPG.Models;
 using DefenceOfTheAncientsRPG.Models.AccountViewModel;
 using DefenceOfTheAncientsRPG.Data;
 using DefenceOfTheAncientsRPG.Logic;
+using Microsoft.AspNetCore.Session;
 
 namespace DefenceOfTheAncientsRPG.Controllers
 {
@@ -49,6 +50,7 @@ namespace DefenceOfTheAncientsRPG.Controllers
                 {
                     return RedirectToAction("Details", "Account");
                 }
+                
             }
             return View();
         }
