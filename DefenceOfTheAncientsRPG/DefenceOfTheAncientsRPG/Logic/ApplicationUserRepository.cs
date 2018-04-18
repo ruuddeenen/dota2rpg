@@ -59,5 +59,10 @@ namespace DefenceOfTheAncientsRPG.Logic
         {
             return context.Edit(user);
         }
+
+        public bool ChangePassword(ApplicationUser user)
+        {
+            return context.ChangePassword(user);
+        }
     }
 }

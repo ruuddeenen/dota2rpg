@@ -111,8 +111,27 @@ namespace DefenceOfTheAncientsRPG.Data
                         throw e;
                     }
                 }
+            }
+        }
 
-
+        public bool ChangePassword(ApplicationUser user)
+        {
+            using (SqlConnection connection = Database.Connection)
+            {
+                string query = string.Format("UPDATE ApplicationUsers SET PasswordHash = '{0}' WHERE Id = '{1}'",
+                   user.PasswordHash, user.ID);
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    try
+                    {
+                        command.ExecuteNonQuery();
+                        return true;
+                    }
+                    catch (Exception e)
+                    {
+                        throw e;
+                    }
+                }
             }
         }
 

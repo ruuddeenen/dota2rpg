@@ -9,7 +9,6 @@ namespace DefenceOfTheAncientsRPG.Models
     public class Administrator
     {
         public string ID { get; set; }
-        public string Email { get; set; }
         public string Username { get; set; }
         public string PasswordHash { get; set; }
         public string FirstName { get; set; }
@@ -22,7 +21,7 @@ namespace DefenceOfTheAncientsRPG.Models
 
         }
 
-        public Administrator(string password, string email, string firstName, string lastName)
+        public Administrator(string password, string firstName, string lastName)
         {
             ID = Guid.NewGuid().ToString();
             Username = CreateUsername(firstName, lastName);

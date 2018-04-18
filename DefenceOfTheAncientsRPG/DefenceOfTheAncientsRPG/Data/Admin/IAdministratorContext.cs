@@ -30,5 +30,20 @@ namespace DefenceOfTheAncientsRPG.Data.Admin
         /// <param name="message">Message for the unblocked user.</param>
         /// <returns>True if succeeded, false if failed.</returns>
         bool UnblockUser(ApplicationUser user, string message);
+
+
+        /// <summary>
+        /// Creates an administrator account.
+        /// </summary>
+        /// <param name="admin">The administrator to create the account from.</param>
+        /// <returns>True if succeeded, false if failed.</returns>
+        bool Insert(Administrator admin);
+
+        /// <summary>
+        /// Fetches an admin from the database.
+        /// </summary>
+        /// <param name="id">The id corrosponding to the admin</param>
+        /// <returns>True is succeeded, false if failed or admin not found.</returns>
+        Administrator GetAdminById(string id);
     }
 }

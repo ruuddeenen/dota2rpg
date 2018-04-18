@@ -33,6 +33,29 @@ namespace DefenceOfTheAncientsRPG.Data.Admin
             return Admins;
         }
 
+        public bool Insert(Administrator admin)
+        {
+            if (GetAdminById(admin.ID) == null)
+            {
+                Admins.Add(admin);
+                return true;
+            }
+            return false;
+        }
+
+
+        public Administrator GetAdminById(string id)
+        {
+            foreach (Administrator admin in Admins)
+            {
+                if (admin.ID == id)
+                {
+                    return admin;
+                }
+            }
+            return null;
+        }
+
         public bool UnblockUser(ApplicationUser userToUnblock, string message)
         {
             foreach (ApplicationUser user in Users)

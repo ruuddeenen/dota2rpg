@@ -25,7 +25,7 @@ namespace DefenceOfTheAncientsRPG.Controllers
         {
             return View();
         }
-        
+
 
         public ActionResult Details(int id)
         {
@@ -37,7 +37,7 @@ namespace DefenceOfTheAncientsRPG.Controllers
         {
             return View();
         }
-        
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -45,22 +45,22 @@ namespace DefenceOfTheAncientsRPG.Controllers
         {
             if (ModelState.IsValid)
             {
-                ApplicationUser user = new ApplicationUser(false, model.Username, model.Password, model.Email, model.FirstName, model.LastName);
+                ApplicationUser user = new ApplicationUser(model.Username, model.Password, model.Email, model.FirstName, model.LastName);
                 if (_ApplicationUserRepo.Insert(user))
                 {
                     return RedirectToAction("Details", "Account");
                 }
-                
+
             }
             return View();
         }
-        
+
 
         public ActionResult Edit(AccountEditViewModel model)
         {
             return View();
         }
-        
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -76,28 +76,34 @@ namespace DefenceOfTheAncientsRPG.Controllers
                 return View();
             }
         }
-        
 
-        public ActionResult Delete(int id)
+        public IActionResult ChangePassword()
         {
             return View();
         }
 
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public IActionResult ChangePassword(AccountChangePasswordViewModel model)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction(nameof(Index));
+                string currentUserId = HttpContext.Session.GetString("currentUserId");
+                if (SecurePasswordHasher.Verify(model.CurrentPassword, _ApplicationUserRepo.GetUserById(currentUserId).PasswordHash))
+                {
+                    ApplicationUser user = new ApplicationUser
+                    {
+                        ID = currentUserId,
+                        PasswordHash = SecurePasswordHasher.Hash(model.NewPassword)
+                    };
+                    if (_ApplicationUserRepo.ChangePassword(user))
+                    {
+                        return RedirectToAction("Details", "Account");
+                    }
+                }
             }
-            catch
-            {
-                return View();
-            }
+            return View();
         }
+
     }
 }

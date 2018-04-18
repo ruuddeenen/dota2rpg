@@ -71,6 +71,29 @@ namespace DefenceOfTheAncientsRPG.Data.Admin
             }
         }
 
+        public bool Insert(Administrator admin)
+        {
+            using (SqlConnection connection = Database.Connection)
+            {
+                string query = string.Format("INSERT INTO Administrators (Id, Username, PasswordHash, FirstName, LastName, DateOfBirth)" +
+                    " VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}')",
+                    admin.ID, admin.Username, admin.PasswordHash, admin.FirstName, admin.LastName, admin.DateOfBirth.ToString("yyyyMMdd"));
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    try
+                    {
+                        command.ExecuteNonQuery();
+                        return true;
+
+                    }
+                    catch (Exception e)
+                    {
+                        throw e;
+                    }
+                }
+            }
+        }
+
         private Administrator CreateAdministratorFromReader(SqlDataReader reader)
         {
             return new Administrator
@@ -82,6 +105,25 @@ namespace DefenceOfTheAncientsRPG.Data.Admin
                 LastName = Convert.ToString(reader["LastName"]),
                 DateOfBirth = Convert.ToDateTime(reader["CreatedOn"])
             };
+        }
+
+        public Administrator GetAdminById(string id)
+        {
+            using (SqlConnection connection = Database.Connection)
+            {
+                string query = string.Format("SELECT * FROM Administrators WHERE Id = '{0}'", id);
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            return CreateAdministratorFromReader(reader);
+                        }
+                    }
+                }
+            }
+            return null;
         }
     }
 }

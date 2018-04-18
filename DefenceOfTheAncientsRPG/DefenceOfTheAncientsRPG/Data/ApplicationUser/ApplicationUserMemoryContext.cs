@@ -10,6 +10,15 @@ namespace DefenceOfTheAncientsRPG.Data
     {
         private List<ApplicationUser> Users = new List<ApplicationUser>();
 
+        public ApplicationUserMemoryContext()
+        {
+        }
+
+        public bool ChangePassword(ApplicationUser user)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool Edit(ApplicationUser editedUser)
         {
             foreach (ApplicationUser user in Users)

@@ -41,5 +41,12 @@ namespace DefenceOfTheAncientsRPG.Data
         /// <param name="username">The username corrosponding to the user to find.</param>
         /// <returns>Returns a user with the corrosponding username.</returns>
         ApplicationUser GetUserByUsername(string username);
+
+        /// <summary>
+        /// Changes the password of a user
+        /// </summary>
+        /// <param name="user">The user with the already changed password.</param>
+        /// <returns>Return true if succeeded, false if failed.</returns>
+        bool ChangePassword(ApplicationUser user);
     }
 }
