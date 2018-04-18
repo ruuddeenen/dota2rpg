@@ -27,11 +27,6 @@ namespace DefenceOfTheAncientsRPG.Data
         /// <returns>Returns a list containing all users.</returns>
         List<ApplicationUser> GetAllUsers();
 
-        /// <summary>
-        /// Gets a list of all admins in the database.
-        /// </summary>
-        /// <returns>Returns a list containing all admins.</returns>
-        List<ApplicationUser> GetAllAdmins();
 
         /// <summary>
         /// Fetches a user from the database.

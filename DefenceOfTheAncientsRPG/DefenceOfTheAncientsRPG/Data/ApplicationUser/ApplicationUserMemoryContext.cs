@@ -10,31 +10,25 @@ namespace DefenceOfTheAncientsRPG.Data
     {
         private List<ApplicationUser> Users = new List<ApplicationUser>();
 
-        public bool Edit(ApplicationUser user)
+        public bool Edit(ApplicationUser editedUser)
         {
-            throw new NotImplementedException();
-        }
-
-        public List<ApplicationUser> GetAllAdmins()
-        {
-            List<ApplicationUser> users = new List<ApplicationUser>();
             foreach (ApplicationUser user in Users)
             {
-                if (user.Admin)
-                    users.Add(user);
+                if (user.ID == editedUser.ID)
+                {
+                    user.FirstName = editedUser.FirstName;
+                    user.LastName = editedUser.LastName;
+                    user.Email = editedUser.Email;
+                    return true;
+                }
             }
-            return users;
+            return false;
         }
+
 
         public List<ApplicationUser> GetAllUsers()
         {
-            List<ApplicationUser> users = new List<ApplicationUser>();
-            foreach(ApplicationUser user in Users)
-            {
-                if (!user.Admin)
-                    users.Add(user);
-            }
-            return users;
+            return Users;
         }
 
         public ApplicationUser GetUserById(string id)
@@ -51,7 +45,14 @@ namespace DefenceOfTheAncientsRPG.Data
 
         public ApplicationUser GetUserByUsername(string username)
         {
-            throw new NotImplementedException();
+            foreach (ApplicationUser user in Users)
+            {
+                if (user.Username == username)
+                {
+                    return user;
+                }
+            }
+            return null;
         }
 
         public bool Insert(ApplicationUser user)

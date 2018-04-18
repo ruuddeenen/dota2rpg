@@ -28,7 +28,7 @@ namespace DefenceOfTheAncientsRPG.Controllers
 
         public IActionResult About()
         {
-            ViewData["Message"] = HttpContext.Session.GetString("currentUserId");
+            ViewData["Message"] = "Your about page";
 
             return View();
         }

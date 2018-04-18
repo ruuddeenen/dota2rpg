@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace DefenceOfTheAncientsRPG.Models
 {
-    public class ApplicationUser
+    public class Administrator
     {
         public string ID { get; set; }
         public string Email { get; set; }
@@ -16,23 +15,25 @@ namespace DefenceOfTheAncientsRPG.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         [DisplayFormat(DataFormatString = "{0:YYYYMMDD")]
-        public DateTime CreatedOn { get; set; }
-        public bool Active { get; set; }
+        public DateTime DateOfBirth { get; set; }
 
-        public ApplicationUser()
+        public Administrator()
         {
 
         }
 
-        public ApplicationUser(string username, string password, string email, string firstName, string lastName)
+        public Administrator(string password, string email, string firstName, string lastName)
         {
             ID = Guid.NewGuid().ToString();
-            Username = username;
+            Username = CreateUsername(firstName, lastName);
             PasswordHash = SecurePasswordHasher.Hash(password);
             FirstName = firstName;
             LastName = lastName;
-            CreatedOn = DateTime.Now.Date;
-            Active = true;
+        }
+
+        private string CreateUsername(string fn, string ln)
+        {
+            return string.Format("a.{0}{1}", fn, ln);
         }
     }
 }
