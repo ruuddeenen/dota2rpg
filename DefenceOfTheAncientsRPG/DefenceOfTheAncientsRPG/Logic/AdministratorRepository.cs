@@ -36,7 +36,7 @@ namespace DefenceOfTheAncientsRPG.Logic
         {
             if (user.Active)
             {
-                return context.BlockUser(user, message);
+                return context.BlockUser(true, user, message);
             }
             return false;
         }
@@ -52,7 +52,7 @@ namespace DefenceOfTheAncientsRPG.Logic
         {
             if (!user.Active)
             {
-                return context.UnblockUser(user, message);
+                return context.BlockUser(false, user, message);
             }
             return false;
         }
@@ -87,6 +87,35 @@ namespace DefenceOfTheAncientsRPG.Logic
         public Administrator GetAdminByUsername(string username)
         {
             return context.GetAdminByUsername(username);
+        }
+
+
+        /// <summary>
+        /// Changes the password of a admin
+        /// </summary>
+        /// <param name="admin">The admin with the already changed password.</param>
+        /// <returns>Return true if succeeded, false if failed.</returns>
+        public bool ChangePassword(Administrator admin)
+        {
+            if (!admin.Activated)
+            {
+                if (Activate(admin))
+                {
+                    admin.Password = SecurePasswordHasher.Hash(admin.Password);
+                }
+                else return false;
+            }
+            return context.ChangePassword(admin);
+        }
+
+        /// <summary>
+        /// Activates an admin account
+        /// </summary>
+        /// <param name="admin">The admin to activate</param>
+        /// <returns>Return true if succeeded, false if failed.</returns>
+        public bool Activate(Administrator admin)
+        {
+            return context.Activate(admin);
         }
     }
 }

@@ -8,9 +8,11 @@ using DefenceOfTheAncientsRPG.Logic;
 using DefenceOfTheAncientsRPG.Data;
 using DefenceOfTheAncientsRPG.Models;
 using Microsoft.AspNetCore.Http;
+using System.Net.Mail;
 
 namespace DefenceOfTheAncientsRPG.Controllers
 {
+
     public class AdminController : Controller
     {
         private AdministratorRepository _AdminRepo;
@@ -47,9 +49,10 @@ namespace DefenceOfTheAncientsRPG.Controllers
         {
             if (ModelState.IsValid)
             {
-                Administrator admin = new Administrator(model.Password, model.FirstName, model.LastName);   
-                if(_AdminRepo.Insert(admin))
+                Administrator admin = new Administrator(model.Password, model.FirstName, model.LastName);
+                if (_AdminRepo.Insert(admin))
                 {
+
                     return RedirectToAction("ManageAdmins");
                 }
             }
@@ -64,15 +67,58 @@ namespace DefenceOfTheAncientsRPG.Controllers
         [HttpPost]
         public IActionResult Login(AdminLoginViewModel model)
         {
-            Administrator admin = _AdminRepo.GetAdminById(model.Username);
-            if (SecurePasswordHasher.Verify(model.Password, admin.PasswordHash)) // Logged in
+            Administrator admin = _AdminRepo.GetAdminByUsername(model.Username);
+            if (admin.Activated)
             {
-                HttpContext.Session.SetString("currentUserId", admin.ID);
-                return RedirectToAction("ManageUsers");
+                if (SecurePasswordHasher.Verify(model.Password, admin.Password)) // Logged in
+                {
+                    HttpContext.Session.SetString("currentUserId", admin.ID);
+                    return RedirectToAction("ManageAdmins");
+                }
+            }
+            else
+            {
+                if (model.Password == admin.Password)
+                {
+                    HttpContext.Session.SetString("currentUserId", admin.ID);
+                    return RedirectToAction("ChangePassword");
+                }
             }
             return View();
         }
 
 
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ChangePassword(AdminChangePasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Administrator currentAdmin = _AdminRepo.GetAdminById(HttpContext.Session.GetString("currentUserId"));
+                if (currentAdmin.Activated)
+                {
+                    ViewData["Warning"] = "Change your password often to be safe";
+                    if (!SecurePasswordHasher.Verify(model.CurrentPassword, currentAdmin.Password))
+                        return View();
+                }
+                else ViewData["Warning"] = "Please change your password to activate your administrator account!";
+                {
+                    if (model.CurrentPassword != currentAdmin.Password)
+                        return View();
+                }
+                currentAdmin.Password = model.NewPassword;
+                if (_AdminRepo.ChangePassword(currentAdmin))
+                {
+                    return RedirectToAction("ManageAdmins");
+                }
+
+            }
+            return View();
+        }
     }
 }

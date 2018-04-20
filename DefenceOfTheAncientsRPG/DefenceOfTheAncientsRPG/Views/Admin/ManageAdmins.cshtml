@@ -12,18 +12,28 @@
 <table class="table">
     <thead>
         <tr>
-            <th></th>
+            <th>Name</th>
+            <th>Account ID</th>
+            <th>Password</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Admins) {
-        <tr>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
+        @foreach (Administrator admin in Model.Admins)
+        {
+            <tr>
+                <td>
+                    <p>@admin.FirstName @admin.LastName</p>
+                </td>
+                <td>
+                    <p>@admin.ID</p>
+                </td>
+                <td>
+                    @if (!admin.Activated)
+                    {
+                        <p>@admin.Password</p>
+                    }
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

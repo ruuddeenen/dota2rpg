@@ -10,11 +10,14 @@ namespace DefenceOfTheAncientsRPG.Models
     {
         public string ID { get; set; }
         public string Username { get; set; }
-        public string PasswordHash { get; set; }
+        public string Password { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        [DisplayFormat(DataFormatString = "{0:YYYYMMDD")]
+        [DisplayFormat(DataFormatString = "{0:yyyyMMdd")]
         public DateTime DateOfBirth { get; set; }
+        [DisplayFormat(DataFormatString = "{0:yyyyMMdd")]
+        public DateTime CreatedOn { get; set; }
+        public bool Activated { get; set; }
 
         public Administrator()
         {
@@ -25,9 +28,10 @@ namespace DefenceOfTheAncientsRPG.Models
         {
             ID = Guid.NewGuid().ToString();
             Username = CreateUsername(firstName, lastName);
-            PasswordHash = SecurePasswordHasher.Hash(password);
+            Password = password;
             FirstName = firstName;
             LastName = lastName;
+            Activated = false;
         }
 
         private string CreateUsername(string fn, string ln)

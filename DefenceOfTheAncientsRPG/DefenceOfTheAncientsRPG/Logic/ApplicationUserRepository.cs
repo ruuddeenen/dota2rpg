@@ -42,7 +42,15 @@ namespace DefenceOfTheAncientsRPG.Logic
         /// <returns>Returns a user with the corrosponding id.</returns>
         public ApplicationUser GetUserById(string id)
         {
-            return context.GetUserById(id);
+            foreach (ApplicationUser user in GetAllUsers())
+            {
+                if (user.ID == id)
+                    return user;
+            }
+            return null;
+
+            // OR
+            // return context.GetUserByID(id);
         }
 
         /// <summary>

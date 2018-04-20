@@ -31,31 +31,11 @@ namespace DefenceOfTheAncientsRPG.Data
             return result;
         }
 
-        public bool BlockUser(ApplicationUser user, string message)
+        public bool BlockUser(bool block, ApplicationUser user, string message)
         {
             using (SqlConnection connection = Database.Connection)
             {
-                string query = string.Format("UPDATE ApplicationUsers SET Active = 'False' WHERE Id = '{0}'", user.ID);
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    try
-                    {
-                        command.ExecuteNonQuery();
-                        return true;
-                    }
-                    catch (Exception e)
-                    {
-                        throw e;
-                    }
-                }
-            }
-        }
-
-        public bool UnblockUser(ApplicationUser user, string message)
-        {
-            using (SqlConnection connection = Database.Connection)
-            {
-                string query = string.Format("UPDATE ApplicationUsers SET Active = 'True' WHERE Id = '{0}'", user.ID);
+                string query = string.Format("UPDATE ApplicationUsers SET Active = '{1}' WHERE Id = '{0}'", user.ID, block);
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     try
@@ -75,9 +55,9 @@ namespace DefenceOfTheAncientsRPG.Data
         {
             using (SqlConnection connection = Database.Connection)
             {
-                string query = string.Format("INSERT INTO Administrators (Id, Username, PasswordHash, FirstName, LastName, DateOfBirth)" +
-                    " VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}')",
-                    admin.ID, admin.Username, admin.PasswordHash, admin.FirstName, admin.LastName, admin.DateOfBirth.ToString("yyyyMMdd"));
+                string query = string.Format("INSERT INTO Administrators (Id, Username, PasswordHash, FirstName, LastName, DateOfBirth, CreatedOn)" +
+                    " VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}')",
+                    admin.ID, admin.Username, admin.Password, admin.FirstName, admin.LastName, admin.DateOfBirth.ToString("yyyyMMdd"), admin.CreatedOn.ToString("yyyyMMdd"));
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     try
@@ -100,10 +80,12 @@ namespace DefenceOfTheAncientsRPG.Data
             {
                 ID = Convert.ToString(reader["Id"]),
                 Username = Convert.ToString(reader["Username"]),
-                PasswordHash = Convert.ToString(reader["PasswordHash"]),
+                Password = Convert.ToString(reader["PasswordHash"]),
                 FirstName = Convert.ToString(reader["FirstName"]),
                 LastName = Convert.ToString(reader["LastName"]),
-                DateOfBirth = Convert.ToDateTime(reader["DateOfBirth"])
+                DateOfBirth = Convert.ToDateTime(reader["DateOfBirth"]),
+                CreatedOn = Convert.ToDateTime(reader["CreatedOn"]),
+                Activated = Convert.ToBoolean(reader["Activated"])
             };
         }
 
@@ -143,6 +125,47 @@ namespace DefenceOfTheAncientsRPG.Data
                 }
             }
             return null;
+        }
+
+        public bool ChangePassword(Administrator admin)
+        {
+            using (SqlConnection connection = Database.Connection)
+            {
+                string query = string.Format("UPDATE Administrators SET PasswordHash = '{0}' WHERE Id = '{1}'",
+                   admin.Password, admin.ID);
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    try
+                    {
+                        command.ExecuteNonQuery();
+                        return true;
+                    }
+                    catch (Exception e)
+                    {
+                        throw e;
+                    }
+                }
+            }
+        }
+
+        public bool Activate(Administrator admin)
+        {
+            using (SqlConnection connection = Database.Connection)
+            {
+                string query = string.Format("UPDATE Administrators SET Activated = 'True' WHERE Id = '{0}'", admin.ID);
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    try
+                    {
+                        command.ExecuteNonQuery();
+                        return true;
+                    }
+                    catch (Exception e)
+                    {
+                        throw e;
+                    }
+                }
+            }
         }
     }
 }

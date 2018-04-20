@@ -12,17 +12,14 @@ namespace DefenceOfTheAncientsRPG.Data
         private List<Administrator> Admins = new List<Administrator>();
         private List<ApplicationUser> Users = new List<ApplicationUser>();
 
-        public bool BlockUser(ApplicationUser userToBlock, string message)
+        public bool BlockUser(bool block, ApplicationUser userToBlock, string message)
         {
             foreach(ApplicationUser user in Users)
             {
                 if (userToBlock.ID == user.ID)
                 {
-                    if (user.Active)
-                    {
-                        user.Active = false;
-                        return true;
-                    }
+                    if (block) user.Active = false;
+                    else user.Active = true;
                 }
             }
             return false;
@@ -56,23 +53,17 @@ namespace DefenceOfTheAncientsRPG.Data
             return null;
         }
 
-        public bool UnblockUser(ApplicationUser userToUnblock, string message)
+        public Administrator GetAdminByUsername(string username)
         {
-            foreach (ApplicationUser user in Users)
-            {
-                if (userToUnblock.ID == user.ID)
-                {
-                    if (!user.Active)
-                    {
-                        user.Active = true;
-                        return true;
-                    }
-                }
-            }
-            return false;
+            throw new NotImplementedException();
         }
 
-        public Administrator GetAdminByUsername(string username)
+        public bool ChangePassword(Administrator admin)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Activate(Administrator admin)
         {
             throw new NotImplementedException();
         }
