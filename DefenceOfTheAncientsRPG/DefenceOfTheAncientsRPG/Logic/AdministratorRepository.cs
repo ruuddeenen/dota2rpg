@@ -32,13 +32,10 @@ namespace DefenceOfTheAncientsRPG.Logic
         /// <param name="user">The user to block.</param>
         /// <param name="message">Message for the blocked user.</param>
         /// <returns>True if succeeded, false if failed.</returns>
-        public bool BlockUser(ApplicationUser user, string message)
+        public bool BlockUser(BlockedUserInfo info)
         {
-            if (user.Active)
-            {
-                return context.BlockUser(true, user, message);
-            }
-            return false;
+            info.Block = true;
+            return context.BlockUser(info);
         }
 
 
@@ -48,13 +45,10 @@ namespace DefenceOfTheAncientsRPG.Logic
         /// <param name="user">The user to unblock.</param>
         /// <param name="message">Message for the unblocked user.</param>
         /// <returns>True if succeeded, false if failed.</returns>
-        public bool UnblockUser(ApplicationUser user, string message)
+        public bool UnblockUser(BlockedUserInfo info)
         {
-            if (!user.Active)
-            {
-                return context.BlockUser(false, user, message);
-            }
-            return false;
+            info.Block = false;
+            return context.BlockUser(info);
         }
 
         /// <summary>
@@ -75,7 +69,14 @@ namespace DefenceOfTheAncientsRPG.Logic
         /// <returns>True is succeeded, false if failed or admin not found.</returns>
         public Administrator GetAdminById(string id)
         {
-            return context.GetAdminById(id);
+            foreach (Administrator admin in GetAllAdmins())
+            {
+                if (admin.ID == id)
+                {
+                    return admin;
+                }
+            }
+            return null;
         }
 
 
@@ -86,7 +87,14 @@ namespace DefenceOfTheAncientsRPG.Logic
         /// <returns>Returns a admin with the corrosponding username.</returns>
         public Administrator GetAdminByUsername(string username)
         {
-            return context.GetAdminByUsername(username);
+            foreach (Administrator admin in GetAllAdmins())
+            {
+                if (admin.Username == username)
+                {
+                    return admin;
+                }
+            }
+            return null;
         }
 
 

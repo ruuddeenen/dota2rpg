@@ -13,9 +13,9 @@ namespace DefenceOfTheAncientsRPG.Models
         public string Password { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        [DisplayFormat(DataFormatString = "{0:yyyyMMdd")]
+        [DisplayFormat(DataFormatString = "{0:YYYYMMDD")]
         public DateTime DateOfBirth { get; set; }
-        [DisplayFormat(DataFormatString = "{0:yyyyMMdd")]
+        [DisplayFormat(DataFormatString = "{0:YYYYMMDD")]
         public DateTime CreatedOn { get; set; }
         public bool Activated { get; set; }
 

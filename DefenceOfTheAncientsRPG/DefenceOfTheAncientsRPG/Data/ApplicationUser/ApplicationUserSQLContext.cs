@@ -75,9 +75,9 @@ namespace DefenceOfTheAncientsRPG.Data
         {
             using (SqlConnection connection = Database.Connection)
             {
-                string query = string.Format("INSERT INTO ApplicationUsers (Id, Username, PasswordHash, FirstName, LastName, CreatedOn, Active)" +
-                    " VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}')",
-                    user.ID, user.Username, user.PasswordHash, user.FirstName, user.LastName, user.CreatedOn.ToString("yyyyMMdd"), user.Active);
+                string query = string.Format("INSERT INTO ApplicationUsers (Id, Username, PasswordHash, FirstName, LastName, CreatedOn)" +
+                    " VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}')",
+                    user.Id, user.Username, user.Password, user.FirstName, user.LastName, user.CreatedOn.ToString("yyyyMMdd"));
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     try
@@ -98,7 +98,7 @@ namespace DefenceOfTheAncientsRPG.Data
             using (SqlConnection connection = Database.Connection)
             {
                 string query = string.Format("UPDATE ApplicationUsers SET Email = {0}, FirstName = {1}, LastName = {2} WHERE Id = {3}",
-                    user.Email, user.FirstName, user.LastName, user.ID);
+                    user.Email, user.FirstName, user.LastName, user.Id);
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     try
@@ -119,7 +119,7 @@ namespace DefenceOfTheAncientsRPG.Data
             using (SqlConnection connection = Database.Connection)
             {
                 string query = string.Format("UPDATE ApplicationUsers SET PasswordHash = '{0}' WHERE Id = '{1}'",
-                   user.PasswordHash, user.ID);
+                   user.Password, user.Id);
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     try
@@ -145,15 +145,44 @@ namespace DefenceOfTheAncientsRPG.Data
         {
             return new ApplicationUser
             {
-                ID = Convert.ToString(reader["Id"]),
+                Id = Convert.ToString(reader["Id"]),
                 Username = Convert.ToString(reader["Username"]),
-                PasswordHash = Convert.ToString(reader["PasswordHash"]),
+                Password = Convert.ToString(reader["PasswordHash"]),
                 FirstName = Convert.ToString(reader["FirstName"]),
                 LastName = Convert.ToString(reader["LastName"]),
-                CreatedOn = Convert.ToDateTime(reader["CreatedOn"]),
-                Active = Convert.ToBoolean(reader["Active"])
+                CreatedOn = Convert.ToDateTime(reader["CreatedOn"])
             };
         }
 
+
+        public bool IsBlocked(ApplicationUser user)
+        {
+            using (SqlConnection connection = Database.Connection)
+            {
+                string query = string.Format("SELECT COUNT(*) FROM BlockedUsers WHERE UserId = '{0}'", user.Id);
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        try
+                        {
+                            if (Convert.ToInt32(reader[0]) > 0)
+                            {
+                                return true;
+                            }
+                        }
+                        catch
+                        {
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
+        public bool Login(ApplicationUser user)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

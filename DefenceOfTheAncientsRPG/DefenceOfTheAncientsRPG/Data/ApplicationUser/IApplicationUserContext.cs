@@ -48,5 +48,7 @@ namespace DefenceOfTheAncientsRPG.Data
         /// <param name="user">The user with the already changed password.</param>
         /// <returns>Return true if succeeded, false if failed.</returns>
         bool ChangePassword(ApplicationUser user);
+
+        bool IsBlocked(ApplicationUser user);
     }
 }

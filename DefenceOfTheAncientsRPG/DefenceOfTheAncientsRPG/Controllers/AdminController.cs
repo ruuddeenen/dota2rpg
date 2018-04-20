@@ -102,11 +102,11 @@ namespace DefenceOfTheAncientsRPG.Controllers
                 Administrator currentAdmin = _AdminRepo.GetAdminById(HttpContext.Session.GetString("currentUserId"));
                 if (currentAdmin.Activated)
                 {
-                    ViewData["Warning"] = "Change your password often to be safe";
+                    ViewBag["Warning"] = "Change your password often to be safe";
                     if (!SecurePasswordHasher.Verify(model.CurrentPassword, currentAdmin.Password))
                         return View();
                 }
-                else ViewData["Warning"] = "Please change your password to activate your administrator account!";
+                else ViewBag["Warning"] = "Please change your password to activate your administrator account!";
                 {
                     if (model.CurrentPassword != currentAdmin.Password)
                         return View();
@@ -115,6 +115,39 @@ namespace DefenceOfTheAncientsRPG.Controllers
                 if (_AdminRepo.ChangePassword(currentAdmin))
                 {
                     return RedirectToAction("ManageAdmins");
+                }
+
+            }
+            return View();
+        }
+
+        public IActionResult Block(string id)
+        {
+            AdminBlockViewModel model = new AdminBlockViewModel
+            {
+                AdminId = HttpContext.Session.GetString("currentUserId"),
+                UserId = id
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Block(AdminBlockViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                BlockedUserInfo info = new BlockedUserInfo
+                {
+                    UserId = model.UserId,
+                    AdminId = model.AdminId,
+                    Message = model.Message,
+                    Since = model.From,
+                    Until = model.Until
+                };
+
+                if (_AdminRepo.BlockUser(info))
+                {
+                    return RedirectToAction("ManageUsers");
                 }
 
             }

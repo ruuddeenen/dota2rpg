@@ -23,6 +23,7 @@ namespace DefenceOfTheAncientsRPG.Logic
         /// <returns> Returns true if succeeded, false if not. </returns>
         public bool Insert(ApplicationUser user)
         {
+            user.Password = SecurePasswordHasher.Hash(user.Password);
             return context.Insert(user);
         }
 
@@ -44,7 +45,7 @@ namespace DefenceOfTheAncientsRPG.Logic
         {
             foreach (ApplicationUser user in GetAllUsers())
             {
-                if (user.ID == id)
+                if (user.Id == id)
                     return user;
             }
             return null;
@@ -60,7 +61,12 @@ namespace DefenceOfTheAncientsRPG.Logic
         /// <returns>Returns a user with the corrosponding username.</returns>
         public ApplicationUser GetUserByUsername(string username)
         {
-            return context.GetUserByUsername(username);
+            foreach (ApplicationUser user in GetAllUsers())
+            {
+                if (user.Username == username)
+                    return user;
+            }
+            return null;
         }
 
         public bool Edit(ApplicationUser user)
@@ -70,7 +76,14 @@ namespace DefenceOfTheAncientsRPG.Logic
 
         public bool ChangePassword(ApplicationUser user)
         {
+            user.Password = SecurePasswordHasher.Hash(user.Password);
             return context.ChangePassword(user);
+        }
+
+        public bool Login(ApplicationUser user)
+        {
+            if (context.IsBlocked(user)) return false;
+            else return SecurePasswordHasher.Verify(user.Password, GetUserByUsername(user.Username).Password);
         }
     }
 }

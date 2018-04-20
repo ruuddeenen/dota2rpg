@@ -16,7 +16,7 @@ namespace DefenceOfTheAncientsRPG.Data
         {
             foreach(ApplicationUser user in Users)
             {
-                if (userToBlock.ID == user.ID)
+                if (userToBlock.Id == user.Id)
                 {
                     if (block) user.Active = false;
                     else user.Active = true;
@@ -32,30 +32,15 @@ namespace DefenceOfTheAncientsRPG.Data
 
         public bool Insert(Administrator admin)
         {
-            if (GetAdminById(admin.ID) == null)
+            try
             {
                 Admins.Add(admin);
                 return true;
             }
-            return false;
-        }
-
-
-        public Administrator GetAdminById(string id)
-        {
-            foreach (Administrator admin in Admins)
+            catch
             {
-                if (admin.ID == id)
-                {
-                    return admin;
-                }
+                return false;
             }
-            return null;
-        }
-
-        public Administrator GetAdminByUsername(string username)
-        {
-            throw new NotImplementedException();
         }
 
         public bool ChangePassword(Administrator admin)
@@ -64,6 +49,11 @@ namespace DefenceOfTheAncientsRPG.Data
         }
 
         public bool Activate(Administrator admin)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool BlockUser(BlockedUserInfo info)
         {
             throw new NotImplementedException();
         }

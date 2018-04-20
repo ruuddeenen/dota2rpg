@@ -9,10 +9,10 @@ namespace DefenceOfTheAncientsRPG.Models
 {
     public class ApplicationUser
     {
-        public string ID { get; set; }
+        public string Id { get; set; }
         public string Email { get; set; }
         public string Username { get; set; }
-        public string PasswordHash { get; set; }
+        public string Password { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         [DisplayFormat(DataFormatString = "{0:YYYYMMDD")]
@@ -26,9 +26,9 @@ namespace DefenceOfTheAncientsRPG.Models
 
         public ApplicationUser(string username, string password, string email, string firstName, string lastName)
         {
-            ID = Guid.NewGuid().ToString();
+            Id = Guid.NewGuid().ToString();
             Username = username;
-            PasswordHash = SecurePasswordHasher.Hash(password);
+            Password = password;
             FirstName = firstName;
             LastName = lastName;
             CreatedOn = DateTime.Now.Date;

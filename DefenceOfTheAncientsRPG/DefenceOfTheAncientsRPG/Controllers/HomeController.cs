@@ -54,9 +54,9 @@ namespace DefenceOfTheAncientsRPG.Controllers
         public IActionResult Login(HomeLoginViewModel model)
         {
             ApplicationUser user = _ApplicationUserRepo.GetUserByUsername(model.Username);
-            if (SecurePasswordHasher.Verify(model.Password, user.PasswordHash)) // Logged in
+            if (_ApplicationUserRepo.Login(user)) // Logged in
             {
-                HttpContext.Session.SetString("currentUserId", user.ID);
+                HttpContext.Session.SetString("currentUserId", user.Id);
                 return RedirectToAction("Details", "Account");
             }
             return View();

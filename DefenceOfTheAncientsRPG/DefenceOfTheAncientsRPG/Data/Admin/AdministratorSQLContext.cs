@@ -31,12 +31,15 @@ namespace DefenceOfTheAncientsRPG.Data
             return result;
         }
 
-        public bool BlockUser(bool block, ApplicationUser user, string message)
+        public bool BlockUser(BlockedUserInfo info)
         {
             using (SqlConnection connection = Database.Connection)
             {
-                string query = string.Format("UPDATE ApplicationUsers SET Active = '{1}' WHERE Id = '{0}'", user.ID, block);
-                using (SqlCommand command = new SqlCommand(query, connection))
+
+                string query1 = string.Format("INSERT INTO BlockedUsers (UserId, Message, Since, Until, ByAdminId)" +
+                    " VALUES ('{0}', '{1}','{2}','{3}','{4}')",
+                    info.UserId, info.Message, info.Since.ToString("yyyyMMdd"), info.Until.ToString("yyyyMMdd"), info.AdminId);
+                using (SqlCommand command = new SqlCommand(query1, connection))
                 {
                     try
                     {

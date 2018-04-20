@@ -23,7 +23,7 @@ namespace DefenceOfTheAncientsRPG.Data
         {
             foreach (ApplicationUser user in Users)
             {
-                if (user.ID == editedUser.ID)
+                if (user.Id == editedUser.Id)
                 {
                     user.FirstName = editedUser.FirstName;
                     user.LastName = editedUser.LastName;
@@ -44,7 +44,7 @@ namespace DefenceOfTheAncientsRPG.Data
         {
             foreach (ApplicationUser user in Users)
             {
-                if (user.ID == id)
+                if (user.Id == id)
                 {
                     return user;
                 }
@@ -66,12 +66,17 @@ namespace DefenceOfTheAncientsRPG.Data
 
         public bool Insert(ApplicationUser user)
         {
-            if (GetUserById(user.ID) == null)
+            if (GetUserById(user.Id) == null)
             {
                 Users.Add(user);
                 return true;
             }
             return false;
+        }
+
+        public bool IsBlocked(ApplicationUser user)
+        {
+            throw new NotImplementedException();
         }
     }
 }
