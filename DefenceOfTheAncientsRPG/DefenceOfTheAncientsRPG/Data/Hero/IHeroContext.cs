@@ -6,8 +6,12 @@ using DefenceOfTheAncientsRPG.Models;
 
 namespace DefenceOfTheAncientsRPG.Data
 {
-    interface IHeroContext
+    public interface IHeroContext
     {
-        bool Create(Hero hero);
+        bool Insert(Hero hero);
+
+        Hero GetHeroById(string id);
+
+        List<Item> GetInventoryByHeroId(string id);
     }
 }
