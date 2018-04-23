@@ -22,5 +22,10 @@ namespace DefenceOfTheAncientsRPG.Data
         {
             throw new NotImplementedException();
         }
+
+        public bool UpdateExpierence(Hero hero, int exp)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

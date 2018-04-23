@@ -9,6 +9,48 @@ namespace DefenceOfTheAncientsRPG.Data
 {
     public class HeroSQLContext : IHeroContext
     {
+        #region CreateHeroFromReader
+        private Hero CreateHeroFromReader(SqlDataReader reader)
+        {
+            char MainAttribute = Convert.ToChar(reader["MainAttribute"]);
+            switch (MainAttribute)
+            {
+                case 'S':
+                    return new StrengthHero
+                 (
+                 Convert.ToString(reader["Id"]),
+                 Convert.ToString(reader["Name"]),
+                 Convert.ToInt32(reader["Expierence"]),
+                 (float)reader["StrengthGain"],
+                 (float)reader["AgilityGain"],
+                 (float)reader["IntelligenceGain"]
+                 );
+                case 'A':
+                    return new AgilityHero
+                 (
+                 Convert.ToString(reader["Id"]),
+                 Convert.ToString(reader["Name"]),
+                 Convert.ToInt32(reader["Expierence"]),
+                 (float)reader["StrengthGain"],
+                 (float)reader["AgilityGain"],
+                 (float)reader["IntelligenceGain"]
+                 );
+                case 'I':
+                    return new IntelligenceHero
+                 (
+                 Convert.ToString(reader["Id"]),
+                 Convert.ToString(reader["Name"]),
+                 Convert.ToInt32(reader["Expierence"]),
+                 (float)reader["StrengthGain"],
+                 (float)reader["AgilityGain"],
+                 (float)reader["IntelligenceGain"]
+                 );
+                default:
+                    return null;
+            }
+        }
+        #endregion
+
         public Hero GetHeroById(string id)
         {
             using (SqlConnection connection = Database.Connection)
@@ -28,18 +70,6 @@ namespace DefenceOfTheAncientsRPG.Data
             return null;
         }
 
-        private Hero CreateHeroFromReader(SqlDataReader reader)
-        {
-            return new Hero
-            (
-                Convert.ToString(reader["Id"]),
-                Convert.ToString(reader["Name"]),
-                Convert.ToInt32(reader["Expierence"]),
-                (float)reader["StrengthGain"],
-                (float)reader["AgilityGain"],
-                (float)reader["IntelligenceGain"]
-                );
-        }
 
         public List<Item> GetInventoryByHeroId(string id)
         {
@@ -77,7 +107,7 @@ namespace DefenceOfTheAncientsRPG.Data
                         command.ExecuteNonQuery();
                         return true;
                     }
-                    catch(Exception e)
+                    catch (Exception e)
                     {
                         throw e;
                     }
@@ -98,7 +128,7 @@ namespace DefenceOfTheAncientsRPG.Data
                         command.ExecuteNonQuery();
                         return true;
                     }
-                    catch(Exception e)
+                    catch (Exception e)
                     {
                         throw e;
                     }

@@ -1,0 +1,87 @@
+﻿@model DefenceOfTheAncientsRPG.Models.HeroViewModel.HeroCreateViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+<h2>Create</h2>
+
+<h4>HeroCreateViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StrengthGain" class="control-label"></label>
+                <div class="slidecontainer">
+                    <input asp-for="StrengthGain" type="range" step="0.1" min="1" max="12" value="4" class="slider" id="Strength">
+                    <p>Value: <span id="str"></span></p>
+                </div>
+                <span asp-validation-for="StrengthGain" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AgilityGain" class="control-label"></label>
+                <div class="slidecontainer">
+                    <input asp-for="AgilityGain" type="range" step="0.1" min="1" max="12" value="4" class="slider" id="Agility">
+                    <p>Value: <span id="agi"></span></p>
+                </div>
+                <span asp-validation-for="AgilityGain" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IntelligenceGain" class="control-label"></label>
+                <div class="slidecontainer">
+                    <input asp-for="IntelligenceGain" type="range" step="0.1" min="1" max="12" value="4" class="slider" id="Intelligence">
+                    <p>Value: <span id="int"></span></p>
+                </div>
+                <span asp-validation-for="IntelligenceGain" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MainAttribute" class="control-label"></label>
+                <select asp-for="MainAttribute" class="dropdown" />
+                <option>Strength</option>
+                <option>Agility</option>
+                <option>Intelligence</option>
+                <span asp-validation-for="MainAttribute" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<script>
+    var sliderStr = document.getElementById("Strength");
+    var outputStr = document.getElementById("str");
+    outputStr.innerHTML = sliderStr.value;
+
+    sliderStr.oninput = function () {
+        outputStr.innerHTML = this.value;
+    }
+    var sliderAgi = document.getElementById("Agility");
+    var outputAgi = document.getElementById("agi");
+    outputAgi.innerHTML = sliderAgi.value;
+
+    sliderAgi.oninput = function () {
+        outputAgi.innerHTML = this.value;
+    }
+    var sliderInt = document.getElementById("Intelligence");
+    var outputInt = document.getElementById("int");
+    outputInt.innerHTML = sliderInt.value;
+
+    sliderInt.oninput = function () {
+        outputInt.innerHTML = this.value;
+    }
+</script>
+

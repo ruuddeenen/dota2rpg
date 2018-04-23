@@ -7,7 +7,7 @@ using DefenceOfTheAncientsRPG.Data;
 
 namespace DefenceOfTheAncientsRPG.Models
 {
-    public class Hero
+    public abstract class Hero
     {
         private HeroRepository _heroRepo = new HeroRepository(new HeroSQLContext());
         private readonly int ExpPerLevel = 1000;
