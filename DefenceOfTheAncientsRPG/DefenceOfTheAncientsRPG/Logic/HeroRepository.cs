@@ -30,5 +30,11 @@ namespace DefenceOfTheAncientsRPG.Logic
         {
             return context.Insert(hero);
         }
+
+        public bool UpdateExpierence(Hero hero, int exp)
+        {
+            int setExp = exp + hero.Expierence;
+            return context.UpdateExpierence(hero, setExp);
+        }
     }
 }

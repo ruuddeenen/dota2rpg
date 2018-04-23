@@ -13,5 +13,7 @@ namespace DefenceOfTheAncientsRPG.Data
         Hero GetHeroById(string id);
 
         List<Item> GetInventoryByHeroId(string id);
+
+        bool UpdateExpierence(Hero hero, int exp);
     }
 }

@@ -173,6 +173,7 @@ namespace DefenceOfTheAncientsRPG.Data
                         }
                         catch
                         {
+                            throw;
                         }
                     }
                 }
