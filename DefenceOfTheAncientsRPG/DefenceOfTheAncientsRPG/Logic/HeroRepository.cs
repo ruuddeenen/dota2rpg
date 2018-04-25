@@ -26,15 +26,33 @@ namespace DefenceOfTheAncientsRPG.Logic
             return context.GetInventoryByHeroId(id);
         }
 
-        public bool Insert(Hero hero)
+        public bool Insert(Hero hero, ApplicationUser user)
         {
-            return context.Insert(hero);
+            if (context.Insert(hero))
+            {
+                return context.InsertLink(hero, user);
+            }
+            return false;
         }
 
         public bool AddExpierence(Hero hero, int exp)
         {
             int setExp = exp + hero.Expierence;
             return context.UpdateExpierence(hero, setExp);
+        }
+
+        public List<Hero> GetAllHeroes()
+        {
+            return context.GetAllHeroes();
+        }
+
+        public List<Hero> GetHeroesByUserId(string id)
+        {
+            if (context.GetHeroesByUserId(id).Count > 3)
+            {
+                throw new Exception();
+            }
+            return context.GetHeroesByUserId(id);
         }
     }
 }

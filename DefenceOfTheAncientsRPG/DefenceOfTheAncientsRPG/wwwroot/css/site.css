@@ -57,11 +57,20 @@
     }
 
     /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
-    .slider::-webkit-slider-thumb  {
+    .slider::-webkit-slider-thumb {
         -webkit-appearance: none; /* Override default look */
-        appearance: none;
         width: 25px; /* Set a specific slider handle width */
         height: 25px; /* Slider handle height */
-        background: red; /* Green background */
+        background: url(.../images/attributes/Agility_attribute_symbol.png); /* Green background */
         cursor: pointer; /* Cursor on hover */
     }
+    
+#Strength::-webkit-slider-thumb {
+    background: url(.../images/attributes/Strength_attribute_symbol.png);
+}
+#Agility::-webkit-slider-thumb{
+    background: url(.../images/attributes/Agility_attribute_symbol.png);
+}
+#Intelligence::-webkit-slider-thumb {
+    background: url(.../images/attributes/Intelligence_attribute_symbol.png);
+}

@@ -80,10 +80,20 @@ namespace DefenceOfTheAncientsRPG.Logic
             return context.ChangePassword(user);
         }
 
-        public bool Login(ApplicationUser user)
+        public bool Login(string username, string password)
         {
-            if (context.IsBlocked(user)) return false;
-            else return SecurePasswordHasher.Verify(user.Password, GetUserByUsername(user.Username).Password);
+            if (GetUserByUsername(username) != null)
+            {
+                if (SecurePasswordHasher.Verify(password, GetUserByUsername(username).Password))
+                {
+                    if (!context.IsBlocked(GetUserByUsername(username)))
+                    {
+                        return true; // Throw user is blocked exception
+                    }
+                }
+                return false; // Throw password does not match exception
+            }
+            return false; // Throw user does not exist exception
         }
     }
 }

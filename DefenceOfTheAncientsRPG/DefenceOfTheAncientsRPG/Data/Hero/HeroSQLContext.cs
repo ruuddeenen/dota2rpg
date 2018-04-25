@@ -31,7 +31,7 @@ namespace DefenceOfTheAncientsRPG.Data
                  Convert.ToString(reader["Id"]),
                  Convert.ToString(reader["Name"]),
                  Convert.ToInt32(reader["Expierence"]),
-                 (float)reader["StrengthGain"],
+                 Convert.ToSingle(reader["IntelligenceGain"]),
                  (float)reader["AgilityGain"],
                  (float)reader["IntelligenceGain"]
                  );
@@ -41,7 +41,7 @@ namespace DefenceOfTheAncientsRPG.Data
                  Convert.ToString(reader["Id"]),
                  Convert.ToString(reader["Name"]),
                  Convert.ToInt32(reader["Expierence"]),
-                 (float)reader["StrengthGain"],
+                 Convert.ToSingle(reader["StrengthGain"]),
                  (float)reader["AgilityGain"],
                  (float)reader["IntelligenceGain"]
                  );
@@ -76,8 +76,8 @@ namespace DefenceOfTheAncientsRPG.Data
             List<Item> items = new List<Item>();
             using (SqlConnection connection = Database.Connection)
             {
-                string query = string.Format("SELECT * FROM Items AS item INNER JOIN LT-Inventory AS inventory" +
-                    "ON item.Id = inventory.ItemId WHERE inventory.HeroId = '{0}'",
+                string query = string.Format("SELECT * FROM Items AS item INNER JOIN LT_Inventory AS inventory" +
+                    " ON item.Id = inventory.ItemId WHERE inventory.HeroId = '{0}'",
                     id);
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -95,11 +95,16 @@ namespace DefenceOfTheAncientsRPG.Data
 
         public bool Insert(Hero hero)
         {
+            char mainAttribute;
+            if (hero is StrengthHero) mainAttribute = 'S';
+            else if (hero is AgilityHero) mainAttribute = 'A';
+            else mainAttribute = 'I';
+
             using (SqlConnection connection = Database.Connection)
             {
-                string query = string.Format("INSERT INTO Heroes (Id, Name, Expierence, StrengthGain, AgilityGain, IntelligenceGain" +
-                    " VALUES ('{0}', '{1}', {2}, {3}, {4} ,{5})",
-                    hero.Id, hero.Name, hero.Expierence, hero.StrengthGain, hero.AgilityGain, hero.IntelligenceGain);
+                string query = string.Format("INSERT INTO Heroes (Id, Name, Expierence, StrengthGain, AgilityGain, IntelligenceGain, MainAttribute)" +
+                    " VALUES ('{0}', '{1}', {2}, {3}, {4}, {5}, '{6}')",
+                    hero.Id, hero.Name, hero.Expierence, hero.StrengthGain, hero.AgilityGain, hero.IntelligenceGain, mainAttribute);
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     try
@@ -110,6 +115,28 @@ namespace DefenceOfTheAncientsRPG.Data
                     catch (Exception e)
                     {
                         throw e;
+                    }
+                }
+            }
+        }
+
+        public bool InsertLink(Hero hero, ApplicationUser user)
+        {
+            using (SqlConnection connection = Database.Connection)
+            {
+                string query = string.Format("INSERT INTO LT_UserHero (HeroId, UserId)" +
+                    " VALUES ('{0}', '{1}')",
+                    hero.Id, user.Id);
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    try
+                    {
+                        command.ExecuteNonQuery();
+                        return true;
+                    }
+                    catch
+                    {
+                        throw;
                     }
                 }
             }
@@ -134,6 +161,62 @@ namespace DefenceOfTheAncientsRPG.Data
                     }
                 }
             }
+        }
+
+        public List<Hero> GetAllHeroes()
+        {
+            List<Hero> heroes = new List<Hero>();
+            using (SqlConnection connection = Database.Connection)
+            {
+                string query = "SELECT * FROM Heroes";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    try
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                heroes.Add(CreateHeroFromReader(reader));
+                            }
+                        }
+                    }
+                    catch
+                    {
+                        throw;
+                    }
+                }
+            }
+            return heroes;
+        }
+
+        public List<Hero> GetHeroesByUserId(string id)
+        {
+            List<Hero> heroes = new List<Hero>();
+            using (SqlConnection connection = Database.Connection)
+            {
+                string query = string.Format("SELECT * FROM Heroes AS hero INNER JOIN LT_UserHero AS lt" +
+                    " ON hero.Id = lt.HeroId WHERE lt.UserId = '{0}'",   
+                    id);
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    try
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                heroes.Add(CreateHeroFromReader(reader));
+                            }
+                        }
+                    }
+                    catch
+                    {
+                        throw;
+                    }
+                }
+            }
+            return heroes;
         }
     }
 }

@@ -159,26 +159,19 @@ namespace DefenceOfTheAncientsRPG.Data
         {
             using (SqlConnection connection = Database.Connection)
             {
-                string query = string.Format("SELECT COUNT(*) FROM BlockedUsers WHERE UserId = '{0}'", user.Id);
+                string query = string.Format("SELECT * FROM BlockedUsers WHERE UserId = '{0}'", user.Id);
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        try
+                        if (reader.HasRows)
                         {
-                            if (Convert.ToInt32(reader[0]) > 0)
-                            {
-                                return true;
-                            }
+                            return true;
                         }
-                        catch
-                        {
-                            throw;
-                        }
+                        else return false;
                     }
                 }
             }
-            return false;
         }
 
         public bool Login(ApplicationUser user)

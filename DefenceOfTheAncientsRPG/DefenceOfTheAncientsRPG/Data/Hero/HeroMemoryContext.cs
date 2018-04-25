@@ -8,7 +8,17 @@ namespace DefenceOfTheAncientsRPG.Data
 {
     public class HeroMemoryContext : IHeroContext
     {
+        public List<Hero> GetAllHeroes()
+        {
+            throw new NotImplementedException();
+        }
+
         public Hero GetHeroById(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Hero> GetHeroesByUserId(string id)
         {
             throw new NotImplementedException();
         }
@@ -19,6 +29,11 @@ namespace DefenceOfTheAncientsRPG.Data
         }
 
         public bool Insert(Hero hero)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool InsertLink(Hero hero, ApplicationUser user)
         {
             throw new NotImplementedException();
         }

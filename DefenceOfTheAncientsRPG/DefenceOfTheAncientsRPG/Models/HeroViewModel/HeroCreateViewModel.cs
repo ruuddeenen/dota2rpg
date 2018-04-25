@@ -23,6 +23,18 @@ namespace DefenceOfTheAncientsRPG.Models.HeroViewModel
         public float IntelligenceGain { get; set; }
         [Required]
         [Display(Name = "Main attribute")]
-        public Attribute MainAttribute { get; set; }
+        public Attribute MainAttribute
+        {
+            get
+            {
+                List<float> sort = new List<float>{
+                    StrengthGain, AgilityGain, IntelligenceGain };
+                sort.Sort();
+                if (sort.First() == StrengthGain) return Attribute.Strength;
+                else if (sort.First() == AgilityGain) return Attribute.Agility;
+                else return Attribute.Intelligence;
+            }
+        }
+
     }
 }

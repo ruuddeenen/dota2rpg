@@ -102,11 +102,11 @@ namespace DefenceOfTheAncientsRPG.Controllers
                 Administrator currentAdmin = _AdminRepo.GetAdminById(HttpContext.Session.GetString("currentUserId"));
                 if (currentAdmin.Activated)
                 {
-                    ViewBag["Warning"] = "Change your password often to be safe";
+                    ViewBag.Warning = "Change your password often to be safe";
                     if (!SecurePasswordHasher.Verify(model.CurrentPassword, currentAdmin.Password))
                         return View();
                 }
-                else ViewBag["Warning"] = "Please change your password to activate your administrator account!";
+                else ViewBag.Warning = "Please change your password to activate your administrator account!";
                 {
                     if (model.CurrentPassword != currentAdmin.Password)
                         return View();
