@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DefenceOfTheAncientsRPG.Models;
 using DefenceOfTheAncientsRPG.Data;
+using DefenceOfTheAncientsRPG.Exceptions;
 
 namespace DefenceOfTheAncientsRPG.Logic
 {
@@ -86,14 +87,15 @@ namespace DefenceOfTheAncientsRPG.Logic
             {
                 if (SecurePasswordHasher.Verify(password, GetUserByUsername(username).Password))
                 {
-                    if (!context.IsBlocked(GetUserByUsername(username)))
+                    if (context.IsBlocked(GetUserByUsername(username)))
                     {
-                        return true; // Throw user is blocked exception
+                        throw new UserIsBlockedException();
                     }
+                    return true;
                 }
-                return false; // Throw password does not match exception
+                throw new IncorrectPasswordException();
             }
-            return false; // Throw user does not exist exception
+            throw new UserDoesNotExistException();
         }
     }
 }

@@ -10,6 +10,7 @@ using DefenceOfTheAncientsRPG.Logic;
 using DefenceOfTheAncientsRPG.Data;
 using System.Web;
 using Microsoft.AspNetCore.Http;
+using DefenceOfTheAncientsRPG.Exceptions;
 
 namespace DefenceOfTheAncientsRPG.Controllers
 {
@@ -53,10 +54,34 @@ namespace DefenceOfTheAncientsRPG.Controllers
         [HttpPost]
         public IActionResult Login(HomeLoginViewModel model)
         {
-            if (_ApplicationUserRepo.Login(model.Username, model.Password))
+            ViewBag.ErrorMessage = "";
+            try
             {
-                HttpContext.Session.SetString("currentUserId", _ApplicationUserRepo.GetUserByUsername(model.Username).Id);
-                return RedirectToAction("Details", "Account");
+                if (_ApplicationUserRepo.Login(model.Username, model.Password))
+                {
+                    HttpContext.Session.SetString("currentUserId", _ApplicationUserRepo.GetUserByUsername(model.Username).Id);
+                    return RedirectToAction("Details", "Account");
+                }
+            }
+            catch (UserDoesNotExistException)
+            {
+                ViewBag.ErrorMessage = "User does not exist.";
+                return View();
+
+            }
+            catch (IncorrectPasswordException)
+            {
+                ViewBag.ErrorMessage = "Incorrect username/password combination";
+                return View();
+            }
+            catch (UserIsBlockedException)
+            {
+                ViewBag.ErrorMessage = "User is blocked"; // TO DO
+                return View();
+            }
+            catch
+            {
+                ViewBag.ErrorMessage = "Something went wrong, and we don't know what. Please try again.";
             }
             return View();
         }
