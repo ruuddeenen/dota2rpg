@@ -13,7 +13,7 @@ namespace DefenceOfTheAncientsRPG.Logic
 
         public AdministratorRepository(IAdministratorContext context)
         {
-            this.context = context;
+            this.context = context; 
         }
 
 

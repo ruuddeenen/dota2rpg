@@ -1,0 +1,17 @@
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\DefenseOfTheAncientsRPGTests\bin\Debug\netcoreapp2.0\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\DefenseOfTheAncientsRPGTests\bin\Debug\netcoreapp2.0\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\DefenseOfTheAncientsRPGTests\bin\Debug\netcoreapp2.0\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\DefenseOfTheAncientsRPGTests\bin\Debug\netcoreapp2.0\DefenseOfTheAncientsRPGTests.deps.json
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\DefenseOfTheAncientsRPGTests\bin\Debug\netcoreapp2.0\DefenseOfTheAncientsRPGTests.runtimeconfig.json
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\DefenseOfTheAncientsRPGTests\bin\Debug\netcoreapp2.0\DefenseOfTheAncientsRPGTests.runtimeconfig.dev.json
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\DefenseOfTheAncientsRPGTests\bin\Debug\netcoreapp2.0\DefenseOfTheAncientsRPGTests.dll
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\DefenseOfTheAncientsRPGTests\bin\Debug\netcoreapp2.0\DefenseOfTheAncientsRPGTests.pdb
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\DefenseOfTheAncientsRPGTests\bin\Debug\netcoreapp2.0\DefenceOfTheAncientsRPG.dll
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\DefenseOfTheAncientsRPGTests\bin\Debug\netcoreapp2.0\DefenceOfTheAncientsRPG.pdb
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\DefenseOfTheAncientsRPGTests\obj\Debug\netcoreapp2.0\DefenseOfTheAncientsRPGTests.csprojResolveAssemblyReference.cache
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\DefenseOfTheAncientsRPGTests\obj\Debug\netcoreapp2.0\DefenseOfTheAncientsRPGTests.csproj.CoreCompileInputs.cache
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\DefenseOfTheAncientsRPGTests\obj\Debug\netcoreapp2.0\DefenseOfTheAncientsRPGTests.AssemblyInfoInputs.cache
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\DefenseOfTheAncientsRPGTests\obj\Debug\netcoreapp2.0\DefenseOfTheAncientsRPGTests.AssemblyInfo.cs
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\DefenseOfTheAncientsRPGTests\obj\Debug\netcoreapp2.0\DefenseOfTheAncientsRPGTests.csproj.CopyComplete
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\DefenseOfTheAncientsRPGTests\obj\Debug\netcoreapp2.0\DefenseOfTheAncientsRPGTests.dll
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\DefenseOfTheAncientsRPGTests\obj\Debug\netcoreapp2.0\DefenseOfTheAncientsRPGTests.pdb
