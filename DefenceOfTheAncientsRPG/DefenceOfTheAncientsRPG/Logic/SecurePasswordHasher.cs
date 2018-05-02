@@ -4,7 +4,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 
-namespace DefenceOfTheAncientsRPG.Models
+namespace DefenceOfTheAncientsRPG.Logic
 {
     public sealed class SecurePasswordHasher
     {

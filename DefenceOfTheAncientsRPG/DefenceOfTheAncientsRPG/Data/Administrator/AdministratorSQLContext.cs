@@ -31,29 +31,6 @@ namespace DefenceOfTheAncientsRPG.Data
             return result;
         }
 
-        public bool BlockUser(BlockedUserInfo info)
-        {
-            using (SqlConnection connection = Database.Connection)
-            {
-
-                string query1 = string.Format("INSERT INTO BlockedUsers (UserId, Message, Since, Until, ByAdminId)" +
-                    " VALUES ('{0}', '{1}','{2}','{3}','{4}')",
-                    info.UserId, info.Message, info.Since.ToString("yyyyMMdd"), info.Until.ToString("yyyyMMdd"), info.AdminId);
-                using (SqlCommand command = new SqlCommand(query1, connection))
-                {
-                    try
-                    {
-                        command.ExecuteNonQuery();
-                        return true;
-                    }
-                    catch (Exception e)
-                    {
-                        throw e;
-                    }
-                }
-            }
-        }
-
         public bool Insert(Administrator admin)
         {
             using (SqlConnection connection = Database.Connection)

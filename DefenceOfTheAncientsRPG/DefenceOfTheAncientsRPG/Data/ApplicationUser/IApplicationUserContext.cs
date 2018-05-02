@@ -50,5 +50,15 @@ namespace DefenceOfTheAncientsRPG.Data
         bool ChangePassword(ApplicationUser user);
 
         bool IsBlocked(ApplicationUser user);
+
+
+        /// <summary>
+        /// Blocks an active user.
+        /// </summary>
+        /// <param name="user">The user to block.</param>
+        /// <param name="message">Message for the blocked user.</param>
+        /// <param name="block">True if you want to block, false if you want to unblock.</param>
+        /// <returns>True if succeeded, false if failed.</returns>
+        bool BlockUser(BlockedUserInfo info);
     }
 }

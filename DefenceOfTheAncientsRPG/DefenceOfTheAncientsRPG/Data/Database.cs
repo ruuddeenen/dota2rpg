@@ -35,7 +35,7 @@ namespace DefenceOfTheAncientsRPG.Data
                 {
                     string id = Guid.NewGuid().ToString();
                     string username = "a.SuperUser";
-                    string passwordHash = Models.SecurePasswordHasher.Hash("SU@123");
+                    string passwordHash = Logic.SecurePasswordHasher.Hash("SU@123");
                     string firstName = "Super";
                     string lastName = "User";
                     string dateOfBirth = DateTime.Now.ToString("yyyyMMdd");

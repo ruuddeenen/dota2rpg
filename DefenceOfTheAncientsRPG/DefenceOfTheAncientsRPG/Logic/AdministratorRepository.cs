@@ -26,30 +26,7 @@ namespace DefenceOfTheAncientsRPG.Logic
             return context.GetAllAdmins();
         }
 
-        /// <summary>
-        /// Blocks an active user.
-        /// </summary>
-        /// <param name="user">The user to block.</param>
-        /// <param name="message">Message for the blocked user.</param>
-        /// <returns>True if succeeded, false if failed.</returns>
-        public bool BlockUser(BlockedUserInfo info)
-        {
-            info.Block = true;
-            return context.BlockUser(info);
-        }
 
-
-        /// <summary>
-        /// Unblocks an active user
-        /// </summary>
-        /// <param name="user">The user to unblock.</param>
-        /// <param name="message">Message for the unblocked user.</param>
-        /// <returns>True if succeeded, false if failed.</returns>
-        public bool UnblockUser(BlockedUserInfo info)
-        {
-            info.Block = false;
-            return context.BlockUser(info);
-        }
 
         /// <summary>
         /// Creates an administrator account.

@@ -69,7 +69,11 @@ namespace DefenceOfTheAncientsRPG.Logic
             }
             return null;
         }
-
+        /// <summary>
+        /// Edits a user's first name, last name and email address.
+        /// </summary>
+        /// <param name="user">The edited user.</param>
+        /// <returns>Returns true if succeeded, false if failed.</returns>
         public bool Edit(ApplicationUser user)
         {
             return context.Edit(user);
@@ -81,6 +85,12 @@ namespace DefenceOfTheAncientsRPG.Logic
             return context.ChangePassword(user);
         }
 
+        /// <summary>
+        /// Tries to log a user in.
+        /// </summary>
+        /// <param name="username">The username.</param>
+        /// <param name="password">The password to match.</param>
+        /// <returns>True if username and password match. Error otherwise.</returns>
         public bool Login(string username, string password)
         {
             if (GetUserByUsername(username) != null)
@@ -96,6 +106,31 @@ namespace DefenceOfTheAncientsRPG.Logic
                 throw new IncorrectPasswordException();
             }
             throw new UserDoesNotExistException();
+        }
+
+        /// <summary>
+        /// Blocks an active user.
+        /// </summary>
+        /// <param name="user">The user to block.</param>
+        /// <param name="message">Message for the blocked user.</param>
+        /// <returns>True if succeeded, false if failed.</returns>
+        public bool BlockUser(BlockedUserInfo info)
+        {
+            info.Block = true;
+            return context.BlockUser(info);
+        }
+
+
+        /// <summary>
+        /// Unblocks an active user
+        /// </summary>
+        /// <param name="user">The user to unblock.</param>
+        /// <param name="message">Message for the unblocked user.</param>
+        /// <returns>True if succeeded, false if failed.</returns>
+        public bool UnblockUser(BlockedUserInfo info)
+        {
+            info.Block = false;
+            return context.BlockUser(info);
         }
     }
 }

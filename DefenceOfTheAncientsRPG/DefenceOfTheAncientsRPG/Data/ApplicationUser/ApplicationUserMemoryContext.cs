@@ -14,6 +14,11 @@ namespace DefenceOfTheAncientsRPG.Data
         {
         }
 
+        public bool BlockUser(BlockedUserInfo info)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool ChangePassword(ApplicationUser user)
         {
             throw new NotImplementedException();

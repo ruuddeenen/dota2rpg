@@ -145,7 +145,7 @@ namespace DefenceOfTheAncientsRPG.Controllers
                     Until = model.Until
                 };
 
-                if (_AdminRepo.BlockUser(info))
+                if (_UserRepo.BlockUser(info))
                 {
                     return RedirectToAction("ManageUsers");
                 }
