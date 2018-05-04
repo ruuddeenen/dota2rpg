@@ -9,16 +9,16 @@ using DefenceOfTheAncientsRPG.Exceptions;
 
 namespace DefenseOfTheAncientsRPGTests
 {
-    class ApplicationUserRepositoryTests
+    [TestClass]
+    public class ApplicationUserRepositoryTests
     {
         private ApplicationUserRepository userRepo;
 
-        [ClassInitialize]
+        [TestInitialize]
         public void Initialize()
         {
             userRepo = new ApplicationUserRepository(new ApplicationUserMemoryContext());
             ApplicationUser user = new ApplicationUser("tester", "Pass123", "test@test.com", "Mister", "Test");
-
         }
 
         [TestMethod]
@@ -39,6 +39,7 @@ namespace DefenseOfTheAncientsRPGTests
             {
                 Id = testId
             };
+            userRepo.Insert(user);
 
             Assert.AreEqual(user, userRepo.GetUserById(testId));
 
@@ -56,6 +57,7 @@ namespace DefenseOfTheAncientsRPGTests
         {
             string testUsername = "john-doe";
             ApplicationUser user = new ApplicationUser(testUsername, "Pass123", "test@test.com", "John", "Doe");
+            userRepo.Insert(user);
 
             Assert.AreEqual(user, userRepo.GetUserByUsername(testUsername));
 
@@ -71,25 +73,46 @@ namespace DefenseOfTheAncientsRPGTests
         [TestMethod]
         public void TestEdit()
         {
-
+            throw new NotImplementedException();
         }
 
         [TestMethod]
         public void TestChangePassword()
         {
-
+            ApplicationUser user = userRepo.GetUserByUsername("john-doe");
+            user.Password = "123456";
+            userRepo.ChangePassword(user);
         }
 
         [TestMethod]
         public void TestLogin()
         {
+            string username = "usernameTest";
+            string password = "Pass123";
+            ApplicationUser user = new ApplicationUser(username, password, "test@test.com", "John", "Doe");
+            userRepo.Insert(user);
 
+            Assert.IsTrue(userRepo.Login(username, password));
+
+            try
+            {
+                userRepo.Login(username, "wrongPassword");
+                Assert.Fail("The password is not correct. IncorrectPasswordException not catched.");
+            }
+            catch (IncorrectPasswordException) { }
+
+            try
+            {
+                userRepo.Login("usernamefail", password);
+                Assert.Fail("The username does not exist. UserDoesNotExistException not catched");
+            }
+            catch (UserDoesNotExistException) { }
         }
 
         [TestMethod]
         public void TestBlockAndUnblock()
         {
-
+            throw new NotImplementedException();
         }
     }
 }

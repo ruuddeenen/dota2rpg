@@ -5,20 +5,21 @@ using System.Threading.Tasks;
 
 namespace DefenceOfTheAncientsRPG.Exceptions
 {
-    public class UserNotFoundException : Exception
+    public class PasswordDoesNotContainNumberException : Exception
     {
-        public UserNotFoundException()
+
+        public PasswordDoesNotContainNumberException()
         {
 
         }
 
-        public UserNotFoundException(string message)
+        public PasswordDoesNotContainNumberException(string message)
             : base(message)
         {
 
         }
 
-        public UserNotFoundException(string message, Exception inner)
+        public PasswordDoesNotContainNumberException(string message, Exception inner)
             : base(message, inner)
         {
 

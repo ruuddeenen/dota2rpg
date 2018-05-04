@@ -24,8 +24,12 @@ namespace DefenceOfTheAncientsRPG.Logic
         /// <returns> Returns true if succeeded, false if not. </returns>
         public bool Insert(ApplicationUser user)
         {
-            user.Password = SecurePasswordHasher.Hash(user.Password);
-            return context.Insert(user);
+            if (PasswordChecker(user.Password))
+            {
+                user.Password = SecurePasswordHasher.Hash(user.Password);
+                return context.Insert(user);
+            }
+            else return false;
         }
 
         /// <summary>
@@ -49,7 +53,7 @@ namespace DefenceOfTheAncientsRPG.Logic
                 if (user.Id == id)
                     return user;
             }
-            return null;
+            throw new UserDoesNotExistException();
 
             // OR
             // return context.GetUserByID(id);
@@ -67,7 +71,7 @@ namespace DefenceOfTheAncientsRPG.Logic
                 if (user.Username == username)
                     return user;
             }
-            return null;
+            throw new UserDoesNotExistException();
         }
         /// <summary>
         /// Edits a user's first name, last name and email address.
@@ -81,8 +85,12 @@ namespace DefenceOfTheAncientsRPG.Logic
 
         public bool ChangePassword(ApplicationUser user)
         {
-            user.Password = SecurePasswordHasher.Hash(user.Password);
-            return context.ChangePassword(user);
+            if (PasswordChecker(user.Password))
+            {
+                user.Password = SecurePasswordHasher.Hash(user.Password);
+                return context.ChangePassword(user);
+            }
+            else return false;
         }
 
         /// <summary>
@@ -131,6 +139,19 @@ namespace DefenceOfTheAncientsRPG.Logic
         {
             info.Block = false;
             return context.BlockUser(info);
+        }
+
+        private bool PasswordChecker(string password)
+        {
+            if (password.Any(c => char.IsUpper(c)))
+            {
+                if (password.Any(c => char.IsNumber(c)))
+                {
+                    return true;
+                }
+                else throw new PasswordDoesNotContainNumberException();
+            }
+            else throw new PasswordDoesNotContainCapitalException();
         }
     }
 }

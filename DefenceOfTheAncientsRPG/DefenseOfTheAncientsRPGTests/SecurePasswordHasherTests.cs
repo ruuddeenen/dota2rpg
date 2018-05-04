@@ -7,7 +7,8 @@ using DefenceOfTheAncientsRPG.Models;
 
 namespace DefenseOfTheAncientsRPGTests
 {
-    class SecurePasswordHasherTests
+    [TestClass]
+    public class SecurePasswordHasherTests
     {
         [TestMethod]
         public void TestHashAndVerify()
@@ -21,7 +22,7 @@ namespace DefenseOfTheAncientsRPGTests
         [TestMethod]
         public void Testh()
         {
-
+            throw new NotImplementedException();
         }
     }
 }
