@@ -91,12 +91,7 @@ namespace DefenceOfTheAncientsRPG.Controllers
                 string currentUserId = HttpContext.Session.GetString("currentUserId");
                 if (SecurePasswordHasher.Verify(model.CurrentPassword, _ApplicationUserRepo.GetUserById(currentUserId).Password))
                 {
-                    ApplicationUser user = new ApplicationUser
-                    {
-                        Id = currentUserId,
-                        Password = model.NewPassword
-                    };
-                    if (_ApplicationUserRepo.ChangePassword(user))
+                    if (_ApplicationUserRepo.ChangePassword(currentUserId, model.NewPassword ))
                     {
                         return RedirectToAction("Details", "Account");
                     }

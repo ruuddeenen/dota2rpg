@@ -53,10 +53,7 @@ namespace DefenceOfTheAncientsRPG.Logic
                 if (user.Id == id)
                     return user;
             }
-            throw new UserDoesNotExistException();
-
-            // OR
-            // return context.GetUserByID(id);
+            throw new EntryDoesNotExistException();
         }
 
         /// <summary>
@@ -71,7 +68,7 @@ namespace DefenceOfTheAncientsRPG.Logic
                 if (user.Username == username)
                     return user;
             }
-            throw new UserDoesNotExistException();
+            throw new EntryDoesNotExistException();
         }
         /// <summary>
         /// Edits a user's first name, last name and email address.
@@ -83,12 +80,12 @@ namespace DefenceOfTheAncientsRPG.Logic
             return context.Edit(user);
         }
 
-        public bool ChangePassword(ApplicationUser user)
+        public bool ChangePassword(string userid, string newPassword)
         {
-            if (PasswordChecker(user.Password))
+            if (PasswordChecker(newPassword))
             {
-                user.Password = SecurePasswordHasher.Hash(user.Password);
-                return context.ChangePassword(user);
+                newPassword = SecurePasswordHasher.Hash(newPassword);
+                return context.ChangePassword(userid, newPassword);
             }
             else return false;
         }
@@ -113,7 +110,7 @@ namespace DefenceOfTheAncientsRPG.Logic
                 }
                 throw new IncorrectPasswordException();
             }
-            throw new UserDoesNotExistException();
+            throw new EntryDoesNotExistException();
         }
 
         /// <summary>
@@ -124,7 +121,6 @@ namespace DefenceOfTheAncientsRPG.Logic
         /// <returns>True if succeeded, false if failed.</returns>
         public bool BlockUser(BlockedUserInfo info)
         {
-            info.Block = true;
             return context.BlockUser(info);
         }
 
@@ -135,10 +131,9 @@ namespace DefenceOfTheAncientsRPG.Logic
         /// <param name="user">The user to unblock.</param>
         /// <param name="message">Message for the unblocked user.</param>
         /// <returns>True if succeeded, false if failed.</returns>
-        public bool UnblockUser(BlockedUserInfo info)
+        public bool UnblockUser(string userId)
         {
-            info.Block = false;
-            return context.BlockUser(info);
+            return context.Unblock(userId);
         }
 
         private bool PasswordChecker(string password)
@@ -152,6 +147,11 @@ namespace DefenceOfTheAncientsRPG.Logic
                 else throw new PasswordDoesNotContainNumberException();
             }
             else throw new PasswordDoesNotContainCapitalException();
+        }
+
+        public BlockedUserInfo GetBlockedUserInfoByUserId(string userId)
+        {
+            return context.GetBlockedUserInfo(userId);
         }
     }
 }

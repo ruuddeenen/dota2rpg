@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DefenceOfTheAncientsRPG.Models;
+using DefenceOfTheAncientsRPG.Exceptions;
 
 namespace DefenceOfTheAncientsRPG.Data
 {
     public class ApplicationUserMemoryContext : IApplicationUserContext
     {
         private List<ApplicationUser> Users = new List<ApplicationUser>();
+        private List<BlockedUserInfo> BlockedUsersInfo = new List<BlockedUserInfo>();
 
         public ApplicationUserMemoryContext()
         {
@@ -16,12 +18,28 @@ namespace DefenceOfTheAncientsRPG.Data
 
         public bool BlockUser(BlockedUserInfo info)
         {
-            throw new NotImplementedException();
+            foreach (BlockedUserInfo bui in BlockedUsersInfo)
+            {
+                if (info.UserId == bui.UserId)
+                {
+                    throw new EntryAlreadyExistsException("An entry for this userId already exist");
+                }
+            }
+            BlockedUsersInfo.Add(info);
+            return true;
         }
 
-        public bool ChangePassword(ApplicationUser user)
+        public bool ChangePassword(string userid, string newpassword)
         {
-            throw new NotImplementedException();
+            foreach (ApplicationUser user in Users)
+            {
+                if (userid == user.Id)
+                {
+                    user.Password = newpassword;
+                    return true;
+                }
+            }
+            throw new EntryDoesNotExistException();
         }
 
         public bool Edit(ApplicationUser editedUser)
@@ -36,13 +54,25 @@ namespace DefenceOfTheAncientsRPG.Data
                     return true;
                 }
             }
-            return false;
+            throw new EntryDoesNotExistException();
         }
 
 
         public List<ApplicationUser> GetAllUsers()
         {
             return Users;
+        }
+
+        public BlockedUserInfo GetBlockedUserInfo(string userId)
+        {
+            foreach (BlockedUserInfo bui in BlockedUsersInfo)
+            {
+                if (bui.UserId == userId)
+                {
+                    return bui;
+                }
+            }
+            throw new EntryDoesNotExistException("No BlockedUserInfo does not exist with the given userId");
         }
 
         public ApplicationUser GetUserById(string id)
@@ -81,7 +111,27 @@ namespace DefenceOfTheAncientsRPG.Data
 
         public bool IsBlocked(ApplicationUser user)
         {
-            throw new NotImplementedException();
+            foreach (BlockedUserInfo info in BlockedUsersInfo)
+            {
+                if (info.UserId == user.Id)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool Unblock(string userId)
+        {
+            foreach (BlockedUserInfo info in BlockedUsersInfo)
+            {
+                if (userId == info.UserId)
+                {
+                    BlockedUsersInfo.Remove(info);
+                    return true;
+                }
+            }
+            throw new EntryDoesNotExistException("An entry with given userId does not exist");
         }
     }
 }

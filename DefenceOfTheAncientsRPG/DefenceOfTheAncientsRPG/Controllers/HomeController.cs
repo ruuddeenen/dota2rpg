@@ -63,7 +63,7 @@ namespace DefenceOfTheAncientsRPG.Controllers
                     return RedirectToAction("Details", "Account");
                 }
             }
-            catch (UserDoesNotExistException)
+            catch (EntryDoesNotExistException)
             {
                 ViewBag.ErrorMessage = "User does not exist.";
                 return View();

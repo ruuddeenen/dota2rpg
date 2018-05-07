@@ -18,17 +18,21 @@ namespace DefenseOfTheAncientsRPGTests
         public void Initialize()
         {
             userRepo = new ApplicationUserRepository(new ApplicationUserMemoryContext());
-            ApplicationUser user = new ApplicationUser("tester", "Pass123", "test@test.com", "Mister", "Test");
+            ApplicationUser testUser = new ApplicationUser("testUser", "Test123", "test@test.com", "Mr.", "Test");
+            userRepo.Insert(testUser);
         }
 
         [TestMethod]
         public void TestInsertAndGetAllUsers()
         {
+            Assert.AreEqual(1, userRepo.GetAllUsers().Count);
+            Assert.AreEqual("testUser", userRepo.GetAllUsers()[0].Username);
+
             ApplicationUser user = new ApplicationUser("john-doe", "Pass123", "john@doe.com", "John", "Doe");
             userRepo.Insert(user);
-            Assert.AreEqual(user.FirstName, userRepo.GetAllUsers()[0].FirstName);
-            Assert.AreEqual(user.LastName, userRepo.GetAllUsers()[0].LastName);
-            Assert.AreEqual(user.Password, userRepo.GetAllUsers()[0].Password);
+            Assert.AreEqual(user.FirstName, userRepo.GetAllUsers()[1].FirstName);
+            Assert.AreEqual(user.LastName, userRepo.GetAllUsers()[1].LastName);
+            Assert.AreEqual(user.Password, userRepo.GetAllUsers()[1].Password);
         }
 
         [TestMethod]
@@ -49,7 +53,7 @@ namespace DefenseOfTheAncientsRPGTests
                 userRepo.GetUserById(testId);
                 Assert.Fail("The user Id does not exist. UserDoesNotExistException not catched.");
             }
-            catch (UserDoesNotExistException) { }
+            catch (EntryDoesNotExistException) { }
         }
 
         [TestMethod]
@@ -67,21 +71,50 @@ namespace DefenseOfTheAncientsRPGTests
                 userRepo.GetUserByUsername(testUsername);
                 Assert.Fail("The username does not exist. UserDoesNotExistException not catched.");
             }
-            catch (UserDoesNotExistException) { }
+            catch (EntryDoesNotExistException) { }
         }
 
         [TestMethod]
         public void TestEdit()
         {
-            throw new NotImplementedException();
+            string firstName = "Ruud";
+            string lastName = "Deenen";
+            string email = "ruuddeenen@mail.nl";
+
+            ApplicationUser user = userRepo.GetUserByUsername("testUser");
+            user.FirstName = firstName;
+            user.LastName = lastName;
+            user.Email = email;
+
+            Assert.IsTrue(userRepo.Edit(user));
+
+            user = userRepo.GetUserByUsername("testUser");
+
+            Assert.AreEqual(user.FirstName, firstName);
+            Assert.AreEqual(user.LastName, lastName);
+            Assert.AreEqual(user.Email, email);
         }
 
         [TestMethod]
         public void TestChangePassword()
         {
-            ApplicationUser user = userRepo.GetUserByUsername("john-doe");
-            user.Password = "123456";
-            userRepo.ChangePassword(user);
+            ApplicationUser user = userRepo.GetUserByUsername("testUser");
+
+            Assert.IsTrue(userRepo.ChangePassword(user.Id, "newPass123"));
+
+            try
+            {
+                userRepo.ChangePassword(user.Id, "newpass123");
+                Assert.Fail("Password not in correct format. PasswordDoesNotContainCapitalException not catched.");
+            }
+            catch (PasswordDoesNotContainCapitalException) { }
+
+            try
+            {
+                userRepo.ChangePassword(user.Id, "newPass");
+                Assert.Fail("Password not in correct format. PasswordDoesNotContainNumberException not catched.");
+            }
+            catch (PasswordDoesNotContainNumberException) { }
         }
 
         [TestMethod]
@@ -106,13 +139,34 @@ namespace DefenseOfTheAncientsRPGTests
                 userRepo.Login("usernamefail", password);
                 Assert.Fail("The username does not exist. UserDoesNotExistException not catched");
             }
-            catch (UserDoesNotExistException) { }
+            catch (EntryDoesNotExistException) { }
         }
 
         [TestMethod]
         public void TestBlockAndUnblock()
         {
-            throw new NotImplementedException();
+            string adminId = "this is a fake admin id";
+            BlockedUserInfo info = new BlockedUserInfo("test", userRepo.GetUserByUsername("testUser").Id, adminId);
+
+            Assert.IsTrue(userRepo.BlockUser(info));
+
+            Assert.AreEqual(userRepo.GetBlockedUserInfoByUserId(info.UserId), info);
+
+            try
+            {
+                userRepo.BlockUser(info);
+                Assert.Fail("Entry with this userId already exists, EntryAlreadyExistsExceptions not catched.");
+            }
+            catch (EntryAlreadyExistsException) { }
+
+            Assert.IsTrue(userRepo.UnblockUser(info.UserId));
+
+            try
+            {
+                userRepo.GetBlockedUserInfoByUserId(info.UserId);
+                Assert.Fail("No entry should exist in the List");
+            }
+            catch (EntryDoesNotExistException) { }
         }
     }
 }

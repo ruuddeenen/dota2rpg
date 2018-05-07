@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DefenceOfTheAncientsRPG.Models;
 using DefenceOfTheAncientsRPG.Data;
+using DefenceOfTheAncientsRPG.Exceptions;
 
 namespace DefenceOfTheAncientsRPG.Logic
 {
@@ -13,7 +14,7 @@ namespace DefenceOfTheAncientsRPG.Logic
 
         public AdministratorRepository(IAdministratorContext context)
         {
-            this.context = context; 
+            this.context = context;
         }
 
 
@@ -78,19 +79,26 @@ namespace DefenceOfTheAncientsRPG.Logic
         /// <summary>
         /// Changes the password of a admin
         /// </summary>
-        /// <param name="admin">The admin with the already changed password.</param>
+        /// <param name="admin">The admin id</param>
+        /// <param name="newPassword">The new password</param>
         /// <returns>Return true if succeeded, false if failed.</returns>
-        public bool ChangePassword(Administrator admin)
+        public bool ChangePassword(string adminid, string newPassword)
         {
-            if (!admin.Activated)
+            Administrator admin = GetAdminById(adminid);
+            if (PasswordChecker(newPassword))
             {
-                if (Activate(admin))
+                if (!admin.Activated)
                 {
-                    admin.Password = SecurePasswordHasher.Hash(admin.Password);
+                    if (Activate(admin))
+                    {
+                        admin.Password = SecurePasswordHasher.Hash(admin.Password);
+                    }
+                    else return false;
                 }
-                else return false;
+                return context.ChangePassword(admin);
+
             }
-            return context.ChangePassword(admin);
+            else return false;
         }
 
         /// <summary>
@@ -101,6 +109,19 @@ namespace DefenceOfTheAncientsRPG.Logic
         public bool Activate(Administrator admin)
         {
             return context.Activate(admin);
+        }
+
+        private bool PasswordChecker(string password)
+        {
+            if (password.Any(c => char.IsUpper(c)))
+            {
+                if (password.Any(c => char.IsNumber(c)))
+                {
+                    return true;
+                }
+                else throw new PasswordDoesNotContainNumberException();
+            }
+            else throw new PasswordDoesNotContainCapitalException();
         }
     }
 }

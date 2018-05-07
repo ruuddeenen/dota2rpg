@@ -136,14 +136,15 @@ namespace DefenceOfTheAncientsRPG.Controllers
         {
             if (ModelState.IsValid)
             {
-                BlockedUserInfo info = new BlockedUserInfo
+                BlockedUserInfo info;
+                if (model.Until == null)
                 {
-                    UserId = model.UserId,
-                    AdminId = model.AdminId,
-                    Message = model.Message,
-                    Since = model.From,
-                    Until = model.Until
-                };
+                    info = new BlockedUserInfo(model.Message, model.UserId, model.AdminId);
+                }
+                else
+                {
+                    info = new BlockedUserInfo(model.Message, model.UserId, model.AdminId, model.Until);
+                }
 
                 if (_UserRepo.BlockUser(info))
                 {

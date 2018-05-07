@@ -9,8 +9,29 @@ namespace DefenceOfTheAncientsRPG.Data
 {
     public class AdministratorMemoryContext : IAdministratorContext
     {
-        private List<Administrator> Admins = new List<Administrator>();
-        private List<ApplicationUser> Users = new List<ApplicationUser>();
+        private List<Administrator> Admins;
+        private List<ApplicationUser> Users;
+
+        public AdministratorMemoryContext()
+        {
+            Administrator superUser = new Administrator
+            {
+                ID = Guid.NewGuid().ToString(),
+                Username = "a.SuperUser",
+                Password = Logic.SecurePasswordHasher.Hash("SU@123"),
+                FirstName = "Super",
+                LastName = "User",
+                DateOfBirth = DateTime.Now,
+                CreatedOn = DateTime.Now,
+                Activated = true
+            };
+            Admins = new List<Administrator>
+            {
+                superUser
+            };
+            Users = new List<ApplicationUser>();
+            
+        }
 
         public bool BlockUser(bool block, ApplicationUser userToBlock, string message)
         {

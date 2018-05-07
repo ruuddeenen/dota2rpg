@@ -47,8 +47,13 @@ namespace DefenceOfTheAncientsRPG.Data
         /// </summary>
         /// <param name="user">The user with the already changed password.</param>
         /// <returns>Return true if succeeded, false if failed.</returns>
-        bool ChangePassword(ApplicationUser user);
+        bool ChangePassword(string userid, string newpassword);
 
+        /// <summary>
+        /// Check is a user is blocked
+        /// </summary>
+        /// <param name="user">The user to check for</param>
+        /// <returns></returns>
         bool IsBlocked(ApplicationUser user);
 
 
@@ -60,5 +65,14 @@ namespace DefenceOfTheAncientsRPG.Data
         /// <param name="block">True if you want to block, false if you want to unblock.</param>
         /// <returns>True if succeeded, false if failed.</returns>
         bool BlockUser(BlockedUserInfo info);
+
+        /// <summary>
+        /// Unblocks a blocked user.
+        /// </summary>
+        /// <param name="userId">The user to block</param>
+        /// <returns></returns>
+        bool Unblock(string userId);
+
+        BlockedUserInfo GetBlockedUserInfo(string userId);
     }
 }

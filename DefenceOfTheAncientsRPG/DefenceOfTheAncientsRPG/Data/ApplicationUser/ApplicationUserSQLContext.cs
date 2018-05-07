@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DefenceOfTheAncientsRPG.Data;
 using DefenceOfTheAncientsRPG.Models;
 using System.Data.SqlClient;
+using DefenceOfTheAncientsRPG.Exceptions;
 
 namespace DefenceOfTheAncientsRPG.Data
 {
@@ -114,12 +115,12 @@ namespace DefenceOfTheAncientsRPG.Data
             }
         }
 
-        public bool ChangePassword(ApplicationUser user)
+        public bool ChangePassword(string userid, string newpassword)
         {
             using (SqlConnection connection = Database.Connection)
             {
                 string query = string.Format("UPDATE ApplicationUsers SET PasswordHash = '{0}' WHERE Id = '{1}'",
-                   user.Password, user.Id);
+                   newpassword, userid);
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     try
@@ -179,22 +180,74 @@ namespace DefenceOfTheAncientsRPG.Data
         {
             using (SqlConnection connection = Database.Connection)
             {
-                string query1 = string.Format("INSERT INTO BlockedUsers (UserId, Message, Since, Until, ByAdminId)" +
+                string query = string.Format("INSERT INTO BlockedUsers (UserId, Message, Since, Until, ByAdminId)" +
                     " VALUES ('{0}', '{1}','{2}','{3}','{4}')",
                     info.UserId, info.Message, info.Since.ToString("yyyyMMdd"), info.Until.ToString("yyyyMMdd"), info.AdminId);
-                using (SqlCommand command = new SqlCommand(query1, connection))
+                using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     try
                     {
                         command.ExecuteNonQuery();
                         return true;
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
-                        throw e;
+                        throw;
                     }
                 }
             }
+        }
+
+        public bool Unblock(string userId)
+        {
+            using (SqlConnection connection = Database.Connection)
+            {
+                string query = string.Format("DELETE * FROM BlockedUsers WHERE UserId = '{0}'", userId);
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    try
+                    {
+                        command.ExecuteNonQuery();
+                        return true;
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                }
+            }
+        }
+        
+
+        public BlockedUserInfo GetBlockedUserInfo(string userId)
+        {
+            using (SqlConnection connection = Database.Connection)
+            {
+                string query = string.Format("SELECT * FROM BlockedUsers WHERE UserId = '{0}'", userId);
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            return CreateBlockedUserInfoFromReader(reader);
+                        }
+                        else throw new EntryDoesNotExistException();
+                    }
+                }
+            }
+        }
+
+        private BlockedUserInfo CreateBlockedUserInfoFromReader(SqlDataReader reader)
+        {
+            return new BlockedUserInfo
+            (
+                Convert.ToString(reader["Message"]),
+                Convert.ToString(reader["UserId"]),
+                Convert.ToString(reader["ByAdminId"]),
+                Convert.ToDateTime(reader["Since"]),
+                Convert.ToDateTime(reader["Until"])
+            );
         }
     }
 }

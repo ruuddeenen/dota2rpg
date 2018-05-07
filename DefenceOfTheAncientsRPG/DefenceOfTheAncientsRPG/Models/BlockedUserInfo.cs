@@ -12,11 +12,39 @@ namespace DefenceOfTheAncientsRPG.Models
         public string AdminId { get; set; }
         public DateTime Since { get; set; }
         public DateTime Until { get; set; }
-        public bool Block { get; set; }
 
-        public BlockedUserInfo()
+        public BlockedUserInfo(string message, string userId, string adminId)
         {
+            UserId = userId;
+            Message = message;
+            AdminId = AdminId;
+            Since = DateTime.Now;
+        }
 
+        public BlockedUserInfo(string message, string userId, string adminId, DateTime until)
+        {
+            UserId = userId;
+            Message = message;
+            AdminId = AdminId;
+            Since = DateTime.Now;
+            Until = until;
+        }
+
+        /// <summary>
+        /// Used for retrieving BlockedUserInfo from database.
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="userId"></param>
+        /// <param name="adminId"></param>
+        /// <param name="since"></param>
+        /// <param name="until"></param>
+        public BlockedUserInfo(string message, string userId, string adminId, DateTime since, DateTime until)
+        {
+            UserId = userId;
+            Message = message;
+            AdminId = AdminId;
+            Since = since;
+            Until = until;
         }
     }
 }

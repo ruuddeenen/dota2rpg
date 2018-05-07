@@ -18,11 +18,5 @@ namespace DefenseOfTheAncientsRPGTests
             Assert.AreNotEqual(hashedPass, password);
             Assert.IsTrue(SecurePasswordHasher.Verify(password, hashedPass));
         }
-
-        [TestMethod]
-        public void Testh()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

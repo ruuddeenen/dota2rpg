@@ -5,20 +5,20 @@ using System.Threading.Tasks;
 
 namespace DefenceOfTheAncientsRPG.Exceptions
 {
-    public class UserDoesNotExistException : Exception
+    public class EntryDoesNotExistException : Exception
     {
-        public UserDoesNotExistException()
+        public EntryDoesNotExistException()
         {
 
         }
 
-        public UserDoesNotExistException(string message)
+        public EntryDoesNotExistException(string message)
             : base(message)
         {
 
         }
 
-        public UserDoesNotExistException(string message, Exception inner)
+        public EntryDoesNotExistException(string message, Exception inner)
             : base(message, inner)
         {
 
