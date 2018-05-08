@@ -16,6 +16,7 @@ namespace DefenseOfTheAncientsRPGTests
         {
             adminRepo = new AdministratorRepository(new AdministratorMemoryContext());
 
+            Assert.AreEqual(1, adminRepo.GetAllAdmins().Count);
             Administrator testAdmin = new Administrator("Test123", "Name", "Surname")
             {
                 ID = "test-id"
@@ -24,19 +25,13 @@ namespace DefenseOfTheAncientsRPGTests
         }
 
         [TestMethod]
-        public void AutomaticSuperUserAddedTest()
-        {
-            Assert.AreEqual(1, adminRepo.GetAllAdmins().Count);
-        }
-
-        [TestMethod]
         public void TestInsertAndGetAll()
         {
             Administrator admin = new Administrator("pass123", "John", "Doe");
             adminRepo.Insert(admin);
-            Assert.AreEqual(admin.FirstName, adminRepo.GetAllAdmins()[1].FirstName);
-            Assert.AreEqual(admin.LastName, adminRepo.GetAllAdmins()[1].LastName);
-            Assert.AreEqual(admin.Password, adminRepo.GetAllAdmins()[1].Password);
+            Assert.AreEqual(admin.FirstName, adminRepo.GetAllAdmins()[2].FirstName);
+            Assert.AreEqual(admin.LastName, adminRepo.GetAllAdmins()[2].LastName);
+            Assert.AreEqual(admin.Password, adminRepo.GetAllAdmins()[2].Password);
 
             try
             {
@@ -54,7 +49,7 @@ namespace DefenseOfTheAncientsRPGTests
 
             try
             {
-                admin = adminRepo.GetAdminById("this is doesnt exist");
+                admin = adminRepo.GetAdminById("this id doesnt exist");
                 Assert.Fail();
             }
             catch (EntryDoesNotExistException) { }

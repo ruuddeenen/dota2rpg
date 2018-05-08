@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DefenceOfTheAncientsRPG.Logic;
 using DefenceOfTheAncientsRPG.Models;
+using DefenceOfTheAncientsRPG.Exceptions;
 
 namespace DefenceOfTheAncientsRPG.Data
 {
@@ -33,19 +34,6 @@ namespace DefenceOfTheAncientsRPG.Data
             
         }
 
-        public bool BlockUser(bool block, ApplicationUser userToBlock, string message)
-        {
-            foreach(ApplicationUser user in Users)
-            {
-                if (userToBlock.Id == user.Id)
-                {
-                    if (block) user.Active = false;
-                    else user.Active = true;
-                }
-            }
-            return false;
-        }
-
         public List<Administrator> GetAllAdmins()
         {
             return Admins;
@@ -64,19 +52,30 @@ namespace DefenceOfTheAncientsRPG.Data
             }
         }
 
-        public bool ChangePassword(Administrator admin)
+        public bool ChangePassword(string adminId, string newPassword)
         {
-            throw new NotImplementedException();
+            foreach (Administrator admin in Admins)
+            {
+                if (admin.ID == adminId)
+                {
+                    admin.Password = newPassword;
+                    return true;
+                }
+            }
+            throw new EntryDoesNotExistException();
         }
 
         public bool Activate(Administrator admin)
         {
-            throw new NotImplementedException();
-        }
-
-        public bool BlockUser(BlockedUserInfo info)
-        {
-            throw new NotImplementedException();
+            foreach (Administrator Admin in Admins)
+            {
+                if (admin.ID == Admin.ID)
+                {
+                    admin.Activated = true;
+                    return true;
+                }
+            }
+            throw new EntryDoesNotExistException();
         }
     }
 }

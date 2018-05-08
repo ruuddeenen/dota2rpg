@@ -107,12 +107,12 @@ namespace DefenceOfTheAncientsRPG.Data
             return null;
         }
 
-        public bool ChangePassword(Administrator admin)
+        public bool ChangePassword(string adminId, string newPassword)
         {
             using (SqlConnection connection = Database.Connection)
             {
                 string query = string.Format("UPDATE Administrators SET PasswordHash = '{0}' WHERE Id = '{1}'",
-                   admin.Password, admin.ID);
+                   newPassword, adminId);
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     try

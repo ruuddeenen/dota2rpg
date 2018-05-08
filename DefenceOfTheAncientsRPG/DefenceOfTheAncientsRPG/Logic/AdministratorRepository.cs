@@ -36,6 +36,13 @@ namespace DefenceOfTheAncientsRPG.Logic
         /// <returns>True if succeeded, false if failed.</returns>
         public bool Insert(Administrator admin)
         {
+            foreach (Administrator a in GetAllAdmins())
+            {
+                if (a.ID == admin.ID)
+                {
+                    throw new EntryAlreadyExistsException();
+                }
+            }
             return context.Insert(admin);
         }
 
@@ -54,7 +61,7 @@ namespace DefenceOfTheAncientsRPG.Logic
                     return admin;
                 }
             }
-            return null;
+            throw new EntryDoesNotExistException();
         }
 
 
@@ -72,7 +79,7 @@ namespace DefenceOfTheAncientsRPG.Logic
                     return admin;
                 }
             }
-            return null;
+            throw new EntryDoesNotExistException();
         }
 
 
@@ -89,13 +96,9 @@ namespace DefenceOfTheAncientsRPG.Logic
             {
                 if (!admin.Activated)
                 {
-                    if (Activate(admin))
-                    {
-                        admin.Password = SecurePasswordHasher.Hash(admin.Password);
-                    }
-                    else return false;
+                    Activate(admin);
                 }
-                return context.ChangePassword(admin);
+                return context.ChangePassword(adminid, SecurePasswordHasher.Hash(newPassword));
 
             }
             else return false;

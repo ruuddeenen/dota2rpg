@@ -27,7 +27,7 @@ namespace DefenceOfTheAncientsRPG.Data
         /// </summary>
         /// <param name="admin">The admin with the already changed password.</param>
         /// <returns>Return true if succeeded, false if failed.</returns>
-        bool ChangePassword(Administrator admin);
+        bool ChangePassword(string adminId, string newPassword);
 
         /// <summary>
         /// Activates an admin account

@@ -99,7 +99,8 @@ namespace DefenceOfTheAncientsRPG.Controllers
         {
             if (ModelState.IsValid)
             {
-                Administrator currentAdmin = _AdminRepo.GetAdminById(HttpContext.Session.GetString("currentUserId"));
+                string currentUserId = HttpContext.Session.GetString("currentUserId");
+                Administrator currentAdmin = _AdminRepo.GetAdminById(currentUserId);
                 if (currentAdmin.Activated)
                 {
                     ViewBag.Warning = "Change your password often to be safe";
@@ -112,7 +113,7 @@ namespace DefenceOfTheAncientsRPG.Controllers
                         return View();
                 }
                 currentAdmin.Password = model.NewPassword;
-                if (_AdminRepo.ChangePassword(currentAdmin))
+                if (_AdminRepo.ChangePassword(currentUserId, model.NewPassword))
                 {
                     return RedirectToAction("ManageAdmins");
                 }
