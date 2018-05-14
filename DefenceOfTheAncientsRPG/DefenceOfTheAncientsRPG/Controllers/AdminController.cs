@@ -72,7 +72,7 @@ namespace DefenceOfTheAncientsRPG.Controllers
             {
                 if (SecurePasswordHasher.Verify(model.Password, admin.Password)) // Logged in
                 {
-                    HttpContext.Session.SetString("currentUserId", admin.ID);
+                    HttpContext.Session.SetString("currentUserId", admin.Id);
                     return RedirectToAction("ManageAdmins");
                 }
             }
@@ -80,7 +80,7 @@ namespace DefenceOfTheAncientsRPG.Controllers
             {
                 if (model.Password == admin.Password)
                 {
-                    HttpContext.Session.SetString("currentUserId", admin.ID);
+                    HttpContext.Session.SetString("currentUserId", admin.Id);
                     return RedirectToAction("ChangePassword");
                 }
             }

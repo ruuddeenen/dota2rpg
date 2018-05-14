@@ -24,12 +24,19 @@ namespace DefenceOfTheAncientsRPG.Logic
         /// <returns> Returns true if succeeded, false if not. </returns>
         public bool Insert(ApplicationUser user)
         {
-            if (PasswordChecker(user.Password))
+            try
             {
-                user.Password = SecurePasswordHasher.Hash(user.Password);
-                return context.Insert(user);
+                GetUserByUsername(user.Username);
             }
-            else return false;
+            catch (EntryDoesNotExistException)
+            {
+                if (PasswordChecker(user.Password))
+                {
+                    user.Password = SecurePasswordHasher.Hash(user.Password);
+                    return context.Insert(user);
+                }
+            }
+            throw new EntryAlreadyExistsException("Username already exists.");
         }
 
         /// <summary>
@@ -138,15 +145,19 @@ namespace DefenceOfTheAncientsRPG.Logic
 
         private bool PasswordChecker(string password)
         {
-            if (password.Any(c => char.IsUpper(c)))
+            if (password.Any(c => char.IsLower(c)))
             {
-                if (password.Any(c => char.IsNumber(c)))
+                if (password.Any(c => char.IsUpper(c)))
                 {
-                    return true;
+                    if (password.Any(c => char.IsNumber(c)))
+                    {
+                        return true;
+                    }
+                    else throw new PasswordFormatException("Password does not contain a numeric character.");
                 }
-                else throw new PasswordDoesNotContainNumberException();
+                else throw new PasswordFormatException("Password does not contain an upper case character.");
             }
-            else throw new PasswordDoesNotContainCapitalException();
+            else throw new PasswordFormatException("Password does not contain a lower case character.");
         }
 
         public BlockedUserInfo GetBlockedUserInfoByUserId(string userId)

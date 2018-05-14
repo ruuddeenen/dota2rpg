@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.Web;
 
 namespace DefenceOfTheAncientsRPG.Models.AccountViewModel
 {
@@ -19,11 +20,13 @@ namespace DefenceOfTheAncientsRPG.Models.AccountViewModel
         public string LastName { get; set; }
 
         [Required]
-        [StringLength(100,ErrorMessage = "The username must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+        [StringLength(20,ErrorMessage = "The username must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
         public string Username { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
+        [RegularExpression(@"^(((?=.*[a-z])(?=.*[A-Z])(?=.*\d)).+$)", ErrorMessage = "Password should contain at least one lowercase-, one uppercase- and one numeric character.")]
+        [StringLength(20,ErrorMessage = "The password must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
         public string Password { get; set; }
 
         [Required]

@@ -8,7 +8,7 @@ namespace DefenceOfTheAncientsRPG.Models
 {
     public class Administrator
     {
-        public string ID { get; set; }
+        public string Id { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
         public string FirstName { get; set; }
@@ -26,7 +26,7 @@ namespace DefenceOfTheAncientsRPG.Models
 
         public Administrator(string password, string firstName, string lastName)
         {
-            ID = Guid.NewGuid().ToString();
+            Id = Guid.NewGuid().ToString();
             Username = CreateUsername(firstName, lastName);
             Password = password;
             FirstName = firstName;
@@ -34,9 +34,9 @@ namespace DefenceOfTheAncientsRPG.Models
             Activated = false;
         }
 
-        private string CreateUsername(string fn, string ln)
+        private string CreateUsername(string firstname, string lastname)
         {
-            return string.Format("a.{0}{1}", fn, ln);
+            return string.Format("a.{0}{1}", firstname, lastname);
         }
     }
 }

@@ -37,7 +37,7 @@ namespace DefenceOfTheAncientsRPG.Data
             {
                 string query = string.Format("INSERT INTO Administrators (Id, Username, PasswordHash, FirstName, LastName, DateOfBirth, CreatedOn)" +
                     " VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}')",
-                    admin.ID, admin.Username, admin.Password, admin.FirstName, admin.LastName, admin.DateOfBirth.ToString("yyyyMMdd"), admin.CreatedOn.ToString("yyyyMMdd"));
+                    admin.Id, admin.Username, admin.Password, admin.FirstName, admin.LastName, admin.DateOfBirth.ToString("yyyyMMdd"), admin.CreatedOn.ToString("yyyyMMdd"));
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     try
@@ -58,7 +58,7 @@ namespace DefenceOfTheAncientsRPG.Data
         {
             return new Administrator
             {
-                ID = Convert.ToString(reader["Id"]),
+                Id = Convert.ToString(reader["Id"]),
                 Username = Convert.ToString(reader["Username"]),
                 Password = Convert.ToString(reader["PasswordHash"]),
                 FirstName = Convert.ToString(reader["FirstName"]),
@@ -132,7 +132,7 @@ namespace DefenceOfTheAncientsRPG.Data
         {
             using (SqlConnection connection = Database.Connection)
             {
-                string query = string.Format("UPDATE Administrators SET Activated = 'True' WHERE Id = '{0}'", admin.ID);
+                string query = string.Format("UPDATE Administrators SET Activated = 'True' WHERE Id = '{0}'", admin.Id);
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     try

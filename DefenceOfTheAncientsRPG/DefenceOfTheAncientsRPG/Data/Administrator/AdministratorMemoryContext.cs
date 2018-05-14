@@ -17,7 +17,7 @@ namespace DefenceOfTheAncientsRPG.Data
         {
             Administrator superUser = new Administrator
             {
-                ID = Guid.NewGuid().ToString(),
+                Id = Guid.NewGuid().ToString(),
                 Username = "a.SuperUser",
                 Password = Logic.SecurePasswordHasher.Hash("SU@123"),
                 FirstName = "Super",
@@ -56,7 +56,7 @@ namespace DefenceOfTheAncientsRPG.Data
         {
             foreach (Administrator admin in Admins)
             {
-                if (admin.ID == adminId)
+                if (admin.Id == adminId)
                 {
                     admin.Password = newPassword;
                     return true;
@@ -69,7 +69,7 @@ namespace DefenceOfTheAncientsRPG.Data
         {
             foreach (Administrator Admin in Admins)
             {
-                if (admin.ID == Admin.ID)
+                if (admin.Id == Admin.Id)
                 {
                     admin.Activated = true;
                     return true;

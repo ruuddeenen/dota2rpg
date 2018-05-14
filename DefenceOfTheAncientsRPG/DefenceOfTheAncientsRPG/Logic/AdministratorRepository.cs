@@ -38,7 +38,7 @@ namespace DefenceOfTheAncientsRPG.Logic
         {
             foreach (Administrator a in GetAllAdmins())
             {
-                if (a.ID == admin.ID)
+                if (a.Id == admin.Id)
                 {
                     throw new EntryAlreadyExistsException();
                 }
@@ -56,7 +56,7 @@ namespace DefenceOfTheAncientsRPG.Logic
         {
             foreach (Administrator admin in GetAllAdmins())
             {
-                if (admin.ID == id)
+                if (admin.Id == id)
                 {
                     return admin;
                 }
@@ -116,15 +116,19 @@ namespace DefenceOfTheAncientsRPG.Logic
 
         private bool PasswordChecker(string password)
         {
-            if (password.Any(c => char.IsUpper(c)))
+            if (password.Any(c => char.IsLower(c)))
             {
-                if (password.Any(c => char.IsNumber(c)))
+                if (password.Any(c => char.IsUpper(c)))
                 {
-                    return true;
+                    if (password.Any(c => char.IsNumber(c)))
+                    {
+                        return true;
+                    }
+                    else throw new PasswordFormatException("Password does not contain a numeric character.");
                 }
-                else throw new PasswordDoesNotContainNumberException();
+                else throw new PasswordFormatException("Password does not contain an upper case character.");
             }
-            else throw new PasswordDoesNotContainCapitalException();
+            else throw new PasswordFormatException("Password does not contain a lower case character.");
         }
     }
 }

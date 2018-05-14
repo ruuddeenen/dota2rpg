@@ -19,7 +19,7 @@ namespace DefenseOfTheAncientsRPGTests
             Assert.AreEqual(1, adminRepo.GetAllAdmins().Count);
             Administrator testAdmin = new Administrator("Test123", "Name", "Surname")
             {
-                ID = "test-id"
+                Id = "test-id"
             };
             adminRepo.Insert(testAdmin);
         }
@@ -76,11 +76,45 @@ namespace DefenseOfTheAncientsRPGTests
         {
             Administrator admin = adminRepo.GetAdminById("test-id");
 
-            adminRepo.ChangePassword(admin.ID, "newPass123");
+            adminRepo.ChangePassword(admin.Id, "newPass123");
 
             Assert.IsTrue(SecurePasswordHasher.Verify("newPass123", adminRepo.GetAdminById("test-id").Password));
+
+
+            try
+            {
+                adminRepo.ChangePassword(admin.Id, "newpass123");
+                Assert.Fail("Password not in correct format. PasswordFormatException not catched. Upper case character required.");
+            }
+            catch (PasswordFormatException) { }
+
+            try
+            {
+                adminRepo.ChangePassword(admin.Id, "newPass");
+                Assert.Fail("Password not in correct format. PasswordFormatException not catched. Numeric character required");
+            }
+            catch (PasswordFormatException) { }
+
+            try
+            {
+                adminRepo.ChangePassword(admin.Id, "NEWPASS123");
+                Assert.Fail("Password not in correct format. PasswordFormatException not catched. Lower case character required");
+
+            }
+            catch (PasswordFormatException) { }
         }
 
+        [TestMethod]
+        public void TestActivateAdmin()
+        {
+            Administrator admin = adminRepo.GetAdminById("test-id");
+            Assert.IsFalse(admin.Activated);
+
+            adminRepo.Activate(admin);
+
+            admin = adminRepo.GetAdminById("test-id");
+            Assert.IsTrue(admin.Activated);
+        }
 
     }
 }

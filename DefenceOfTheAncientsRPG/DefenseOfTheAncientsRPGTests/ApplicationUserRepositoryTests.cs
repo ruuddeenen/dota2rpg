@@ -105,16 +105,24 @@ namespace DefenseOfTheAncientsRPGTests
             try
             {
                 userRepo.ChangePassword(user.Id, "newpass123");
-                Assert.Fail("Password not in correct format. PasswordDoesNotContainCapitalException not catched.");
+                Assert.Fail("Password not in correct format. PasswordFormatException not catched. UpperCase required.");
             }
-            catch (PasswordDoesNotContainCapitalException) { }
+            catch (PasswordFormatException) { }
 
             try
             {
                 userRepo.ChangePassword(user.Id, "newPass");
-                Assert.Fail("Password not in correct format. PasswordDoesNotContainNumberException not catched.");
+                Assert.Fail("Password not in correct format. PasswordFormatException not catched. Numeric required");
             }
-            catch (PasswordDoesNotContainNumberException) { }
+            catch (PasswordFormatException) { }
+
+            try
+            {
+                userRepo.ChangePassword(user.Id, "NEWPASS123");
+                Assert.Fail("Password not in correct format. PasswordFormatException not catched. LowerCase required");
+
+            }
+            catch (PasswordFormatException) { }
         }
 
         [TestMethod]
@@ -167,6 +175,19 @@ namespace DefenseOfTheAncientsRPGTests
                 Assert.Fail("No entry should exist in the List");
             }
             catch (EntryDoesNotExistException) { }
+        }
+
+        [TestMethod]
+        public void TestInsertExistingUsername()
+        {
+            try
+            {
+                ApplicationUser testUser = new ApplicationUser("testUser", "Test123", "test@test.com", "Mr.", "Test");
+                userRepo.Insert(testUser);
+                Assert.Fail();
+            }
+            catch (EntryAlreadyExistsException) { }
+
         }
     }
 }

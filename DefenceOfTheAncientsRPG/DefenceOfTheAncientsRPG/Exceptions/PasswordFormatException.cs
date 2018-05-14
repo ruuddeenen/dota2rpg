@@ -5,21 +5,21 @@ using System.Threading.Tasks;
 
 namespace DefenceOfTheAncientsRPG.Exceptions
 {
-    public class PasswordDoesNotContainNumberException : Exception
+    public class PasswordFormatException : Exception
     {
 
-        public PasswordDoesNotContainNumberException()
+        public PasswordFormatException()
         {
 
         }
 
-        public PasswordDoesNotContainNumberException(string message)
+        public PasswordFormatException(string message)
             : base(message)
         {
 
         }
 
-        public PasswordDoesNotContainNumberException(string message, Exception inner)
+        public PasswordFormatException(string message, Exception inner)
             : base(message, inner)
         {
 

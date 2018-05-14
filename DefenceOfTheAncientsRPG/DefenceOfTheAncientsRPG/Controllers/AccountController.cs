@@ -9,6 +9,7 @@ using DefenceOfTheAncientsRPG.Models.AccountViewModel;
 using DefenceOfTheAncientsRPG.Data;
 using DefenceOfTheAncientsRPG.Logic;
 using Microsoft.AspNetCore.Session;
+using DefenceOfTheAncientsRPG.Exceptions;
 
 namespace DefenceOfTheAncientsRPG.Controllers
 {
@@ -46,9 +47,14 @@ namespace DefenceOfTheAncientsRPG.Controllers
             if (ModelState.IsValid)
             {
                 ApplicationUser user = new ApplicationUser(model.Username, model.Password, model.Email, model.FirstName, model.LastName);
-                if (_ApplicationUserRepo.Insert(user))
+                try
                 {
+                    _ApplicationUserRepo.Insert(user);
                     return RedirectToAction("Details", "Account");
+                }
+                catch (EntryAlreadyExistsException)
+                {
+                    return View(model);
                 }
 
             }
@@ -98,6 +104,20 @@ namespace DefenceOfTheAncientsRPG.Controllers
                 }
             }
             return View();
+        }
+
+        [HttpGet]
+        public bool DoesUsernameExist(string username)
+        {
+            try
+            {
+                _ApplicationUserRepo.GetUserByUsername(username);
+                return true;
+            }
+            catch (EntryAlreadyExistsException)
+            {
+                return false;
+            }
         }
 
     }
