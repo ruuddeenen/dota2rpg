@@ -1,0 +1,10 @@
+Documentatie:
+x Use-cases uitbreiden/aanpassen zodat de interactie in stappen tussen de actor en het systeem duidelijk wordt.
+- Mijn testcases worden aangepast om mijn use cases aan te tonen.
+x In de use case wordt bij elke stap waar een exceptie gegooid kan worden, deze aangeduid tussen blokhaakjes.
+x Ik ga mijn klassendiagram uitbreiden zodat de logica wat duidelijk wordt.
+- Het database model en ER-model worden verbeterd met behulp van het SQL-dictaat.
+
+Code:
+x Ik ga unit tests opstellen voor mijn repository's
+- Het project wat ik nu heb ga ik momenteel niet uitbreiden maar ik ga me focussen op wat ik nu heb en dit foutloos te krijgen.

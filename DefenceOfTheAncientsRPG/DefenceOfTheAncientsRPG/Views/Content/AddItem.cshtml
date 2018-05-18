@@ -1,0 +1,133 @@
+﻿@model DefenceOfTheAncientsRPG.Models.ContentViewModel.ContentAddItemViewModel
+
+<h2>Add</h2>
+
+<h4>Item</h4>
+<hr />
+
+<div class="col-md-12">
+<ul class="nav nav-pills">
+    <li class="nav-item">
+        <a class="left tab-button" id="uploadButton">Import</a>
+    </li>
+    <li class="nav-item">
+        <a class="left tab-button" id="editButton">Manual</a>
+    </li>
+</ul>
+
+<!--UPLOAD-->
+<div id="uploadBox" class="box-content edit-box">
+    <div class="col-md-12">
+        <form asp-action="AddItemFromFile" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label asp-for="ImportFile"></label><br />
+                <input asp-for="ImportFile" type="file" name="file" id="file">
+                <span asp-validation-for="ImportFile" class="text-danger"></span>
+            </div>
+            @if (!string.IsNullOrWhiteSpace(ViewBag.ErrorMessage))
+            {<div class="alert alert-danger">@ViewBag.ErrorMessage</div>}
+            <div class="form-group">
+                <input type="submit" value="Upload file" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<!--EDIT-->
+<div id="editBox" class="box-content edit-box hidden">
+    <form asp-action="AddItem" method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Name" class="control-label"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Strength" class="control-label"></label>
+            <input asp-for="Strength" class="form-control" />
+            <span asp-validation-for="Strength" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Agility" class="control-label"></label>
+            <input asp-for="Agility" class="form-control" />
+            <span asp-validation-for="Agility" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Intelligence" class="control-label"></label>
+            <input asp-for="Intelligence" class="form-control" />
+            <span asp-validation-for="Intelligence" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Health" class="control-label"></label>
+            <input asp-for="Health" class="form-control" />
+            <span asp-validation-for="Health" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="HealthRegen" class="control-label"></label>
+            <input asp-for="HealthRegen" class="form-control" />
+            <span asp-validation-for="HealthRegen" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Attackspeed" class="control-label"></label>
+            <input asp-for="Attackspeed" class="form-control" />
+            <span asp-validation-for="Attackspeed" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Armor" class="control-label"></label>
+            <input asp-for="Armor" class="form-control" />
+            <span asp-validation-for="Armor" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Mana" class="control-label"></label>
+            <input asp-for="Mana" class="form-control" />
+            <span asp-validation-for="Mana" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for=" ManaRegen" class="control-label"></label>
+            <input asp-for=" ManaRegen" class="form-control" />
+            <span asp-validation-for=" ManaRegen" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Damage" class="control-label"></label>
+            <input asp-for="Damage" class="form-control" />
+            <span asp-validation-for="Damage" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Cost" class="control-label"></label>
+            <input asp-for="Cost" class="form-control" />
+            <span asp-validation-for="Cost" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </form>
+</div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $("#editButton").click(function () {
+            clear();
+            $("#editBox").removeClass("hidden");
+            $("#editButton").addClass("active");
+        });
+
+        $("#uploadButton").click(function () {
+            clear();
+            $("#uploadBox").removeClass("hidden");
+            $("#uploadButton").addClass("active");
+        });
+        function clear() {
+
+            $("#editBox").addClass("hidden");
+            $("#editButton").removeClass("active");
+
+            $("#uploadBox").addClass("hidden");
+            $("#uploadButton").removeClass("active");
+        }
+    </script>
+}

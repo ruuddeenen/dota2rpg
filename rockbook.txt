@@ -1,0 +1,22 @@
+- Error voor verkeerde password moet er komen
+- Homepagina wanneer ingelogd lelijk!!!11!1
+- Profielfoto moet groter worden
+- Interesse/event blokken allemaal even groot, rijen van 4
+- interessegroep beschrijving block groter	
+- kan nog geen png uploaden, accepteert wel
+- kan geen afbeelding/gif posten wanneer er geen tekst bij staat
+- gif werkt niet wanneer gepost
+- layout eventpagina
+- preposition tijdens registeren werkt niet
+- company links maken
+- edit event werkt ook niet
+- afbeelding blijft niet bij interestgrou16:20 17-5-2018p
+- searchtag lowercase/uppercase bug
+- bugfixen edit event vant searchcontroller
+- goede buttons
+
+
+
+
+meer demodata, goed opvullen
+mulitpart

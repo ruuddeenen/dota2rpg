@@ -64,13 +64,29 @@
         background: url(.../images/attributes/Agility_attribute_symbol.png); /* Green background */
         cursor: pointer; /* Cursor on hover */
     }
-    
+
 #Strength::-webkit-slider-thumb {
     background: url(.../images/attributes/Strength_attribute_symbol.png);
 }
-#Agility::-webkit-slider-thumb{
+
+#Agility::-webkit-slider-thumb {
     background: url(.../images/attributes/Agility_attribute_symbol.png);
 }
+
 #Intelligence::-webkit-slider-thumb {
     background: url(.../images/attributes/Intelligence_attribute_symbol.png);
 }
+
+#sliders {
+    width: 200px;
+}
+
+    #sliders li {
+        margin-bottom: 10px;
+    }
+
+    #sliders div {
+        margin-bottom: 5px;
+    }
+
+

@@ -1,13 +1,16 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
-namespace DefenceOfTheAncientsRPG.Models
+namespace DefenceOfTheAncientsRPG.Models.ContentViewModel
 {
-    public class Item
+    public class ContentAddItemViewModel
     {
-        public string Id { get; set; }
+        public IFormFile ImportFile { get; set; }
+
         public string Name { get; set; }
         public int Strength { get; set; }
         public int Agility { get; set; }
@@ -20,10 +23,5 @@ namespace DefenceOfTheAncientsRPG.Models
         public float ManaRegen { get; set; }
         public int Damage { get; set; }
         public int Cost { get; set; }
-
-        public Item()
-        {
-            Id = Guid.NewGuid().ToString();
-        }
     }
 }
