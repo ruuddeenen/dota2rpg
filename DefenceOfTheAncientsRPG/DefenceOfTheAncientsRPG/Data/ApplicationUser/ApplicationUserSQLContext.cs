@@ -134,12 +134,7 @@ namespace DefenceOfTheAncientsRPG.Data
             }
         }
 
-        /// <summary>
-        /// Helper function to construct a Student instance from a DataReader.
-        /// Expects that read() has already been called.
-        /// </summary>
-        /// <param name="reader">The DataReader to read from.</param>
-        /// <returns>A new Student instance based on the read data.</returns>
+
         private ApplicationUser CreateApplicationUserFromReader(SqlDataReader reader)
         {
             return new ApplicationUser
@@ -178,9 +173,9 @@ namespace DefenceOfTheAncientsRPG.Data
         {
             using (SqlConnection connection = Database.Connection)
             {
-                string query = string.Format("INSERT INTO BlockedUsers (UserId, Message, Since, Until, ByAdminId)" +
-                    " VALUES ('{0}', '{1}','{2}','{3}','{4}')",
-                    info.UserId, info.Message, info.Since.ToString("yyyyMMdd"), info.Until.ToString("yyyyMMdd"), info.AdminId);
+                string query = string.Format("INSERT INTO BlockedUsers (UserId, Message, Until, ByAdminId)" +
+                    " VALUES ('{0}', '{1}','{2}','{3}')",
+                    info.UserId, info.Message, info.Until.ToString("yyyyMMdd"), info.AdminId);
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     try
@@ -243,10 +238,36 @@ namespace DefenceOfTheAncientsRPG.Data
                 Convert.ToString(reader["Message"]),
                 Convert.ToString(reader["UserId"]),
                 Convert.ToString(reader["ByAdminId"]),
-                Convert.ToDateTime(reader["Since"]),
                 Convert.ToDateTime(reader["Until"])
             );
         }
 
+        public int RemoveEntriesFromBlockedUsers(List<BlockedUserInfo> entriesToBeRemoved)
+        {
+            System.Text.StringBuilder query = new System.Text.StringBuilder();
+            query.Append("DELETE FROM BlockedUsers WHERE UserId IN ");
+
+            query.Append("(");
+            int count = 0;
+            foreach (BlockedUserInfo bui in entriesToBeRemoved)
+            {
+                if (count > 0) query.Append(",");
+                query
+                    .Append("(")
+                    .Append(bui.UserId)
+                    .Append(")");
+
+                count++;
+            }
+            query.Append(")");
+
+            using (SqlConnection connection = Database.Connection)
+            {
+                using (SqlCommand command = new SqlCommand(query.ToString(), connection))
+                {
+                    return command.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }

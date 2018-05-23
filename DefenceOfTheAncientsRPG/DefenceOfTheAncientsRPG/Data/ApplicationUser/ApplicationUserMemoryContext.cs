@@ -113,6 +113,11 @@ namespace DefenceOfTheAncientsRPG.Data
             return false;
         }
 
+        public int RemoveEntriesFromBlockedUsers(List<BlockedUserInfo> entriesToBeRemoved)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool Unblock(string userId)
         {
             foreach (BlockedUserInfo info in BlockedUsersInfo)

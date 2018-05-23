@@ -122,7 +122,32 @@ namespace DefenceOfTheAncientsRPG.Logic
 
         public bool IsBlocked(ApplicationUser user)
         {
+            RefreshBlockedUsers();
             return context.IsBlocked(user);
+        }
+
+        /// <summary>
+        /// Removes old entries from the BlockedUsers context.
+        /// </summary>
+        /// <returns>The amount of entries removed.</returns>
+        private int RefreshBlockedUsers()
+        {
+            List<BlockedUserInfo> toBeRemoved = new List<BlockedUserInfo>();
+
+            if (toBeRemoved.Count > 0)
+            {
+                List<BlockedUserInfo> blockedUserInfos = GetAllBlockedUsersInfo();
+
+                foreach (BlockedUserInfo bui in blockedUserInfos)
+                {
+                    if (bui.Until > DateTime.Now)
+                    {
+                        toBeRemoved.Add(bui);
+                    }
+                }
+                return context.RemoveEntriesFromBlockedUsers(toBeRemoved);
+            }
+            else return 0;
         }
 
         /// <summary>
@@ -165,16 +190,16 @@ namespace DefenceOfTheAncientsRPG.Logic
             else throw new PasswordFormatException("Password does not contain a lower case character.");
         }
 
-        public BlockedUserInfo GetBlockedUserInfoByUserId(string userId)
+        public BlockedUserInfo GetBlockedUserInfoByUsername(string username)
         {
             foreach (BlockedUserInfo bui in GetAllBlockedUsersInfo())
             {
-                if (bui.UserId == userId)
+                if (bui.UserId == GetUserByUsername(username).Id)
                 {
                     return bui;
                 }
             }
-            throw new EntryDoesNotExistException(string.Format("No blocked user with userid: {0} exists in the context.", userId));
+            throw new EntryDoesNotExistException(string.Format("No blocked user with username: {0} exists in the context.", username));
         }
 
         public List<BlockedUserInfo> GetAllBlockedUsersInfo()

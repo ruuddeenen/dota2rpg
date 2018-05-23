@@ -17,9 +17,11 @@ namespace DefenceOfTheAncientsRPG.Controllers
     public class HomeController : Controller
     {
         private ApplicationUserRepository _ApplicationUserRepo;
+        private AdministratorRepository _AdministratorRepository;
         public HomeController()
         {
             _ApplicationUserRepo = new ApplicationUserRepository(new ApplicationUserSQLContext());
+            _AdministratorRepository = new AdministratorRepository(new AdministratorSQLContext());
         }
 
         public IActionResult Index()
@@ -76,7 +78,14 @@ namespace DefenceOfTheAncientsRPG.Controllers
             }
             catch (UserIsBlockedException)
             {
-                ViewBag.ErrorMessage = "User is blocked"; // TO DO
+                BlockedUserInfo info = _ApplicationUserRepo.GetBlockedUserInfoByUsername(model.Username);
+
+                ViewBag.ErrorMessage = string.Format("User {0} is blocked by admin {1} until {2}.",
+                    _ApplicationUserRepo.GetUserById(info.UserId).Username,
+                    _AdministratorRepository.GetAdminById(info.AdminId).FirstName + " " + _AdministratorRepository.GetAdminById(info.AdminId).LastName,
+                    info.Until.ToShortDateString());
+                ViewBag.BlockedMessage = info.Message;
+
                 return View();
             }
             catch

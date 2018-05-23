@@ -75,5 +75,7 @@ namespace DefenceOfTheAncientsRPG.Data
         
 
         List<BlockedUserInfo> GetAllBlockedUsersInfo();
+
+        int RemoveEntriesFromBlockedUsers(List<BlockedUserInfo> entriesToBeRemoved);
     }
 }

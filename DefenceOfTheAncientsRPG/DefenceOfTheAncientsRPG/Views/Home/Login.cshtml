@@ -6,7 +6,17 @@
 <h2>Login</h2>
 
 @if (!string.IsNullOrWhiteSpace(ViewBag.ErrorMessage))
-{<div class="alert alert-danger">@ViewBag.ErrorMessage</div>}
+{
+    <div class="alert alert-danger">
+        <b>@ViewBag.ErrorMessage</b>
+        @if (!string.IsNullOrWhiteSpace(ViewBag.BlockedMessage))
+        {
+            <br /><br />
+            <p>Message to user: </p>
+            @ViewBag.BlockedMessage;
+        }
+    </div>
+}
 
 <form method="post" enctype="multipart/form-data">
     <div class="form-group">
