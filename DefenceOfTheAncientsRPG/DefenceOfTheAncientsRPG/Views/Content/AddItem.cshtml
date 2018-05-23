@@ -18,6 +18,7 @@
     <!--UPLOAD-->
     <div id="uploadBox" class="box-content edit-box hidden">
         <div class="col-md-12">
+            @Html.ActionLink("Click here to download the template", "DownloadItemTemplate")
             <form asp-action="AddItem" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label asp-for="ImportFile"></label><br />
@@ -25,7 +26,9 @@
                     <span asp-validation-for="ImportFile" class="text-danger"></span>
                 </div>
                 @if (!string.IsNullOrWhiteSpace(ViewBag.ErrorMessage))
-                {<div class="alert alert-danger">@ViewBag.ErrorMessage</div>}
+                {
+                    <div class="alert alert-danger">@ViewBag.ErrorMessage</div>
+                }
                 <div class="form-group">
                     <input type="submit" value="Upload file" class="btn btn-default" />
                 </div>
@@ -159,9 +162,8 @@
                 </tbody>
             </table>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Create items" class="btn btn-default" />
             </div>
-            <input type="button" name="add" value="Add" class="btn btn-default" onclick="addNewRow()">
         </form>
     </div>
 </div>

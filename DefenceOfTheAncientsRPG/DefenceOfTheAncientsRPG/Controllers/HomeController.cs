@@ -80,12 +80,24 @@ namespace DefenceOfTheAncientsRPG.Controllers
             {
                 BlockedUserInfo info = _ApplicationUserRepo.GetBlockedUserInfoByUsername(model.Username);
 
-                ViewBag.ErrorMessage = string.Format("User {0} is blocked by admin {1} until {2}.",
+                System.Text.StringBuilder errormessage = new System.Text.StringBuilder();
+
+                errormessage.Append(
+                    string.Format(
+                        "User {0} is blocked by admin {1}",
                     _ApplicationUserRepo.GetUserById(info.UserId).Username,
-                    _AdministratorRepository.GetAdminById(info.AdminId).FirstName + " " + _AdministratorRepository.GetAdminById(info.AdminId).LastName,
-                    info.Until.ToShortDateString());
+                    _AdministratorRepository.GetFullNameByAdminId(info.AdminId)));
+
                 ViewBag.BlockedMessage = info.Message;
 
+                if (info.Until != null)
+                {
+                    errormessage
+                        .Append(" until ")
+                        .Append(info.Until.ToShortDateString());
+                }
+                errormessage.Append('.');
+                ViewBag.ErrorMessage = errormessage.ToString();
                 return View();
             }
             catch

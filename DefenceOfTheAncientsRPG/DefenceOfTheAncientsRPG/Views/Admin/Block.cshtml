@@ -12,7 +12,12 @@
     <div class="col-md-4">
         <form asp-action="Block">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            <div class="form-group-sm">
+                <label asp-for="Permanent" class="control-label"></label>
+                <input asp-for="Permanent" class="checkbox-inline" onclick="Hide()" id="checkbox" />
+                <span asp-validation-for="Permanent" class="text-danger"></span>
+            </div>
+            <div class="form-group" id="untildiv">
                 <label asp-for="Until" class="control-label"></label>
                 <input asp-for="Until" class="form-control" />
                 <span asp-validation-for="Until" class="text-danger"></span>
@@ -41,3 +46,14 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+<script>
+    function Hide() {
+        console.log($('#checkbox').is(':checked'));
+        if ($('#checkbox').is(':checked')) {
+            $('#untildiv').addClass('hidden');
+        }
+        else {
+            $('#untildiv').removeClass('hidden');
+        }
+    }
+</script>

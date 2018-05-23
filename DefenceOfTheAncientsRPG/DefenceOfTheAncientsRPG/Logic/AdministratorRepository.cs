@@ -143,5 +143,11 @@ namespace DefenceOfTheAncientsRPG.Logic
             }
             throw new EntryDoesNotExistException();
         }
+
+        public string GetFullNameByAdminId(string id)
+        {
+            Administrator admin = GetAdminById(id);
+            return admin.FirstName + " " + admin.LastName;
+        }
     }
 }

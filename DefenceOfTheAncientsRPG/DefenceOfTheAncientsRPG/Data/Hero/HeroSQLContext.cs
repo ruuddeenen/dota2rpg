@@ -9,7 +9,6 @@ namespace DefenceOfTheAncientsRPG.Data
 {
     public class HeroSQLContext : IHeroContext
     {
-        #region CreateHeroFromReader
         private Hero CreateHeroFromReader(SqlDataReader reader)
         {
             char MainAttribute = Convert.ToChar(reader["MainAttribute"]);
@@ -49,7 +48,6 @@ namespace DefenceOfTheAncientsRPG.Data
                     return null;
             }
         }
-        #endregion
 
         public Hero GetHeroById(string id)
         {

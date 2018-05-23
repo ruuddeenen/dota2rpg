@@ -1,0 +1,50 @@
+﻿@model DefenceOfTheAncientsRPG.Models.ContentViewModel.ContentItemOverviewViewModel
+
+@{
+    ViewData["Title"] = "ItemOverview";
+}
+
+<h2>ItemOverview</h2>
+
+<div>
+    <h4>ContentItemOverviewViewModel</h4>
+    <hr />
+    <table class="table">
+        <tr>
+            <td><b>Name</b></td>
+            <td><b>Strength</b></td>
+            <td><b>Agility</b></td>
+            <td><b>Intelligence</b></td>
+            <td><b>Health</b></td>
+            <td><b>Health regen</b></td>
+            <td><b>Attackspeed</b></td>
+            <td><b>Armor</b></td>
+            <td><b>Mana</b></td>
+            <td><b>Mana regen</b></td>
+            <td><b>Damage</b></td>
+            <td><b>Price</b></td>
+        </tr>
+        @foreach(Item item in Model.Items)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Strength</td>
+                <td>@item.Agility</td>
+                <td>@item.Intelligence</td>
+                <td>@item.Health</td>
+                <td>@item.HealthRegen</td>
+                <td>@item.Attackspeed</td>
+                <td>@item.Armor</td>
+                <td>@item.Mana</td>
+                <td>@item.ManaRegen</td>
+                <td>@item.Damage</td>
+                <td>@item.Cost</td>
+            </tr>
+
+        }
+    </table>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>

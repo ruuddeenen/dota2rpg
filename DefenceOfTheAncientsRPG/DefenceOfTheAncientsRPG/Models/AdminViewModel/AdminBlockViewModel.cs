@@ -21,6 +21,8 @@ namespace DefenceOfTheAncientsRPG.Models.AdminViewModel
         [DataType(DataType.Date)]
         public DateTime From { get; set; }
         
+        public bool Permanent { get; set; }
+
         [DataType(DataType.Date)]
         public DateTime Until { get; set; }
 

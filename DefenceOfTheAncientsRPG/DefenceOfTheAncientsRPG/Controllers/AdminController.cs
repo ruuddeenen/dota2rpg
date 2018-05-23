@@ -158,7 +158,7 @@ namespace DefenceOfTheAncientsRPG.Controllers
             if (ModelState.IsValid)
             {
                 BlockedUserInfo info;
-                if (model.Until == null)
+                if (model.Permanent)
                 {
                     info = new BlockedUserInfo(model.Message, model.UserId, model.AdminId);
                 }

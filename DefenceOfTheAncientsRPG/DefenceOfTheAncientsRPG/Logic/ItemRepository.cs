@@ -20,5 +20,10 @@ namespace DefenceOfTheAncientsRPG.Logic
         {
             return context.Insert(item);
         }
+
+        public List<Item> GetAllItems()
+        {
+            return context.GetAllItems();
+        }
     }
 }

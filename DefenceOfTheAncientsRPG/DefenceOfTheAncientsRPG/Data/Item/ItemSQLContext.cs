@@ -33,7 +33,7 @@ namespace DefenceOfTheAncientsRPG.Data
             List<Item> Items = new List<Item>();
             using (SqlConnection connection = Database.Connection)
             {
-                string query = "SELECT * FROM Heroes";
+                string query = "SELECT * FROM Items";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     try

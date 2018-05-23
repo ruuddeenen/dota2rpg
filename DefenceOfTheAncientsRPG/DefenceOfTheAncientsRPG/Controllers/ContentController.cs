@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using DefenceOfTheAncientsRPG.Logic;
 using DefenceOfTheAncientsRPG.Exceptions;
 using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace DefenceOfTheAncientsRPG.Controllers
 {
@@ -48,7 +49,7 @@ namespace DefenceOfTheAncientsRPG.Controllers
                 {
                     _itemRepo.Insert(item);
                 }
-                return View();
+                return View("ItemOverview");
             }
             else
             {
@@ -56,13 +57,17 @@ namespace DefenceOfTheAncientsRPG.Controllers
                 try
                 {
                     List<Item> Items = fh.CreateItemsFromExcel(collection.Files[0]);
+                    foreach (Item item in Items)
+                    {
+                        _itemRepo.Insert(item);
+                    }
+                    return View();
                 }
                 catch (FileFormatException ex)
                 {
                     ViewBag.ErrorMessage = ex.Message;
-                    return View("AddItem");
+                    return View("ItemOverview");
                 }
-                return RedirectToAction("Details", "Account");
             }
         }
 
@@ -99,24 +104,21 @@ namespace DefenceOfTheAncientsRPG.Controllers
             return item;
         }
 
-        [HttpPost]
-        public IActionResult AddItemFromFile(IFormFile file)
+        public IActionResult DownloadItemTemplate()
         {
-            if (file != null)
+            string path = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\addContentTemplates\");
+            string fileName = "item-template.xlsx";
+            byte[] fileBytes = System.IO.File.ReadAllBytes(path + fileName);
+            return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
+        }
+
+        public IActionResult ItemOverview()
+        {
+            ContentItemOverviewViewModel model = new ContentItemOverviewViewModel
             {
-                FileHandler fh = new FileHandler(_hostingEnviroment);
-                try
-                {
-                    List<Item> Items = fh.CreateItemsFromExcel(file);
-                }
-                catch (FileFormatException ex)
-                {
-                    ViewBag.ErrorMessage = ex.Message;
-                    return View("AddItem");
-                }
-                return RedirectToAction("Details", "Account");
-            }
-            return View();
+                Items = _itemRepo.GetAllItems().OrderBy(x => x.Cost).ToList()
+            };
+            return View(model);
         }
     }
 }
