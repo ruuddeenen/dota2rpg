@@ -109,7 +109,7 @@ namespace DefenceOfTheAncientsRPG.Logic
             {
                 if (SecurePasswordHasher.Verify(password, GetUserByUsername(username).Password))
                 {
-                    if (context.IsBlocked(GetUserByUsername(username)))
+                    if (IsBlocked(GetUserByUsername(username)))
                     {
                         throw new UserIsBlockedException();
                     }
@@ -118,6 +118,11 @@ namespace DefenceOfTheAncientsRPG.Logic
                 throw new IncorrectPasswordException();
             }
             throw new EntryDoesNotExistException();
+        }
+
+        public bool IsBlocked(ApplicationUser user)
+        {
+            return context.IsBlocked(user);
         }
 
         /// <summary>
@@ -162,7 +167,19 @@ namespace DefenceOfTheAncientsRPG.Logic
 
         public BlockedUserInfo GetBlockedUserInfoByUserId(string userId)
         {
-            return context.GetBlockedUserInfo(userId);
+            foreach (BlockedUserInfo bui in GetAllBlockedUsersInfo())
+            {
+                if (bui.UserId == userId)
+                {
+                    return bui;
+                }
+            }
+            throw new EntryDoesNotExistException(string.Format("No blocked user with userid: {0} exists in the context.", userId));
+        }
+
+        public List<BlockedUserInfo> GetAllBlockedUsersInfo()
+        {
+            return context.GetAllBlockedUsersInfo();
         }
     }
 }

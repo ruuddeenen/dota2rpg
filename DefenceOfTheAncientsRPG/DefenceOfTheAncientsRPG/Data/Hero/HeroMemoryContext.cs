@@ -2,20 +2,34 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DefenceOfTheAncientsRPG.Exceptions;
 using DefenceOfTheAncientsRPG.Models;
 
 namespace DefenceOfTheAncientsRPG.Data
 {
     public class HeroMemoryContext : IHeroContext
     {
+        private List<Hero> Heroes;
+
+        public HeroMemoryContext()
+        {
+            Heroes = new List<Hero>();
+        }
         public List<Hero> GetAllHeroes()
         {
-            throw new NotImplementedException();
+            return Heroes;
         }
 
         public Hero GetHeroById(string id)
         {
-            throw new NotImplementedException();
+            foreach (Hero hero in Heroes)
+            {
+                if (hero.Id == id)
+                {
+                    return hero;
+                }
+            }
+            throw new EntryDoesNotExistException(string.Format("User with id: {0} could not be found", id));
         }
 
         public List<Hero> GetHeroesByUserId(string id)
@@ -30,7 +44,15 @@ namespace DefenceOfTheAncientsRPG.Data
 
         public bool Insert(Hero hero)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Heroes.Add(hero);
+                return true;
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         public bool InsertLink(Hero hero, ApplicationUser user)

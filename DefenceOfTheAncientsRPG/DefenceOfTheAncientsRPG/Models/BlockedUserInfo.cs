@@ -17,7 +17,7 @@ namespace DefenceOfTheAncientsRPG.Models
         {
             UserId = userId;
             Message = message;
-            AdminId = AdminId;
+            AdminId = adminId;
             Since = DateTime.Now;
         }
 
@@ -25,7 +25,7 @@ namespace DefenceOfTheAncientsRPG.Models
         {
             UserId = userId;
             Message = message;
-            AdminId = AdminId;
+            AdminId = adminId;
             Since = DateTime.Now;
             Until = until;
         }
@@ -42,7 +42,7 @@ namespace DefenceOfTheAncientsRPG.Models
         {
             UserId = userId;
             Message = message;
-            AdminId = AdminId;
+            AdminId = adminId;
             Since = since;
             Until = until;
         }

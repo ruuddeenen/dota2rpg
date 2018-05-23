@@ -130,5 +130,18 @@ namespace DefenceOfTheAncientsRPG.Logic
             }
             else throw new PasswordFormatException("Password does not contain a lower case character.");
         }
+
+        public bool Login(string username, string password)
+        {
+            if (GetAdminByUsername(username) != null)
+            {
+                if (SecurePasswordHasher.Verify(password, GetAdminByUsername(username).Password))
+                {
+                    return true;
+                }
+                throw new IncorrectPasswordException();
+            }
+            throw new EntryDoesNotExistException();
+        }
     }
 }

@@ -9,6 +9,7 @@ using DefenceOfTheAncientsRPG.Data;
 using DefenceOfTheAncientsRPG.Models;
 using Microsoft.AspNetCore.Http;
 using System.Net.Mail;
+using DefenceOfTheAncientsRPG.Exceptions;
 
 namespace DefenceOfTheAncientsRPG.Controllers
 {
@@ -68,21 +69,40 @@ namespace DefenceOfTheAncientsRPG.Controllers
         public IActionResult Login(AdminLoginViewModel model)
         {
             Administrator admin = _AdminRepo.GetAdminByUsername(model.Username);
-            if (admin.Activated)
+            ViewBag.ErrorMessage = string.Empty;
+            try
             {
-                if (SecurePasswordHasher.Verify(model.Password, admin.Password)) // Logged in
+                if (admin.Activated)
                 {
-                    HttpContext.Session.SetString("currentUserId", admin.Id);
-                    return RedirectToAction("ManageAdmins");
+                    if (_AdminRepo.Login(model.Username, model.Password))
+                    {
+                        HttpContext.Session.SetString("currentUserId", admin.Id);
+                        return RedirectToAction("ManageAdmins");
+                    }
+                }
+                else
+                {
+                    if (model.Password == admin.Password)
+                    {
+                        HttpContext.Session.SetString("currentUserId", admin.Id);
+                        return RedirectToAction("ChangePassword");
+                    }
                 }
             }
-            else
+            catch (EntryDoesNotExistException)
             {
-                if (model.Password == admin.Password)
-                {
-                    HttpContext.Session.SetString("currentUserId", admin.Id);
-                    return RedirectToAction("ChangePassword");
-                }
+                ViewBag.ErrorMessage = "User does not exist.";
+                return View();
+
+            }
+            catch (IncorrectPasswordException)
+            {
+                ViewBag.ErrorMessage = "Incorrect username/password combination";
+                return View();
+            }
+            catch
+            {
+                ViewBag.ErrorMessage = "Something went wrong, and we don't know what. Please try again.";
             }
             return View();
         }

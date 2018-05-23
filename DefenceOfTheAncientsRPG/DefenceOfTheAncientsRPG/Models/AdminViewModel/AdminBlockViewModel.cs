@@ -18,16 +18,16 @@ namespace DefenceOfTheAncientsRPG.Models.AdminViewModel
         public string Message { get; set; }
 
         [Required]
-        public bool Block { get; set; }
-
-        [Required]
+        [DataType(DataType.Date)]
         public DateTime From { get; set; }
         
+        [DataType(DataType.Date)]
         public DateTime Until { get; set; }
 
         public AdminBlockViewModel()
         {
             From = DateTime.Now;
+            Until = DateTime.Now;
         }
     }
 }

@@ -72,7 +72,8 @@ namespace DefenceOfTheAncientsRPG.Data
         /// <param name="userId">The user to block</param>
         /// <returns></returns>
         bool Unblock(string userId);
+        
 
-        BlockedUserInfo GetBlockedUserInfo(string userId);
+        List<BlockedUserInfo> GetAllBlockedUsersInfo();
     }
 }

@@ -11,11 +11,18 @@ namespace DefenceOfTheAncientsRPG.Models.AdminViewModel
     {
         private ApplicationUserRepository userRepo; 
         public List<ApplicationUser> Users;
+        public List<BlockedUserInfo> BlockedUsersInfo;
 
         public AdminManageUsersViewModel()
         {
             userRepo = new ApplicationUserRepository(new ApplicationUserSQLContext());
             Users = userRepo.GetAllUsers();
+            BlockedUsersInfo = userRepo.GetAllBlockedUsersInfo();
+        }
+
+        public bool IsBlocked(ApplicationUser user)
+        {
+            return userRepo.IsBlocked(user);
         }
     }
 }

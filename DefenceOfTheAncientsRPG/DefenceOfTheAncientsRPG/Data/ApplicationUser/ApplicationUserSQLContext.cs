@@ -20,13 +20,11 @@ namespace DefenceOfTheAncientsRPG.Data
                 string query = "SELECT * FROM ApplicationUsers";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        using (SqlDataReader reader = command.ExecuteReader())
+                        while (reader.Read())
                         {
-                            while (reader.Read())
-                            {
-                                result.Add(CreateApplicationUserFromReader(reader));
-                            }
+                            result.Add(CreateApplicationUserFromReader(reader));
                         }
                     }
                 }
@@ -217,25 +215,25 @@ namespace DefenceOfTheAncientsRPG.Data
                 }
             }
         }
-        
 
-        public BlockedUserInfo GetBlockedUserInfo(string userId)
+        public List<BlockedUserInfo> GetAllBlockedUsersInfo()
         {
+            List<BlockedUserInfo> result = new List<BlockedUserInfo>();
             using (SqlConnection connection = Database.Connection)
             {
-                string query = string.Format("SELECT * FROM BlockedUsers WHERE UserId = '{0}'", userId);
+                string query = "SELECT * FROM BlockedUsers";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        if (reader.HasRows)
+                        while (reader.Read())
                         {
-                            return CreateBlockedUserInfoFromReader(reader);
+                            result.Add(CreateBlockedUserInfoFromReader(reader));
                         }
-                        else throw new EntryDoesNotExistException();
                     }
                 }
             }
+            return result;
         }
 
         private BlockedUserInfo CreateBlockedUserInfoFromReader(SqlDataReader reader)
@@ -249,5 +247,6 @@ namespace DefenceOfTheAncientsRPG.Data
                 Convert.ToDateTime(reader["Until"])
             );
         }
+
     }
 }

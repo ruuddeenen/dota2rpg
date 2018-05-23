@@ -29,7 +29,14 @@
                 </td>
                 <td>
                     <p>
-                        @Html.ActionLink("Block", "Block", new { user.Id })
+                        @if (Model.IsBlocked(user))
+                        {
+                            @Html.ActionLink("Unblock", "Unblock", new { user.Id })
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Block", "Block", new { user.Id })
+                        }
                     </p>
                 </td>
             </tr>

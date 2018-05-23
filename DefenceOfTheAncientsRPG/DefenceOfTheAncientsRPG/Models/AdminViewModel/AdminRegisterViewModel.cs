@@ -18,6 +18,7 @@ namespace DefenceOfTheAncientsRPG.Models.AdminViewModel
         public string Password { get; set; }
         [Required]
         [Display(Name = "Date of birth")]
+        [DataType(DataType.Date)]
         public DateTime DateOfBirth { get; set; }
 
         public AdminRegisterViewModel()

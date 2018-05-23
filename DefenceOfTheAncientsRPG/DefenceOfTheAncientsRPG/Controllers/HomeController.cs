@@ -54,7 +54,7 @@ namespace DefenceOfTheAncientsRPG.Controllers
         [HttpPost]
         public IActionResult Login(HomeLoginViewModel model)
         {
-            ViewBag.ErrorMessage = "";
+            ViewBag.ErrorMessage = string.Empty;
             try
             {
                 if (_ApplicationUserRepo.Login(model.Username, model.Password))

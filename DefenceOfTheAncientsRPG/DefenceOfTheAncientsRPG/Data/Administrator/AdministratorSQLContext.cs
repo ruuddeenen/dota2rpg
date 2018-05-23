@@ -46,9 +46,9 @@ namespace DefenceOfTheAncientsRPG.Data
                         return true;
 
                     }
-                    catch (Exception e)
+                    catch
                     {
-                        throw e;
+                        throw;
                     }
                 }
             }

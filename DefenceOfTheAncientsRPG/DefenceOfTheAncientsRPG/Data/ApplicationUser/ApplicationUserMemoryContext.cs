@@ -57,22 +57,14 @@ namespace DefenceOfTheAncientsRPG.Data
             throw new EntryDoesNotExistException();
         }
 
+        public List<BlockedUserInfo> GetAllBlockedUsersInfo()
+        {
+            return BlockedUsersInfo;
+        }
 
         public List<ApplicationUser> GetAllUsers()
         {
             return Users;
-        }
-
-        public BlockedUserInfo GetBlockedUserInfo(string userId)
-        {
-            foreach (BlockedUserInfo bui in BlockedUsersInfo)
-            {
-                if (bui.UserId == userId)
-                {
-                    return bui;
-                }
-            }
-            throw new EntryDoesNotExistException("No BlockedUserInfo does not exist with the given userId");
         }
 
         public ApplicationUser GetUserById(string id)
