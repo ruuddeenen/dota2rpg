@@ -55,7 +55,6 @@ namespace DefenceOfTheAncientsRPG.Models
             AgilityGain = agiGain;
             IntelligenceGain = intGain;
         }
-
         public string Id { get;  private set; }
         public string Name { get; private set; }
         public int Level

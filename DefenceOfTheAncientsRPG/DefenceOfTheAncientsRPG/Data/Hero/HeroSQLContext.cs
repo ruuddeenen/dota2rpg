@@ -10,11 +10,11 @@ namespace DefenceOfTheAncientsRPG.Data
     public class HeroSQLContext : IHeroContext
     {
         private Hero CreateHeroFromReader(SqlDataReader reader)
-        {
-            char MainAttribute = Convert.ToChar(reader["MainAttribute"]);
-            switch (MainAttribute)
             {
-                case 'S':
+            Attribute attribute = (Attribute)Enum.Parse(typeof(Attribute), Convert.ToString(reader["MainAttribute"]));
+            switch (attribute)
+            {
+                case Attribute.Strength:
                     return new StrengthHero
                  (
                  Convert.ToString(reader["Id"]),
@@ -24,7 +24,7 @@ namespace DefenceOfTheAncientsRPG.Data
                  (float)reader["AgilityGain"],
                  (float)reader["IntelligenceGain"]
                  );
-                case 'A':
+                case Attribute.Agility:
                     return new AgilityHero
                  (
                  Convert.ToString(reader["Id"]),
@@ -34,7 +34,7 @@ namespace DefenceOfTheAncientsRPG.Data
                  (float)reader["AgilityGain"],
                  (float)reader["IntelligenceGain"]
                  );
-                case 'I':
+                case Attribute.Intelligence:
                     return new IntelligenceHero
                  (
                  Convert.ToString(reader["Id"]),
@@ -93,16 +93,15 @@ namespace DefenceOfTheAncientsRPG.Data
 
         public bool Insert(Hero hero)
         {
-            char mainAttribute;
-            if (hero is StrengthHero) mainAttribute = 'S';
-            else if (hero is AgilityHero) mainAttribute = 'A';
-            else mainAttribute = 'I';
-
+            string attribute = string.Empty;
+            if (hero is StrengthHero) attribute = "Strength";
+            else if (hero is AgilityHero) attribute = "Agility";
+            else attribute = "Intelligence";
             using (SqlConnection connection = Database.Connection)
             {
                 string query = string.Format("INSERT INTO Heroes (Id, Name, Expierence, StrengthGain, AgilityGain, IntelligenceGain, MainAttribute)" +
                     " VALUES ('{0}', '{1}', {2}, {3}, {4}, {5}, '{6}')",
-                    hero.Id, hero.Name, hero.Expierence, hero.StrengthGain, hero.AgilityGain, hero.IntelligenceGain, mainAttribute);
+                    hero.Id, hero.Name, hero.Expierence, hero.StrengthGain, hero.AgilityGain, hero.IntelligenceGain, attribute);
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     try

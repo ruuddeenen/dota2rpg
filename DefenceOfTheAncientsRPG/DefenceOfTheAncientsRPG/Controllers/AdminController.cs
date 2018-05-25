@@ -175,5 +175,12 @@ namespace DefenceOfTheAncientsRPG.Controllers
             }
             return View();
         }
+
+        [HttpGet]
+        public IActionResult Unblock(string id)
+        {   
+            _UserRepo.UnblockUser(id);
+            return RedirectToAction("ManageUsers", new AdminManageUsersViewModel());
+        }
     }
 }

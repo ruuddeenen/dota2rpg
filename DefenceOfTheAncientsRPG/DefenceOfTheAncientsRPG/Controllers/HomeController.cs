@@ -79,6 +79,7 @@ namespace DefenceOfTheAncientsRPG.Controllers
             catch (UserIsBlockedException)
             {
                 BlockedUserInfo info = _ApplicationUserRepo.GetBlockedUserInfoByUsername(model.Username);
+                ViewBag.BlockedMessage = info.Message;
 
                 System.Text.StringBuilder errormessage = new System.Text.StringBuilder();
 
@@ -88,8 +89,6 @@ namespace DefenceOfTheAncientsRPG.Controllers
                     _ApplicationUserRepo.GetUserById(info.UserId).Username,
                     _AdministratorRepository.GetFullNameByAdminId(info.AdminId)));
 
-                ViewBag.BlockedMessage = info.Message;
-
                 if (info.Until != null)
                 {
                     errormessage
@@ -97,7 +96,9 @@ namespace DefenceOfTheAncientsRPG.Controllers
                         .Append(info.Until.ToShortDateString());
                 }
                 errormessage.Append('.');
+
                 ViewBag.ErrorMessage = errormessage.ToString();
+
                 return View();
             }
             catch

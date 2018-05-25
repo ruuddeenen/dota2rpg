@@ -8,6 +8,7 @@ using DefenceOfTheAncientsRPG.Models.HeroViewModel;
 using DefenceOfTheAncientsRPG.Logic;
 using DefenceOfTheAncientsRPG.Data;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace DefenceOfTheAncientsRPG.Controllers
 {
@@ -29,7 +30,11 @@ namespace DefenceOfTheAncientsRPG.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            HeroCreateViewModel model = new HeroCreateViewModel()
+            {
+                Attributes = new List<Attribute> { Attribute.Strength, Attribute.Agility, Attribute.Intelligence }
+            };
+            return View(model);
         }
 
         [HttpPost]
@@ -79,6 +84,13 @@ namespace DefenceOfTheAncientsRPG.Controllers
         {
             HeroSelectViewModel model = new HeroSelectViewModel(HttpContext.Session.GetString("currentUserId"));
             return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Select(string id)
+        {
+            HttpContext.Session.SetString("currentHeroId", id);
+            return RedirectToAction("Index", "Game", id);
         }
     }
 }

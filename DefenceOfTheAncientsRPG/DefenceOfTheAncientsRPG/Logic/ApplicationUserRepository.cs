@@ -170,7 +170,14 @@ namespace DefenceOfTheAncientsRPG.Logic
         /// <returns>True if succeeded, false if failed.</returns>
         public bool UnblockUser(string userId)
         {
-            return context.Unblock(userId);
+            foreach (BlockedUserInfo bui in GetAllBlockedUsersInfo())
+            {
+                if (bui.UserId == userId)
+                {
+                    return context.Unblock(userId);
+                }
+            }
+            throw new EntryDoesNotExistException(string.Format("User with userId: {0} does not exist in the context", userId));
         }
 
         private bool PasswordChecker(string password)
@@ -205,6 +212,18 @@ namespace DefenceOfTheAncientsRPG.Logic
         public List<BlockedUserInfo> GetAllBlockedUsersInfo()
         {
             return context.GetAllBlockedUsersInfo();
+        }
+
+        public BlockedUserInfo GetBlockedUserInfoByUserId(string userId)
+        {
+            foreach (BlockedUserInfo bui in GetAllBlockedUsersInfo())
+            {
+                if (bui.UserId == userId)
+                {
+                    return bui;
+                }
+            }
+            throw new EntryDoesNotExistException(string.Format("No blocked user with userId: {0} exists in the context.", userId));
         }
     }
 }

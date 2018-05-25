@@ -195,20 +195,14 @@ namespace DefenceOfTheAncientsRPG.Data
         {
             using (SqlConnection connection = Database.Connection)
             {
-                string query = string.Format("DELETE * FROM BlockedUsers WHERE UserId = '{0}'", userId);
+                string query = string.Format("DELETE FROM BlockedUsers WHERE UserId = '{0}'", userId);
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    try
-                    {
-                        command.ExecuteNonQuery();
-                        return true;
-                    }
-                    catch (Exception)
-                    {
-                        throw;
-                    }
+                    command.ExecuteNonQuery();
+                    return true;
                 }
             }
+            throw new Exception();
         }
 
         public List<BlockedUserInfo> GetAllBlockedUsersInfo()
