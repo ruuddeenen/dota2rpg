@@ -62,7 +62,7 @@ namespace DefenceOfTheAncientsRPG.Controllers
                 if (_ApplicationUserRepo.Login(model.Username, model.Password))
                 {
                     HttpContext.Session.SetString("currentUserId", _ApplicationUserRepo.GetUserByUsername(model.Username).Id);
-                    return RedirectToAction("Details", "Account");
+                    return RedirectToAction("Select", "Hero");
                 }
             }
             catch (EntryDoesNotExistException)

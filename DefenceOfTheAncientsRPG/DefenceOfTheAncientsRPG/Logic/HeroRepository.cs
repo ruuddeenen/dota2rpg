@@ -48,11 +48,12 @@ namespace DefenceOfTheAncientsRPG.Logic
 
         public List<Hero> GetHeroesByUserId(string id)
         {
-            if (context.GetHeroesByUserId(id).Count > 3)
+            List<Hero> heroes = context.GetHeroesByUserId(id);
+            if (heroes.Count > 3)
             {
                 throw new Exception();
             }
-            return context.GetHeroesByUserId(id);
+            return heroes;
         }
     }
 }
