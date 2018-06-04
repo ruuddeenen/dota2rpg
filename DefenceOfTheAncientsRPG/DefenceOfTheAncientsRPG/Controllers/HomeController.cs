@@ -101,7 +101,7 @@ namespace DefenceOfTheAncientsRPG.Controllers
 
                 return View();
             }
-            catch
+            catch (Exception e)
             {
                 ViewBag.ErrorMessage = "Something went wrong, and we don't know what. Please try again.";
             }

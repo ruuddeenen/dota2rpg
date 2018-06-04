@@ -4,11 +4,11 @@
     ViewData["Title"] = "ItemOverview";
 }
 
-<h2>ItemOverview</h2>
+<h2>Item Overview</h2>
 
 <div>
-    <h4>ContentItemOverviewViewModel</h4>
     <hr />
+    <button class="btn btn-default" onclick="location.href ='@Url.Action("AddItem", "Content")'">Add new item</button>
     <table class="table">
         <tr>
             <td><b>Name</b></td>
@@ -39,12 +39,12 @@
                 <td>@item.ManaRegen</td>
                 <td>@item.Damage</td>
                 <td>@item.Cost</td>
+                <td><button class="btn btn-default" onclick="location.href ='@Url.Action("EditItem", "Content", new { id = item.Id })'">Edit</button></td>
             </tr>
 
         }
     </table>
 </div>
 <div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Back to content overview</a>
 </div>

@@ -21,9 +21,13 @@ namespace DefenceOfTheAncientsRPG.Models
         public int Damage { get; set; }
         public int Cost { get; set; }
 
-        public Item()
+        public Item(string name)
         {
-            Id = Guid.NewGuid().ToString();
+            Name = name;
+            Id = Name.Replace(" ", string.Empty).ToLower();
         }
+
+        public Item() { }
+
     }
 }

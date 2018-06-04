@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using DefenceOfTheAncientsRPG.Models;
 using DefenceOfTheAncientsRPG.Models.ContentViewModel;
@@ -25,6 +23,14 @@ namespace DefenceOfTheAncientsRPG.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        public IActionResult Items()
+        {
+            return View(new ContentItemOverviewViewModel
+            {
+                Items = _itemRepo.GetAllItems()
+            });
         }
 
         [HttpGet]
@@ -61,7 +67,7 @@ namespace DefenceOfTheAncientsRPG.Controllers
                     {
                         _itemRepo.Insert(item);
                     }
-                    return View();
+                    return View("ItemOverview", new ContentItemOverviewViewModel { Items = _itemRepo.GetAllItems() });
                 }
                 catch (FileFormatException ex)
                 {
@@ -74,10 +80,7 @@ namespace DefenceOfTheAncientsRPG.Controllers
         [NonAction]
         private Item CreateItemFromCollection(IFormCollection collection, int index)
         {
-            Item item = new Item
-            {
-                Name = collection["Name"][index]
-            };
+            Item item = new Item(collection["Name"][index]);
             int.TryParse(collection["Strength"][index], out int res);
             item.Strength = res;
             int.TryParse(collection["Agility"][index], out res);

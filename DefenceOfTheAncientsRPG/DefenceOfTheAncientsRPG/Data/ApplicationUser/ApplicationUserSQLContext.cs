@@ -6,6 +6,7 @@ using DefenceOfTheAncientsRPG.Data;
 using DefenceOfTheAncientsRPG.Models;
 using System.Data.SqlClient;
 using DefenceOfTheAncientsRPG.Exceptions;
+using System.Data;
 
 namespace DefenceOfTheAncientsRPG.Data
 {
@@ -17,9 +18,9 @@ namespace DefenceOfTheAncientsRPG.Data
             List<ApplicationUser> result = new List<ApplicationUser>();
             using (SqlConnection connection = Database.Connection)
             {
-                string query = "SELECT * FROM ApplicationUsers";
-                using (SqlCommand command = new SqlCommand(query, connection))
+                using (SqlCommand command = new SqlCommand("dbo.spGetUsers", connection))
                 {
+                    command.CommandType = CommandType.StoredProcedure;
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
@@ -36,9 +37,10 @@ namespace DefenceOfTheAncientsRPG.Data
         {
             using (SqlConnection connection = Database.Connection)
             {
-                string query = string.Format("SELECT * FROM ApplicationUsers WHERE Id = '{0}'", id);
-                using (SqlCommand command = new SqlCommand(query, connection))
+                using (SqlCommand command = new SqlCommand("dbo.spGetUserById", connection))
                 {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(new SqlParameter("@id", id));
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
@@ -55,9 +57,10 @@ namespace DefenceOfTheAncientsRPG.Data
         {
             using (SqlConnection connection = Database.Connection)
             {
-                string query = string.Format("SELECT * FROM ApplicationUsers WHERE Username = '{0}'", username);
-                using (SqlCommand command = new SqlCommand(query, connection))
+                using (SqlCommand command = new SqlCommand("dbo.spGetUserByUsername", connection))
                 {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(new SqlParameter("@username", username));
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
@@ -74,20 +77,18 @@ namespace DefenceOfTheAncientsRPG.Data
         {
             using (SqlConnection connection = Database.Connection)
             {
-                string query = string.Format("INSERT INTO ApplicationUsers (Id, Username, PasswordHash, FirstName, LastName, CreatedOn)" +
-                    " VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}')",
-                    user.Id, user.Username, user.Password, user.FirstName, user.LastName, user.CreatedOn.ToString("yyyyMMdd"));
-                using (SqlCommand command = new SqlCommand(query, connection))
+                using (SqlCommand command = new SqlCommand("spInsertUser", connection))
                 {
-                    try
-                    {
-                        command.ExecuteNonQuery();
-                        return true;
-                    }
-                    catch (Exception e)
-                    {
-                        throw e;
-                    }
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(new SqlParameter("@id", user.Id));
+                    command.Parameters.Add(new SqlParameter("@username", user.Username));
+                    command.Parameters.Add(new SqlParameter("@password", user.Password));
+                    command.Parameters.Add(new SqlParameter("@firstname", user.FirstName));
+                    command.Parameters.Add(new SqlParameter("@lastname", user.LastName));
+                    command.Parameters.Add(new SqlParameter("@createdon", user.CreatedOn.ToString("yyyMMdd")));
+
+                    if (command.ExecuteNonQuery() > 0) return true;
+                    else return false;
                 }
             }
         }
@@ -96,19 +97,15 @@ namespace DefenceOfTheAncientsRPG.Data
         {
             using (SqlConnection connection = Database.Connection)
             {
-                string query = string.Format("UPDATE ApplicationUsers SET Email = {0}, FirstName = {1}, LastName = {2} WHERE Id = {3}",
-                    user.Email, user.FirstName, user.LastName, user.Id);
-                using (SqlCommand command = new SqlCommand(query, connection))
+                using (SqlCommand command = new SqlCommand("dbo.spUpdateUser", connection))
                 {
-                    try
-                    {
-                        command.ExecuteNonQuery();
-                        return true;
-                    }
-                    catch (Exception e)
-                    {
-                        throw e;
-                    }
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(new SqlParameter("@id", user.Id));
+                    command.Parameters.Add(new SqlParameter("@firstname", user.FirstName));
+                    command.Parameters.Add(new SqlParameter("@lastname", user.LastName));
+
+                    if (command.ExecuteNonQuery() > 0) return true;
+                    else return false;
                 }
             }
         }

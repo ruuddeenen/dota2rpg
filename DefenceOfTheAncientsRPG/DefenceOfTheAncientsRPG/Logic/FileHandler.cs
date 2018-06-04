@@ -37,22 +37,25 @@ namespace DefenceOfTheAncientsRPG.Logic
             {
                 throw new FileFormatException("File is not in .xlsx format.");
             }
-            ISheet sheet;
 
+            return GetItemsFromExcel(fullPath, file);
+
+        }
+
+        private List<Item> GetItemsFromExcel(string path, IFormFile file)
+        {
             List<Item> Items = new List<Item>();
-            using (FileStream stream = new FileStream(fullPath, FileMode.Create))
+            using (FileStream stream = new FileStream(path, FileMode.Create))
             {
-                stream.Position = 0;
                 file.CopyTo(stream);
-                XSSFWorkbook hssfwb = new XSSFWorkbook(stream);
-                sheet = hssfwb.GetSheetAt(0);
+                stream.Position = 0;
+                ISheet sheet = new XSSFWorkbook(stream).GetSheetAt(0);
                 int currentRow = 1;
-                IRow row;
                 int cellCount = 12;                     // Item properties
                 string[] item = new string[12];
                 for (; ; )
                 {
-                    row = sheet.GetRow(currentRow);
+                    IRow row = sheet.GetRow(currentRow);
                     if (row == null) break;
                     for (int i = 0; i < cellCount; i++)
                     {
@@ -71,7 +74,7 @@ namespace DefenceOfTheAncientsRPG.Logic
                     currentRow++;
                 }
             }
-            File.Delete(fullPath);
+            File.Delete(path);
             return Items;
         }
 
@@ -81,10 +84,8 @@ namespace DefenceOfTheAncientsRPG.Logic
             {
                 s.Replace(",", ".");
             }
-            return new Item
+            Item item = new Item(array[0])
             {
-                Id = Guid.NewGuid().ToString(),
-                Name = array[0],
                 Strength = Convert.ToInt32(array[1]),
                 Agility = Convert.ToInt32(array[2]),
                 Intelligence = Convert.ToInt32(array[3]),
@@ -97,6 +98,7 @@ namespace DefenceOfTheAncientsRPG.Logic
                 Damage = Convert.ToInt32(array[10]),
                 Cost = Convert.ToInt32(array[11])
             };
+            return item;
         }
     }
 }
