@@ -49,6 +49,7 @@ namespace DefenceOfTheAncientsRPG.Logic
         public List<Hero> GetHeroesByUserId(string id)
         {
             List<Hero> heroes = context.GetHeroesByUserId(id);
+
             if (heroes.Count > 3)
             {
                 throw new Exception();

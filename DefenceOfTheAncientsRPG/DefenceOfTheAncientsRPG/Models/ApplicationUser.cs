@@ -17,7 +17,7 @@ namespace DefenceOfTheAncientsRPG.Models
         public string LastName { get; set; }
         [DisplayFormat(DataFormatString = "{0:YYYYMMDD")]
         public DateTime CreatedOn { get; set; }
-        public bool Active { get; set; }
+        public bool Blocked { get; set; }
 
         public ApplicationUser()
         {
@@ -32,7 +32,7 @@ namespace DefenceOfTheAncientsRPG.Models
             FirstName = firstName;
             LastName = lastName;
             CreatedOn = DateTime.Now.Date;
-            Active = true;
+            Blocked = false;
         }
     }
 }

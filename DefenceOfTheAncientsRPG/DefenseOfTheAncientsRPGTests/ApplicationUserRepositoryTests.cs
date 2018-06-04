@@ -153,12 +153,11 @@ namespace DefenseOfTheAncientsRPGTests
         [TestMethod]
         public void TestBlockAndUnblock()
         {
-            string adminId = "this is a fake admin id";
-            BlockedUserInfo info = new BlockedUserInfo("test", userRepo.GetUserByUsername("testUser").Id, adminId);
+            BlockedUserInfo info = new BlockedUserInfo("test", userRepo.GetUserByUsername("testUser").Id, "FakeID");
 
             Assert.IsTrue(userRepo.BlockUser(info));
-
             Assert.AreEqual(userRepo.GetBlockedUserInfoByUserId(info.UserId), info);
+            Assert.IsTrue(userRepo.UnblockUser(info.UserId));
 
             try
             {
@@ -167,7 +166,6 @@ namespace DefenseOfTheAncientsRPGTests
             }
             catch (EntryAlreadyExistsException) { }
 
-            Assert.IsTrue(userRepo.UnblockUser(info.UserId));
 
             try
             {
@@ -178,16 +176,28 @@ namespace DefenseOfTheAncientsRPGTests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(EntryAlreadyExistsException))]
+        public void TestBlockingBlockedUser()
+        {
+            BlockedUserInfo info = new BlockedUserInfo("test", userRepo.GetUserByUsername("testUser").Id, "fakeId");
+            userRepo.BlockUser(info);
+            userRepo.BlockUser(info);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(EntryDoesNotExistException))]
+        public void TestGettingBlockerUserInfoByWrongId()
+        {
+            userRepo.GetBlockedUserInfoByUserId("no user");
+        }
+
+
+        [TestMethod]
+        [ExpectedException(typeof(EntryAlreadyExistsException))]
         public void TestInsertExistingUsername()
         {
-            try
-            {
-                ApplicationUser testUser = new ApplicationUser("testUser", "Test123", "test@test.com", "Mr.", "Test");
-                userRepo.Insert(testUser);
-                Assert.Fail();
-            }
-            catch (EntryAlreadyExistsException) { }
-
+            ApplicationUser testUser = new ApplicationUser("testUser", "Test123", "test@test.com", "Mr.", "Test");
+            userRepo.Insert(testUser);
         }
     }
 }

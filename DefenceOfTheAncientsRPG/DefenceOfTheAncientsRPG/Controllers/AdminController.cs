@@ -171,7 +171,6 @@ namespace DefenceOfTheAncientsRPG.Controllers
                 {
                     return RedirectToAction("ManageUsers");
                 }
-
             }
             return View();
         }

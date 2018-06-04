@@ -42,20 +42,16 @@ namespace DefenseOfTheAncientsRPGTests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(EntryDoesNotExistException))]
         public void GetAdminByIdTest()
         {
             Administrator admin = adminRepo.GetAdminById("test-id");
             Assert.AreEqual(admin.Username, "a.NameSurname");
-
-            try
-            {
-                admin = adminRepo.GetAdminById("this id doesnt exist");
-                Assert.Fail();
-            }
-            catch (EntryDoesNotExistException) { }
+            admin = adminRepo.GetAdminById("this id doesnt exist");
         }
 
         [TestMethod]
+        [ExpectedException(typeof(EntryDoesNotExistException))]
         public void GetAdminByUsernameTest()
         {
             Administrator admin = adminRepo.GetAdminByUsername("a.SuperUser");
@@ -63,12 +59,7 @@ namespace DefenseOfTheAncientsRPGTests
             Assert.AreEqual("Super", admin.FirstName);
             Assert.AreEqual("User", admin.LastName);
 
-            try
-            {
-                admin = adminRepo.GetAdminByUsername("this username does not exist");
-                Assert.Fail();
-            }
-            catch (EntryDoesNotExistException) { }
+            admin = adminRepo.GetAdminByUsername("this username does not exist");
         }
 
         [TestMethod]
@@ -79,29 +70,30 @@ namespace DefenseOfTheAncientsRPGTests
             adminRepo.ChangePassword(admin.Id, "newPass123");
 
             Assert.IsTrue(SecurePasswordHasher.Verify("newPass123", adminRepo.GetAdminById("test-id").Password));
+        }
 
+        [TestMethod]
+        [ExpectedException(typeof(PasswordFormatException))]
+        public void TestPasswordNoUppercase()
+        {
+            Administrator admin = adminRepo.GetAdminById("test-id");
+            adminRepo.ChangePassword(admin.Id, "newpass123");
+        }
 
-            try
-            {
-                adminRepo.ChangePassword(admin.Id, "newpass123");
-                Assert.Fail("Password not in correct format. PasswordFormatException not catched. Upper case character required.");
-            }
-            catch (PasswordFormatException) { }
+        [TestMethod]
+        [ExpectedException(typeof(PasswordFormatException))]
+        public void TestPasswordNumeric()
+        {
+            Administrator admin = adminRepo.GetAdminById("test-id");
+            adminRepo.ChangePassword(admin.Id, "newPass");
+        }
 
-            try
-            {
-                adminRepo.ChangePassword(admin.Id, "newPass");
-                Assert.Fail("Password not in correct format. PasswordFormatException not catched. Numeric character required");
-            }
-            catch (PasswordFormatException) { }
-
-            try
-            {
-                adminRepo.ChangePassword(admin.Id, "NEWPASS123");
-                Assert.Fail("Password not in correct format. PasswordFormatException not catched. Lower case character required");
-
-            }
-            catch (PasswordFormatException) { }
+        [TestMethod]
+        [ExpectedException(typeof(PasswordFormatException))]
+        public void TestPasswordNoLowercase()
+        {
+            Administrator admin = adminRepo.GetAdminById("test-id");
+            adminRepo.ChangePassword(admin.Id, "NEWPASS123");
         }
 
         [TestMethod]

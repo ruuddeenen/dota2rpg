@@ -134,17 +134,15 @@ namespace DefenceOfTheAncientsRPG.Logic
         {
             List<BlockedUserInfo> toBeRemoved = new List<BlockedUserInfo>();
 
+            foreach (BlockedUserInfo bui in GetAllBlockedUsersInfo())
+            {
+                if (bui.Until > DateTime.Now)
+                {
+                    toBeRemoved.Add(bui);
+                }
+            }
             if (toBeRemoved.Count > 0)
             {
-                List<BlockedUserInfo> blockedUserInfos = GetAllBlockedUsersInfo();
-
-                foreach (BlockedUserInfo bui in blockedUserInfos)
-                {
-                    if (bui.Until > DateTime.Now)
-                    {
-                        toBeRemoved.Add(bui);
-                    }
-                }
                 return context.RemoveEntriesFromBlockedUsers(toBeRemoved);
             }
             else return 0;

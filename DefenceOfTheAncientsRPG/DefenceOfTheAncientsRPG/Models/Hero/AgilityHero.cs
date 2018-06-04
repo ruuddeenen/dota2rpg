@@ -17,7 +17,7 @@ namespace DefenceOfTheAncientsRPG.Models
             {
                 int value = Agility;
                 Inventory.ForEach(x => value += x.Agility);
-                return value;
+                return value;   
             }
         }
     }

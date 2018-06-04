@@ -1,0 +1,17 @@
+TESTDATA CIRQUE DU GOODBYE
+
+Enter:
+2x Big Carnivore
+2x Medium Carnivore
+1x Small Carnivore
+4x Big Herbivore
+1x Medium Herbivore
+3x Small Herbivore
+
+Result:
+Wagon 1: b-carni
+Wagon 2: b-carni
+Wagon 3: M-carni + b-herbi
+Wagon 4: M-carni + b-herbi
+Wagon 5: B-herbi + S-carni + M-herbi
+Wagon 6: 3-s-herbi + B-herbi

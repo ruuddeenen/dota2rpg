@@ -20,6 +20,7 @@ namespace DefenceOfTheAncientsRPG.Logic
         {
             _hostingEnvironment = hostingEnvironment;
         }
+
         public List<Item> CreateItemsFromExcel(IFormFile file)
         {
             string folderName = "Upload";
@@ -29,21 +30,22 @@ namespace DefenceOfTheAncientsRPG.Logic
             {
                 Directory.CreateDirectory(newPath);
             }
+            string fullPath = Path.Combine(newPath, file.FileName);
+
             string sFileExtension = Path.GetExtension(file.FileName).ToLower();
             if (sFileExtension != ".xlsx")
             {
                 throw new FileFormatException("File is not in .xlsx format.");
             }
             ISheet sheet;
-            string fullPath = Path.Combine(newPath, file.FileName);
 
+            List<Item> Items = new List<Item>();
             using (FileStream stream = new FileStream(fullPath, FileMode.Create))
             {
-                file.CopyTo(stream);
                 stream.Position = 0;
+                file.CopyTo(stream);
                 XSSFWorkbook hssfwb = new XSSFWorkbook(stream);
                 sheet = hssfwb.GetSheetAt(0);
-                List<Item> Items = new List<Item>();
                 int currentRow = 1;
                 IRow row;
                 int cellCount = 12;                     // Item properties
@@ -55,13 +57,22 @@ namespace DefenceOfTheAncientsRPG.Logic
                     for (int i = 0; i < cellCount; i++)
                     {
                         ICell cell = row.GetCell(i);
-                        item[i] = cell.ToString();
+                        if (cell != null)
+                        {
+                            item[i] = cell.ToString();
+                        }
+                        else item[i] = "0";
                     }
-                    Items.Add(CreateItemFromArray(item));
+                    try
+                    {
+                        Items.Add(CreateItemFromArray(item));
+                    }
+                    catch { break; }
                     currentRow++;
                 }
-                return Items;
             }
+            File.Delete(fullPath);
+            return Items;
         }
 
         private Item CreateItemFromArray(string[] array)
