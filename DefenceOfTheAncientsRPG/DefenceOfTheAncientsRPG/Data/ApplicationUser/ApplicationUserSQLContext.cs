@@ -85,7 +85,6 @@ namespace DefenceOfTheAncientsRPG.Data
                     command.Parameters.Add(new SqlParameter("@password", user.Password));
                     command.Parameters.Add(new SqlParameter("@firstname", user.FirstName));
                     command.Parameters.Add(new SqlParameter("@lastname", user.LastName));
-                    command.Parameters.Add(new SqlParameter("@createdon", user.CreatedOn.ToString("yyyMMdd")));
 
                     if (command.ExecuteNonQuery() > 0) return true;
                     else return false;
@@ -114,19 +113,13 @@ namespace DefenceOfTheAncientsRPG.Data
         {
             using (SqlConnection connection = Database.Connection)
             {
-                string query = string.Format("UPDATE ApplicationUsers SET PasswordHash = '{0}' WHERE Id = '{1}'",
-                   newpassword, userid);
-                using (SqlCommand command = new SqlCommand(query, connection))
+                using (SqlCommand command = new SqlCommand("dbo.spUpdatePasswordHash", connection))
                 {
-                    try
-                    {
-                        command.ExecuteNonQuery();
-                        return true;
-                    }
-                    catch (Exception e)
-                    {
-                        throw e;
-                    }
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(new SqlParameter("@id", userid));
+                    command.Parameters.Add(new SqlParameter("@password", newpassword));
+                    command.ExecuteNonQuery();
+                    return true;
                 }
             }
         }
@@ -150,9 +143,11 @@ namespace DefenceOfTheAncientsRPG.Data
         {
             using (SqlConnection connection = Database.Connection)
             {
-                string query = string.Format("SELECT * FROM BlockedUsers WHERE UserId = '{0}'", user.Id);
-                using (SqlCommand command = new SqlCommand(query, connection))
+                using (SqlCommand command = new SqlCommand("spGetBlockedUserByUserId", connection))
                 {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(new SqlParameter("@userid", user.Id));
+
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         if (reader.HasRows)
