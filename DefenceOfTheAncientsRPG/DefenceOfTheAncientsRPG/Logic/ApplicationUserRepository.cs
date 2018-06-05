@@ -112,108 +112,115 @@ namespace DefenceOfTheAncientsRPG.Logic
             throw new IncorrectPasswordException();
         }
 
-    public bool IsBlocked(ApplicationUser user)
-    {
-        RefreshBlockedUsers();
-        return context.IsBlocked(user);
-    }
-
-    /// <summary>
-    /// Removes old entries from the BlockedUsers context.
-    /// </summary>
-    /// <returns>The amount of entries removed.</returns>
-    private int RefreshBlockedUsers()
-    {
-        List<BlockedUserInfo> toBeRemoved = new List<BlockedUserInfo>();
-
-        foreach (BlockedUserInfo bui in GetAllBlockedUsersInfo())
+        public bool IsBlocked(ApplicationUser user)
         {
-            if (bui.Until > DateTime.Now)
+            foreach (BlockedUserInfo bui in GetAllBlockedUsersInfo())
             {
-                toBeRemoved.Add(bui);
-            }
-        }
-        if (toBeRemoved.Count > 0)
-        {
-            return context.RemoveEntriesFromBlockedUsers(toBeRemoved);
-        }
-        else return 0;
-    }
-
-    /// <summary>
-    /// Blocks an active user.
-    /// </summary>
-    /// <param name="user">The user to block.</param>
-    /// <param name="message">Message for the blocked user.</param>
-    /// <returns>True if succeeded, false if failed.</returns>
-    public bool BlockUser(BlockedUserInfo info)
-    {
-        return context.BlockUser(info);
-    }
-
-
-    /// <summary>
-    /// Unblocks an active user
-    /// </summary>
-    /// <param name="user">The user to unblock.</param>
-    /// <param name="message">Message for the unblocked user.</param>
-    /// <returns>True if succeeded, false if failed.</returns>
-    public bool UnblockUser(string userId)
-    {
-        foreach (BlockedUserInfo bui in GetAllBlockedUsersInfo())
-        {
-            if (bui.UserId == userId)
-            {
-                return context.Unblock(userId);
-            }
-        }
-        throw new EntryDoesNotExistException(string.Format("User with userId: {0} does not exist in the context", userId));
-    }
-
-    private bool PasswordChecker(string password)
-    {
-        if (password.Any(c => char.IsLower(c)))
-        {
-            if (password.Any(c => char.IsUpper(c)))
-            {
-                if (password.Any(c => char.IsNumber(c)))
+                if (bui.UserId == user.Id)
                 {
-                    return true;
+                    if (bui.Until > DateTime.Now)
+                        UnblockUser(user.Id);
                 }
-                else throw new PasswordFormatException("Password does not contain a numeric character.");
             }
-            else throw new PasswordFormatException("Password does not contain an upper case character.");
+            return context.IsBlocked(user);
         }
-        else throw new PasswordFormatException("Password does not contain a lower case character.");
-    }
 
-    public BlockedUserInfo GetBlockedUserInfoByUsername(string username)
-    {
-        foreach (BlockedUserInfo bui in GetAllBlockedUsersInfo())
+        /// <summary>
+        /// Removes old entries from the BlockedUsers context.
+        /// </summary>
+        /// <returns>The amount of entries removed.</returns>
+        private int RefreshBlockedUsers()
         {
-            if (bui.UserId == GetUserByUsername(username).Id)
+            List<BlockedUserInfo> toBeRemoved = new List<BlockedUserInfo>();
+
+            foreach (BlockedUserInfo bui in GetAllBlockedUsersInfo())
             {
-                return bui;
+                if (bui.Until > DateTime.Now)
+                {
+                    toBeRemoved.Add(bui);
+                }
             }
+            if (toBeRemoved.Count > 0)
+            {
+                return context.RemoveEntriesFromBlockedUsers(toBeRemoved);
+            }
+            else return 0;
         }
-        throw new EntryDoesNotExistException(string.Format("No blocked user with username: {0} exists in the context.", username));
-    }
 
-    public List<BlockedUserInfo> GetAllBlockedUsersInfo()
-    {
-        return context.GetAllBlockedUsersInfo();
-    }
-
-    public BlockedUserInfo GetBlockedUserInfoByUserId(string userId)
-    {
-        foreach (BlockedUserInfo bui in GetAllBlockedUsersInfo())
+        /// <summary>
+        /// Blocks an active user.
+        /// </summary>
+        /// <param name="user">The user to block.</param>
+        /// <param name="message">Message for the blocked user.</param>
+        /// <returns>True if succeeded, false if failed.</returns>
+        public bool BlockUser(BlockedUserInfo info)
         {
-            if (bui.UserId == userId)
-            {
-                return bui;
-            }
+            return context.BlockUser(info);
         }
-        throw new EntryDoesNotExistException(string.Format("No blocked user with userId: {0} exists in the context.", userId));
+
+
+        /// <summary>
+        /// Unblocks an active user
+        /// </summary>
+        /// <param name="user">The user to unblock.</param>
+        /// <param name="message">Message for the unblocked user.</param>
+        /// <returns>True if succeeded, false if failed.</returns>
+        public bool UnblockUser(string userId)
+        {
+            foreach (BlockedUserInfo bui in GetAllBlockedUsersInfo())
+            {
+                if (bui.UserId == userId)
+                {
+                    return context.Unblock(userId);
+                }
+            }
+            throw new EntryDoesNotExistException(string.Format("User with userId: {0} does not exist in the context", userId));
+        }
+
+        private bool PasswordChecker(string password)
+        {
+            if (password.Any(c => char.IsLower(c)))
+            {
+                if (password.Any(c => char.IsUpper(c)))
+                {
+                    if (password.Any(c => char.IsNumber(c)))
+                    {
+                        return true;
+                    }
+                    else throw new PasswordFormatException("Password does not contain a numeric character.");
+                }
+                else throw new PasswordFormatException("Password does not contain an upper case character.");
+            }
+            else throw new PasswordFormatException("Password does not contain a lower case character.");
+        }
+
+        public BlockedUserInfo GetBlockedUserInfoByUsername(string username)
+        {
+            foreach (BlockedUserInfo bui in GetAllBlockedUsersInfo())
+            {
+                if (bui.UserId == GetUserByUsername(username).Id)
+                {
+                    return bui;
+                }
+            }
+            throw new EntryDoesNotExistException(string.Format("No blocked user with username: {0} exists in the context.", username));
+        }
+
+        public List<BlockedUserInfo> GetAllBlockedUsersInfo()
+        {
+            return context.GetAllBlockedUsersInfo();
+        }
+
+        public BlockedUserInfo GetBlockedUserInfoByUserId(string userId)
+        {
+            foreach (BlockedUserInfo bui in GetAllBlockedUsersInfo())
+            {
+                if (bui.UserId == userId)
+                {
+                    return bui;
+                }
+            }
+            throw new EntryDoesNotExistException(string.Format("No blocked user with userId: {0} exists in the context.", userId));
+        }
     }
-}
 }

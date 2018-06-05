@@ -85,6 +85,7 @@ namespace DefenceOfTheAncientsRPG.Data
                     command.Parameters.Add(new SqlParameter("@password", user.Password));
                     command.Parameters.Add(new SqlParameter("@firstname", user.FirstName));
                     command.Parameters.Add(new SqlParameter("@lastname", user.LastName));
+                    command.Parameters.Add(new SqlParameter("@email", user.Email));
 
                     if (command.ExecuteNonQuery() > 0) return true;
                     else return false;
@@ -134,7 +135,8 @@ namespace DefenceOfTheAncientsRPG.Data
                 Password = Convert.ToString(reader["PasswordHash"]),
                 FirstName = Convert.ToString(reader["FirstName"]),
                 LastName = Convert.ToString(reader["LastName"]),
-                CreatedOn = Convert.ToDateTime(reader["CreatedOn"])
+                CreatedOn = Convert.ToDateTime(reader["CreatedOn"]),
+                Email = Convert.ToString(reader["Email"])
             };
         }
 
@@ -143,7 +145,7 @@ namespace DefenceOfTheAncientsRPG.Data
         {
             using (SqlConnection connection = Database.Connection)
             {
-                using (SqlCommand command = new SqlCommand("spGetBlockedUserByUserId", connection))
+                using (SqlCommand command = new SqlCommand("dbo.spGetBlockedUserByUserId", connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.Add(new SqlParameter("@userid", user.Id));
@@ -165,13 +167,19 @@ namespace DefenceOfTheAncientsRPG.Data
         {
             using (SqlConnection connection = Database.Connection)
             {
+                /*
                 string query = string.Format("INSERT INTO BlockedUsers (UserId, Message, Until, ByAdminId)" +
                     " VALUES ('{0}', '{1}','{2}','{3}')",
-                    info.UserId, info.Message, info.Until.ToString("yyyyMMdd"), info.AdminId);
-                using (SqlCommand command = new SqlCommand(query, connection))
+                    info.UserId, info.Message, info.Until.ToString("yyyyMMdd"), info.AdminId);*/
+                using (SqlCommand command = new SqlCommand("dbo.spInsertBlockedUser", connection))
                 {
                     try
                     {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.Add(new SqlParameter("@userid", info.UserId));
+                        command.Parameters.Add(new SqlParameter("@message", info.Message));
+                        command.Parameters.Add(new SqlParameter("@adminid", info.AdminId));
+                        command.Parameters.Add(new SqlParameter("@until", info.Until));
                         command.ExecuteNonQuery();
                         return true;
                     }

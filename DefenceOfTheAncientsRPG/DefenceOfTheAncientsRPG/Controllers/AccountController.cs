@@ -27,10 +27,15 @@ namespace DefenceOfTheAncientsRPG.Controllers
             return View();
         }
 
-
-        public ActionResult Details(int id)
+        [HttpPost]
+        public PartialViewResult Details(string id)
         {
-            return View();
+            return PartialView(_ApplicationUserRepo.GetUserById(id));
+        }
+
+        public ActionResult Details()
+        {
+            return View(_ApplicationUserRepo.GetUserById(HttpContext.Session.GetString("currentUserId")));
         }
 
 

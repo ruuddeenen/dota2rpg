@@ -37,7 +37,32 @@
                         }
                     </p>
                 </td>
+                <td>
+                    <button class="btn btn-default" onclick="LoadDetails('@user.Id')">Details</button>
+                </td>
             </tr>
         }
     </tbody>
 </table>
+
+<script>
+    function LoadDetails(UserId) {
+        $.ajax({
+            url: '/Account/Details',
+            data: {
+                id: UserId
+            },
+            cache: false,
+            type: "POST",
+            dataType: "html",
+            success: function (data, textStatus, XMLHttpRequest) {
+                $('#Details').html(data);
+            }
+        });
+
+    }
+</script>
+
+<div id="Details">
+
+</div>
