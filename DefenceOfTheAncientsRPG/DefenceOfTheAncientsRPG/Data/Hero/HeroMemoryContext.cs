@@ -42,6 +42,11 @@ namespace DefenceOfTheAncientsRPG.Data
             throw new NotImplementedException();
         }
 
+        public List<Attribute> GetUsedAttributes()
+        {
+            throw new NotImplementedException();
+        }
+
         public bool Insert(Hero hero)
         {
             try

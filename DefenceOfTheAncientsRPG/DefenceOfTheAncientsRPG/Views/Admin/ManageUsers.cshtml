@@ -45,6 +45,10 @@
     </tbody>
 </table>
 
+
+<div id="Details"></div>
+
+
 <script>
     function LoadDetails(UserId) {
         $.ajax({
@@ -52,17 +56,11 @@
             data: {
                 id: UserId
             },
-            cache: false,
             type: "POST",
-            dataType: "html",
-            success: function (data, textStatus, XMLHttpRequest) {
+            success: function (data) {
                 $('#Details').html(data);
             }
         });
 
     }
 </script>
-
-<div id="Details">
-
-</div>

@@ -21,5 +21,7 @@ namespace DefenceOfTheAncientsRPG.Data
         List<Hero> GetHeroesByUserId(string id);
 
         bool InsertLink(Hero hero, ApplicationUser user);
+
+        List<Attribute> GetUsedAttributes();
     }
 }

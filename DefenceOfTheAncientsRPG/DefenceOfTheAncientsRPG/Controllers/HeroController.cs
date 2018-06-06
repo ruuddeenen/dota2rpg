@@ -92,5 +92,17 @@ namespace DefenceOfTheAncientsRPG.Controllers
             HttpContext.Session.SetString("currentHeroId", id);
             return RedirectToAction("Index", "Game", id);
         }
+
+        public IActionResult Attributes()
+        {
+            List<Attribute> attributes = _heroRepo.GetUsedAttributes();
+            HeroAttributesViewModel model = new HeroAttributesViewModel
+            {
+                Strength = attributes.Where(a => a == Attribute.Strength).Count(),
+                Agility = attributes.Where(a => a == Attribute.Agility).Count(),
+                Intelligence = attributes.Where(a => a == Attribute.Intelligence).Count()
+            };
+            return View(model);
+        }
     }
 }

@@ -56,5 +56,10 @@ namespace DefenceOfTheAncientsRPG.Logic
             }
             return heroes;
         }
+
+        public List<Attribute> GetUsedAttributes()
+        {
+            return context.GetUsedAttributes();
+        }
     }
 }

@@ -4,13 +4,14 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using DefenceOfTheAncientsRPG.Models;
+using System.Data;
 
 namespace DefenceOfTheAncientsRPG.Data
 {
     public class HeroSQLContext : IHeroContext
     {
         private Hero CreateHeroFromReader(SqlDataReader reader)
-            {
+        {
             Attribute attribute = (Attribute)Enum.Parse(typeof(Attribute), Convert.ToString(reader["MainAttribute"]));
             switch (attribute)
             {
@@ -192,8 +193,8 @@ namespace DefenceOfTheAncientsRPG.Data
             List<Hero> heroes = new List<Hero>();
             using (SqlConnection connection = Database.Connection)
             {
-                string query = string.Format("SELECT * FROM Heroes AS hero INNER JOIN LT_UserHero AS lt" +
-                    " ON hero.Id = lt.HeroId WHERE lt.UserId = '{0}'",   
+                string query = string.Format("SELECT hero.* FROM Heroes AS hero INNER JOIN LT_UserHero AS lt" +
+                    " ON hero.Id = lt.HeroId WHERE lt.UserId = '{0}'",
                     id);
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -214,6 +215,30 @@ namespace DefenceOfTheAncientsRPG.Data
                 }
             }
             return heroes;
+        }
+
+        public List<Attribute> GetUsedAttributes()
+        {
+            List<Attribute> attributes = new List<Attribute>();
+            using (SqlConnection connection = Database.Connection)
+            {
+                using (SqlCommand command = new SqlCommand("spGetUsedAttributes", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            for (int i = 0; i < Convert.ToInt16(reader[0]); i++)
+                            {
+                                attributes.Add((Attribute)Enum.Parse(typeof(Attribute), Convert.ToString(reader[1])));
+                            }
+
+                        }
+                    }
+                }
+            }
+            return attributes;
         }
     }
 }
