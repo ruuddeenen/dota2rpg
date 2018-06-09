@@ -5,7 +5,13 @@ VisualStudioVersion = 15.0.27428.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DefenceOfTheAncientsRPG", "DefenceOfTheAncientsRPG\DefenceOfTheAncientsRPG.csproj", "{3F51116D-8689-4A75-B551-4C96BF3DF101}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DefenseOfTheAncientsRPGTests", "DefenseOfTheAncientsRPGTests\DefenseOfTheAncientsRPGTests.csproj", "{C91F6ECA-E91D-46D4-A819-C28D10F89206}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DefenseOfTheAncientsRPGTests", "DefenseOfTheAncientsRPGTests\DefenseOfTheAncientsRPGTests.csproj", "{C91F6ECA-E91D-46D4-A819-C28D10F89206}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{1CF6082D-8056-45AE-A633-747E232B35EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{A50D01A3-F6EF-42E1-A1F5-D673CA52AAE5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logic", "Logic\Logic.csproj", "{5AA3D7F7-5095-4253-BA10-951F8407AE75}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +27,18 @@ Global
 		{C91F6ECA-E91D-46D4-A819-C28D10F89206}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C91F6ECA-E91D-46D4-A819-C28D10F89206}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C91F6ECA-E91D-46D4-A819-C28D10F89206}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CF6082D-8056-45AE-A633-747E232B35EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CF6082D-8056-45AE-A633-747E232B35EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CF6082D-8056-45AE-A633-747E232B35EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CF6082D-8056-45AE-A633-747E232B35EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A50D01A3-F6EF-42E1-A1F5-D673CA52AAE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A50D01A3-F6EF-42E1-A1F5-D673CA52AAE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A50D01A3-F6EF-42E1-A1F5-D673CA52AAE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A50D01A3-F6EF-42E1-A1F5-D673CA52AAE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AA3D7F7-5095-4253-BA10-951F8407AE75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AA3D7F7-5095-4253-BA10-951F8407AE75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AA3D7F7-5095-4253-BA10-951F8407AE75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AA3D7F7-5095-4253-BA10-951F8407AE75}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

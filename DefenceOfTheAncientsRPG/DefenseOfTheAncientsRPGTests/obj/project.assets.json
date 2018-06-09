@@ -5511,18 +5511,41 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.0",
         "dependencies": {
-          "DotNetCore.NPOI": "1.0.2",
+          "Logic": "1.0.0",
           "Microsoft.AspNetCore.All": "2.0.7",
           "Microsoft.AspNetCore.Session": "2.0.2",
           "Microsoft.NETCore.App": "2.0.0",
-          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.0.3",
-          "System.Data.SqlClient": "4.4.3"
+          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.0.3"
         },
         "compile": {
           "bin/placeholder/DefenceOfTheAncientsRPG.dll": {}
         },
         "runtime": {
           "bin/placeholder/DefenceOfTheAncientsRPG.dll": {}
+        }
+      },
+      "Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.0",
+        "compile": {
+          "bin/placeholder/Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Domain.dll": {}
+        }
+      },
+      "Logic/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.0",
+        "dependencies": {
+          "Domain": "1.0.0",
+          "DotNetCore.NPOI": "1.0.2"
+        },
+        "compile": {
+          "bin/placeholder/Logic.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Logic.dll": {}
         }
       }
     }
@@ -14306,6 +14329,16 @@
       "type": "project",
       "path": "../DefenceOfTheAncientsRPG/DefenceOfTheAncientsRPG.csproj",
       "msbuildProject": "../DefenceOfTheAncientsRPG/DefenceOfTheAncientsRPG.csproj"
+    },
+    "Domain/1.0.0": {
+      "type": "project",
+      "path": "../Domain/Domain.csproj",
+      "msbuildProject": "../Domain/Domain.csproj"
+    },
+    "Logic/1.0.0": {
+      "type": "project",
+      "path": "../Logic/Logic.csproj",
+      "msbuildProject": "../Logic/Logic.csproj"
     }
   },
   "projectFileDependencyGroups": {

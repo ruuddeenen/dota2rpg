@@ -1,0 +1,5 @@
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\Logic\obj\Debug\netcoreapp2.0\Logic.csprojAssemblyReference.cache
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\Logic\obj\Debug\netcoreapp2.0\Logic.csproj.CoreCompileInputs.cache
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\Logic\obj\Debug\netcoreapp2.0\Logic.AssemblyInfoInputs.cache
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\Logic\obj\Debug\netcoreapp2.0\Logic.AssemblyInfo.cs
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\Logic\bin\Debug\netcoreapp2.0\Domain.dll
