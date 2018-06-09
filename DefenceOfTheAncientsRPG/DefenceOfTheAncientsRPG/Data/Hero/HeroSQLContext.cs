@@ -31,7 +31,7 @@ namespace DefenceOfTheAncientsRPG.Data
                  Convert.ToString(reader["Id"]),
                  Convert.ToString(reader["Name"]),
                  Convert.ToInt32(reader["Expierence"]),
-                 Convert.ToSingle(reader["IntelligenceGain"]),
+                 Convert.ToSingle(reader["StrengthGain"]),
                  (float)reader["AgilityGain"],
                  (float)reader["IntelligenceGain"]
                  );

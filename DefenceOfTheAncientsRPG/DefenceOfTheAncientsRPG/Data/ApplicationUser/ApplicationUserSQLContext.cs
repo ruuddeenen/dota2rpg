@@ -87,8 +87,7 @@ namespace DefenceOfTheAncientsRPG.Data
                     command.Parameters.Add(new SqlParameter("@lastname", user.LastName));
                     command.Parameters.Add(new SqlParameter("@email", user.Email));
 
-                    if (command.ExecuteNonQuery() > 0) return true;
-                    else return false;
+                    return true;
                 }
             }
         }
@@ -217,7 +216,7 @@ namespace DefenceOfTheAncientsRPG.Data
                     {
                         while (reader.Read())
                         {
-                            result.Add(CreateBlockedUserInfoFromReader(reader));
+                            // result.Add(CreateBlockedUserInfoFromReader(reader));
                         }
                     }
                 }
