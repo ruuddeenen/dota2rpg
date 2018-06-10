@@ -21,7 +21,7 @@ namespace DefenceOfTheAncientsRPG.Models
 
         public ApplicationUser()
         {
-
+            Id = Guid.NewGuid().ToString();
         }
 
         public ApplicationUser(string username, string password, string email, string firstName, string lastName)

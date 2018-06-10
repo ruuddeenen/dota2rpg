@@ -87,6 +87,7 @@ namespace DefenceOfTheAncientsRPG.Data
                     command.Parameters.Add(new SqlParameter("@lastname", user.LastName));
                     command.Parameters.Add(new SqlParameter("@email", user.Email));
 
+                    command.ExecuteNonQuery();
                     return true;
                 }
             }

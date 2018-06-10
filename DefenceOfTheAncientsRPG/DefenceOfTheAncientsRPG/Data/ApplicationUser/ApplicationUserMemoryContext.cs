@@ -93,12 +93,8 @@ namespace DefenceOfTheAncientsRPG.Data
 
         public bool Insert(ApplicationUser user)
         {
-            if (GetUserById(user.Id) == null)
-            {
-                Users.Add(user);
-                return true;
-            }
-            return false;
+            Users.Add(user);
+            return true;
         }
 
         public bool IsBlocked(ApplicationUser user)
