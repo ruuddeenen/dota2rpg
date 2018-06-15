@@ -15,7 +15,7 @@ namespace DefenceOfTheAncientsRPG.Models
         private readonly float ManaPerIntelligence = 12f;
         private readonly float ManaRegenPerIntelligence = 2f;
         internal readonly List<Item> Inventory;
-       
+
         /// <summary>
         /// Used for creating a new Hero
         /// </summary>
@@ -51,7 +51,7 @@ namespace DefenceOfTheAncientsRPG.Models
             AgilityGain = agiGain;
             IntelligenceGain = intGain;
         }
-        public string Id { get;  private set; }
+        public string Id { get; private set; }
         public string Name { get; private set; }
         public int Level
         {
@@ -145,6 +145,7 @@ namespace DefenceOfTheAncientsRPG.Models
                 return value;
             }
         }
+        public abstract int Damage { get; }
 
     }
 }

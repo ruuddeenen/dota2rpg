@@ -14,31 +14,31 @@ namespace DefenseOfTheAncientsRPGTests
         [TestInitialize]
         public void Initialize()
         {
-            adminRepo = new AdministratorRepository(new AdministratorMemoryContext());
+            // For mockdatabase testing 
+            Database.ConnectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=DotaTEst;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            Assert.IsTrue(Database.CleanTable("Administrators"));
+            // For mockdatabase testing */
 
-            Assert.AreEqual(1, adminRepo.GetAllAdmins().Count);
+
+            adminRepo = new AdministratorRepository(new AdministratorSQLContext());
+            
             Administrator testAdmin = new Administrator("Test123", "Name", "Surname")
             {
                 Id = "test-id"
             };
             adminRepo.Insert(testAdmin);
+            Assert.AreEqual(1, adminRepo.GetAllAdmins().Count);
         }
 
         [TestMethod]
         public void TestInsertAndGetAll()
         {
-            Administrator admin = new Administrator("pass123", "John", "Doe");
-            adminRepo.Insert(admin);
-            Assert.AreEqual(admin.FirstName, adminRepo.GetAllAdmins()[2].FirstName);
-            Assert.AreEqual(admin.LastName, adminRepo.GetAllAdmins()[2].LastName);
-            Assert.AreEqual(admin.Password, adminRepo.GetAllAdmins()[2].Password);
-
-            try
-            {
-                adminRepo.Insert(admin);
-                Assert.Fail();
-            }
-            catch (EntryAlreadyExistsException) { }
+            Administrator newAdmin = new Administrator("pass123", "John", "Doe");
+            adminRepo.Insert(newAdmin);
+            Administrator adminFromContext = adminRepo.GetAdminByUsername("a.JohnDoe");
+            Assert.AreEqual(newAdmin.FirstName, adminFromContext.FirstName);
+            Assert.AreEqual(newAdmin.Password, adminFromContext.Password);
+            Assert.AreEqual(newAdmin.CreatedOn, adminFromContext.CreatedOn);
         }
 
         [TestMethod]

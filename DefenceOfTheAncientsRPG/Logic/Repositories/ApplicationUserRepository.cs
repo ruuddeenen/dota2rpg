@@ -179,19 +179,20 @@ namespace DefenceOfTheAncientsRPG.Logic
 
         private bool PasswordChecker(string password)
         {
-            if (password.Any(c => char.IsLower(c)))
+            if (!password.Any(c => char.IsLower(c)))
             {
-                if (password.Any(c => char.IsUpper(c)))
-                {
-                    if (password.Any(c => char.IsNumber(c)))
-                    {
-                        return true;
-                    }
-                    else throw new PasswordFormatException("Password does not contain a numeric character.");
-                }
-                else throw new PasswordFormatException("Password does not contain an upper case character.");
+                throw new PasswordFormatException("Password does not contain a lower case character.");
             }
-            else throw new PasswordFormatException("Password does not contain a lower case character.");
+            if (!password.Any(c => char.IsUpper(c)))
+            {
+                throw new PasswordFormatException("Password does not contain an upper case character.");
+            }
+            if (!password.Any(c => char.IsNumber(c)))
+            {
+                throw new PasswordFormatException("Password does not contain a numeric character.");
+            }
+
+            return true;
         }
 
         public BlockedUserInfo GetBlockedUserInfoByUsername(string username)

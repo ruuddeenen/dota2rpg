@@ -8,6 +8,7 @@ using DefenceOfTheAncientsRPG.Logic;
 using DefenceOfTheAncientsRPG.Exceptions;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
+using DefenceOfTheAncientsRPG.Data;
 
 namespace DefenceOfTheAncientsRPG.Controllers
 {
@@ -18,7 +19,7 @@ namespace DefenceOfTheAncientsRPG.Controllers
         public ContentController(IHostingEnvironment hostingEnvironment)
         {
             _hostingEnviroment = hostingEnvironment;
-            _itemRepo = new ItemRepository(new Data.ItemSQLContext());
+            _itemRepo = new ItemRepository(new ItemSQLContext());
         }
         public IActionResult Index()
         {

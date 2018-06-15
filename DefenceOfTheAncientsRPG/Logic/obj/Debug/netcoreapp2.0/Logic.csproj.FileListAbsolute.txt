@@ -3,3 +3,10 @@ C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\Logic\obj\Debug\net
 C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\Logic\obj\Debug\netcoreapp2.0\Logic.AssemblyInfoInputs.cache
 C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\Logic\obj\Debug\netcoreapp2.0\Logic.AssemblyInfo.cs
 C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\Logic\bin\Debug\netcoreapp2.0\Domain.dll
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\Logic\bin\Debug\netcoreapp2.0\Logic.deps.json
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\Logic\bin\Debug\netcoreapp2.0\Logic.dll
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\Logic\bin\Debug\netcoreapp2.0\Domain.pdb
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\Logic\obj\Debug\netcoreapp2.0\Logic.csproj.CopyComplete
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\Logic\bin\Debug\netcoreapp2.0\Logic.pdb
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\Logic\obj\Debug\netcoreapp2.0\Logic.dll
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\Logic\obj\Debug\netcoreapp2.0\Logic.pdb

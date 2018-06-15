@@ -46,14 +46,6 @@ namespace DefenseOfTheAncientsRPGTests
             userRepo.Insert(user);
 
             Assert.AreEqual(user, userRepo.GetUserById(testId));
-
-            try
-            {
-                testId = "randomId";
-                userRepo.GetUserById(testId);
-                Assert.Fail("The user Id does not exist. UserDoesNotExistException not catched.");
-            }
-            catch (EntryDoesNotExistException) { }
         }
 
         [TestMethod]
@@ -146,31 +138,6 @@ namespace DefenseOfTheAncientsRPGTests
             {
                 userRepo.Login("usernamefail", password);
                 Assert.Fail("The username does not exist. UserDoesNotExistException not catched");
-            }
-            catch (EntryDoesNotExistException) { }
-        }
-
-        [TestMethod]
-        public void TestBlockAndUnblock()
-        {
-            BlockedUserInfo info = new BlockedUserInfo("test", userRepo.GetUserByUsername("testUser").Id, "FakeID");
-
-            Assert.IsTrue(userRepo.BlockUser(info));
-            Assert.AreEqual(userRepo.GetBlockedUserInfoByUserId(info.UserId), info);
-            Assert.IsTrue(userRepo.UnblockUser(info.UserId));
-
-            try
-            {
-                userRepo.BlockUser(info);
-                Assert.Fail("Entry with this userId already exists, EntryAlreadyExistsExceptions not catched.");
-            }
-            catch (EntryAlreadyExistsException) { }
-
-
-            try
-            {
-                userRepo.GetBlockedUserInfoByUserId(info.UserId);
-                Assert.Fail("No entry should exist in the List");
             }
             catch (EntryDoesNotExistException) { }
         }

@@ -8,11 +8,12 @@ namespace DefenceOfTheAncientsRPG.Data
 {
     public class Database
     {
-        private static readonly string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=DefenceOfTheAncientsRPG-database;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-        
+        public static string ConnectionString { get; set; }
 
         static Database()
         {
+            ConnectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=DefenceOfTheAncientsRPG-database;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+
             int columns = 0;
             using (SqlConnection connection = Connection)
             {
@@ -72,10 +73,31 @@ namespace DefenceOfTheAncientsRPG.Data
         {
             get
             {
-                SqlConnection connection = new SqlConnection(connectionString);
+                SqlConnection connection = new SqlConnection(ConnectionString);
                 connection.Open();
                 return connection;
             }
+        }
+
+        public static bool CleanTable(string table)
+        {
+            using (SqlConnection connection = Connection)
+            {
+                string query = string.Format("DELETE FROM {0}", table);
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    try
+                    {
+                        command.ExecuteNonQuery();
+                        return true;
+                    }
+                    catch
+                    {
+                        return false;
+                    }
+                }
+            }
+
         }
     }
 }

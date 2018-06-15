@@ -9,3 +9,10 @@ C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\DefenceOfTheAncient
 C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\DefenceOfTheAncientsRPG\obj\Debug\netcoreapp2.0\DefenceOfTheAncientsRPG.dll
 C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\DefenceOfTheAncientsRPG\obj\Debug\netcoreapp2.0\DefenceOfTheAncientsRPG.pdb
 C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\DefenceOfTheAncientsRPG\obj\Debug\netcoreapp2.0\DefenceOfTheAncientsRPG.csprojAssemblyReference.cache
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\DefenceOfTheAncientsRPG\bin\Debug\netcoreapp2.0\DAL.dll
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\DefenceOfTheAncientsRPG\bin\Debug\netcoreapp2.0\Domain.dll
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\DefenceOfTheAncientsRPG\bin\Debug\netcoreapp2.0\Logic.dll
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\DefenceOfTheAncientsRPG\bin\Debug\netcoreapp2.0\DAL.pdb
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\DefenceOfTheAncientsRPG\bin\Debug\netcoreapp2.0\Logic.pdb
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\DefenceOfTheAncientsRPG\bin\Debug\netcoreapp2.0\Domain.pdb
+C:\Users\ruudd\source\repos\dota2rpg\DefenceOfTheAncientsRPG\DefenceOfTheAncientsRPG\obj\Debug\netcoreapp2.0\DefenceOfTheAncientsRPG.csproj.CopyComplete
